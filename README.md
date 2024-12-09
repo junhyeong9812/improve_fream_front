@@ -17,7 +17,8 @@ https://github.com/junhyeong9812/Improve_Fream_Back
 <br>
 이태영 : home/ Login /header/footer
 
-기본 프로젝트 구조
+기본 프로젝트 예상도
+```
 src/
 ├── assets/                  # 이미지, 폰트, 아이콘 등 정적 파일
 ├── components/              # 재사용 가능한 공통 컴포넌트
@@ -91,3 +92,4 @@ src/
 ├── App.tsx                  # 최상위 컴포넌트
 ├── index.tsx                # ReactDOM 렌더링
 └── react-app-env.d.ts       # TypeScript 환경 파일
+```
