@@ -72,6 +72,11 @@ const Icon = styled.button`
   color: #222;
   margin-left: 10px;
 `;
+const LogoImage = styled.img`
+  width: 100px;
+  background: none;
+  display: block;
+`;
 
 const Header: React.FC = () => {
   const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
@@ -94,7 +99,8 @@ const Header: React.FC = () => {
       <BottomNav>
         <Logo>
           <Link to="/">
-            <img src="../../../public/logo192.png" alt="KREAM Logo" />
+            {/* <img src="/Fream.png" alt="KREAM Logo" /> */}
+            <LogoImage src="/Fream.png" alt="KREAM Logo" />
           </Link>
         </Logo>
         <Nav>
