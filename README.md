@@ -15,4 +15,4 @@ https://github.com/junhyeong9812/Improve_Fream_Back
 <br>
 김준형 : style / shop / search / 장바구니 / 고객센터 /마이페이지 /관심 / 알림 
 <br>
-이태영 : home/ Login
+이태영 : home/ Login /header/footer
