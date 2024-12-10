@@ -8,6 +8,7 @@ import Cart from "../pages/Cart";
 import Support from "../pages/Support";
 import Favorites from "../pages/Favorites";
 import Notifications from "../pages/Notifications";
+import Join from "../pages/Join";
 import InfoPage from "../pages/FooterPage/InfoPage";
 import RecruitPage from "../pages/FooterPage/RecruitPage";
 import ProposalPage from "../pages/FooterPage/ProposalPage";
@@ -38,6 +39,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/support" element={<Support />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/join" element={<Join />} />
         {/* 추가 페이지를 여기에 추가 */}
         {/* footerPage */}
         <Route path="/info" element={<InfoPage />} />
