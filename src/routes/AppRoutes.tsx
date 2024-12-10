@@ -16,7 +16,6 @@ const AppRoutesContainer = styled.div`
   margin-right: auto;
   max-width: 1280px;
   min-width: 960px; /* 최소 너비 설정 */
-  padding: 20px; /* 페이지 좌우 간격 설정 */
   box-sizing: border-box;
 `;
 
