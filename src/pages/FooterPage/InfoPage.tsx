@@ -9,8 +9,6 @@ const PageContainer = styled.div`
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   flex-direction: column; /* h1과 p를 세로로 배치 */
-  border: 1px solid #ddd; /* 테두리 추가 (선택 사항) */
-  background-color: #f9f9f9; /* 배경색 추가 (선택 사항) */
 `;
 
 const Heading = styled.h1`
