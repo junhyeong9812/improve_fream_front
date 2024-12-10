@@ -1,7 +1,6 @@
 .login_form_container{
     font-family: "Noto Sans KR", sans-serif;
     width: 1200px;
-    background-color: #FFFFFF;
 }
 .login_form_content{
     margin: 60px auto 160px auto;
@@ -23,13 +22,15 @@
 /* 이메일 */
 .login_form_email_input_container{
     padding-top: 10px;
-    /* padding-bottom: 14px; */
     position: relative;
 }
 .login_form_email_input_title{
     font-size: 13px;
     font-weight: 700;
     color: #222;
+}
+.login_form_email_input_title_warn{
+    color: #ef6253;
 }
 .login_form_email_input{
     width: 400px;
@@ -48,6 +49,12 @@
     box-sizing: border-box;
     font-family: "Noto Sans KR", sans-serif;    
 }
+.login_form_email_input_warn{
+    border-bottom: 1px solid #ef6253;
+}
+.login_form_email_input_warn:focus{
+    border-bottom: 2px solid #ef6253;
+}
 .login_form_email_input:focus{
     border-bottom: 2px solid black;
 }
@@ -57,24 +64,14 @@
 .login_form_email_input::placeholder{
     color: rgba(34, 34, 34, 0.3);
 }
-.login_form_email_input_none_warn{
+
+.login_form_email_input_bottom{
     height: 14px;
 }
-.login_form_email_input_warn{
-    height: 14px;
+.login_form_email_input_bottom_warn{
     font-size: 11px;
     color: #f15746;
 }
-/* .login_form_eamil_x{
-    position: absolute;
-    font-size: 14px;
-    background-color: rgba(34,34,34,0.1);
-    color: white;
-    border-radius: 50%;
-    border: none;
-    right: 5px;
-    top: 39px;
-} */
 
 /* 비밀번호 */
 .login_form_password_input_container{
@@ -107,6 +104,9 @@
 }
 .login_form_password_input:focus{
     border-bottom: 2px solid black;
+}
+.login_form_password_input_bottom{
+    height: 14px;
 }
 
 /* 로그인 버튼 */

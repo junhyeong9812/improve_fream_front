@@ -9,27 +9,51 @@ const LoginPage: React.FC = () => {
 
   let [emailValue, setEmailValue] = useState<string>('');
   let [emailWarn, setEmailWarn] = useState<boolean>(true);
+  let [emailSuccess, setEmailSuccess] = useState<boolean>(false);
+
   let [passwordValue, setPasswordValue] = useState<string>('');
+  let [passwordWarn, setPasswordWarn] = useState<boolean>(true);
+  let [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
+
   let [loginBtn, setLoginBtn] = useState<boolean>(false);
 
   useEffect(() => {
+    // 이메일 정규식
     const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
     if (emailValue.length > 0) {
-      setEmailWarn(!emailRegex.test(emailValue));
+      if (emailRegex.test(emailValue)) {
+        setEmailWarn(false);
+        console.log("이메일 완성")
+      }else{
+        setEmailWarn(!emailRegex.test(emailValue));
+      }
     }else{
-      setEmailWarn(false)
+      setEmailWarn(false);
     }
-  }, [emailValue])
 
-  useEffect(() => {
-    console.log("이메일 : ", emailValue);
-    console.log("비밀번호 : ", passwordValue);
-    if ((emailValue.length > 0) && (passwordValue.length > 0)) {
-        setLoginBtn(true);
+    // 비밀번호 정규식
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>~\-=_+\[\]/])[A-Za-z\d!@#$%^&*(),.?":{}|<>~\-=_+\[\]/]{8,16}$/;
+    if (passwordValue.length > 0) {
+      if (emailRegex.test(passwordValue)) {
+        setPasswordWarn(false);
+        console.log("비밀번호 완성");
+      }else{
+        setPasswordWarn(!passwordRegex.test(passwordValue));
+        console.log("비밀번호 미완성")
+      }
     }else{
-        setLoginBtn(false);
+      setPasswordWarn(false);
     }
-  }, [emailValue, passwordValue, loginBtn])
+
+  }, [emailValue, passwordValue])
+
+  // useEffect(() => {
+  //   if ((emailValue.length > 0) && (passwordValue.length > 0)) {
+  //       setLoginBtn(true);
+  //   }else{
+  //       setLoginBtn(false);
+  //   }
+  // }, [emailValue, passwordValue, loginBtn])
 
   return (
     <div className='login_form_container'>
@@ -38,17 +62,14 @@ const LoginPage: React.FC = () => {
               <img onClick={() => {navigate('/')}} className='login_form_logo' src={`${process.env.PUBLIC_URL}/img/kream-login-logo.png`}></img>
           </div>
           <div className='login_form_email_input_container'>
-              <div className='login_form_email_input_title'>이메일 주소</div>
-              <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmailValue(e.target.value)} className='login_form_email_input' type='text' placeholder='예) kream@kream.co.kr'></input>
-              {emailWarn ? 
-                <div className='login_form_email_input_warn'>이메일 주소를 정확히 입력해주세요.</div>
-                :
-                <div className='login_form_email_input_none_warn'></div>
-              }
+              <div className={`login_form_email_input_title ${emailWarn? 'login_form_email_input_title_warn' : ''}`}>이메일 주소</div>
+              <input className={`login_form_email_input ${emailWarn? 'login_form_email_input_warn' : ''}`} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmailValue(e.target.value)} type='text' placeholder='예) kream@kream.co.kr'></input>
+              <div className={`login_form_email_input_bottom ${emailWarn ? 'login_form_email_input_bottom_warn' : ''}`}>{emailWarn ? "이메일 주소를 정확히 입력해주세요." : ""}</div>
           </div>
           <div className='login_form_password_input_container'>
               <div className='login_form_password_input_title'>비밀번호</div>
-              <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordValue(e.target.value)} className='login_form_password_input' type='password'></input>
+              <input className='login_form_password_input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordValue(e.target.value)} type='password' maxLength={16}></input>
+              <div className='login_form_password_input_bottom'>영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</div>
           </div>
           {loginBtn ?
               <div className='login_form_login_btn_container'>
