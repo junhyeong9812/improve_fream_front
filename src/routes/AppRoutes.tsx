@@ -22,7 +22,6 @@ const AppRoutesContainer = styled.div`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1280px;
   min-width: 960px; /* 최소 너비 설정 */
   box-sizing: border-box;
 `;
