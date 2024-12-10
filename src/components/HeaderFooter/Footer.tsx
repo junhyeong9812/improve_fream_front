@@ -4,7 +4,6 @@ import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { RiKakaoTalkFill } from "react-icons/ri";
 
 const FooterContainer = styled.footer`
-  background-color: #f8f8f8;
   padding: 20px;
   font-size: 14px;
   color: #555;
