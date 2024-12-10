@@ -8,8 +8,8 @@ import {
   FiBookmark,
   FiUser,
 } from "react-icons/fi";
-import NotificationModal from "./NotificationModal";
-import SearchModal from "./SearchModal";
+import NotificationModal from "./headerModal/NotificationModal";
+import SearchModal from "./headerModal/SearchModal";
 
 // 기본 데스크탑 헤더 컨테이너
 const HeaderContainer = styled.header`

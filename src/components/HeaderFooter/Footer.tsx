@@ -8,8 +8,8 @@ const FooterContainer = styled.footer`
   margin-right: auto;
   max-width: 1280px;
   padding: 50px 40px;
-  border-top: 1px solid #ebebeb;
   width: 100%;
+  border-top: 1px solid #ddd;
 
   @media (max-width: 960px) {
     padding: 20px;
@@ -22,45 +22,62 @@ const FooterContainer = styled.footer`
 
 const Section = styled.div`
   display: flex;
+  flex-direction: row-reverse; /* 역순 배치 */
   justify-content: space-between;
-  margin-bottom: 20px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  padding-bottom: 56px;
+  border-bottom: 1px solid #ebebeb;
 
   @media (max-width: 960px) {
     display: none; /* 960px 이하에서 숨김 */
   }
 `;
 
-const Column = styled.div`
+const TimeBox = styled.div`
+  line-height: 17px;
+  margin-top: 10px;
+  font-size: 12px;
+  span {
+    color: rgba(34, 34, 34, 0.5);
+  }
+`;
+
+const TimeTerm = styled.dt`
+  margin-right: 4px;
+  color: rgba(34, 34, 34, 0.5);
+  display: inline-block;
+`;
+
+const FooterMenu = styled.div`
   display: flex;
-  flex-direction: column;
+`;
 
-  h4 {
-    font-size: 16px;
-    letter-spacing: -0.16px;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 10px;
-  }
+const MenuBox = styled.div`
+  width: 160px;
+`;
 
-  ul {
-    padding-top: 16px;
-    list-style: none;
-  }
+const MenuTitle = styled.h4`
+  font-size: 16px;
+  letter-spacing: -0.16px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+`;
 
-  li {
-    a {
-      color: rgba(34, 34, 34, 0.5);
-      font-size: 14px;
-      letter-spacing: -0.21px;
-      text-decoration: none;
+const MenuList = styled.ul`
+  padding-top: 16px;
+  list-style: none;
+`;
 
-      &:hover {
-        color: #000;
-      }
+const MenuItem = styled.li`
+  a {
+    color: rgba(34, 34, 34, 0.5);
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: -0.21px;
+    text-decoration: none;
+
+    &:hover {
+      color: #000;
     }
   }
 `;
@@ -70,15 +87,14 @@ const CustomerCenter = styled.div`
 
   h4 {
     font-size: 16px;
+    letter-spacing: -0.16px;
     font-weight: bold;
-    display: inline-flex;
-    align-items: center;
     margin-bottom: 8px;
   }
 
   p {
     margin: 5px 0;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .phone-number {
@@ -178,51 +194,65 @@ const Footer: React.FC = () => {
   return (
     <FooterContainer>
       {/* 기본 Footer 섹션 */}
+      {/* Section 구성 */}
       <Section>
-        <Column>
-          <h4>이용안내</h4>
-          <ul>
-            <li>
-              <a href="/review-standards">검수 기준</a>
-            </li>
-            <li>
-              <a href="/policy">이용정책</a>
-            </li>
-            <li>
-              <a href="/penalty-policy">패널티 정책</a>
-            </li>
-            <li>
-              <a href="/community-guidelines">커뮤니티 가이드라인</a>
-            </li>
-          </ul>
-        </Column>
-        <Column>
-          <h4>고객지원</h4>
-          <ul>
-            <li>
-              <a href="/notices">공지사항</a>
-            </li>
-            <li>
-              <a href="/service-info">서비스 소개</a>
-            </li>
-            <li>
-              <a href="/store-info">스토어 안내</a>
-            </li>
-            <li>
-              <a href="/seller-visit">판매자 방문 접수</a>
-            </li>
-          </ul>
-        </Column>
+        {/* Customer Center */}
         <CustomerCenter>
           <h4>
             고객센터
             <span className="phone-number">1588-0000</span>
           </h4>
-          <p>운영시간 평일 10:00 - 18:00 (토·일, 공휴일 휴무)</p>
-          <p>점심시간 평일 13:00 - 14:00</p>
+          <TimeBox>
+            <div>
+              <TimeTerm>운영시간</TimeTerm>
+              <span>평일 10:00 - 18:00 (토·일, 공휴일 휴무)</span>
+            </div>
+            <div>
+              <TimeTerm>점심시간</TimeTerm>
+              <span>평일 13:00 - 14:00</span>
+            </div>
+          </TimeBox>
           <p>1:1 문의하기는 앱에서만 가능합니다.</p>
           <button>자주 묻는 질문</button>
         </CustomerCenter>
+
+        {/* Footer Menu */}
+        <FooterMenu>
+          <MenuBox>
+            <MenuTitle>이용안내</MenuTitle>
+            <MenuList>
+              <MenuItem>
+                <a href="/review-standards">검수 기준</a>
+              </MenuItem>
+              <MenuItem>
+                <a href="/policy">이용정책</a>
+              </MenuItem>
+              <MenuItem>
+                <a href="/penalty-policy">패널티 정책</a>
+              </MenuItem>
+              <MenuItem>
+                <a href="/community-guidelines">커뮤니티 가이드라인</a>
+              </MenuItem>
+            </MenuList>
+          </MenuBox>
+          <MenuBox>
+            <MenuTitle>고객지원</MenuTitle>
+            <MenuList>
+              <MenuItem>
+                <a href="/notices">공지사항</a>
+              </MenuItem>
+              <MenuItem>
+                <a href="/service-info">서비스 소개</a>
+              </MenuItem>
+              <MenuItem>
+                <a href="/store-info">스토어 안내</a>
+              </MenuItem>
+              <MenuItem>
+                <a href="/seller-visit">판매자 방문 접수</a>
+              </MenuItem>
+            </MenuList>
+          </MenuBox>
+        </FooterMenu>
       </Section>
 
       {/* 추가 링크 섹션 */}
