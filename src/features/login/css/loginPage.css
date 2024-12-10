@@ -44,24 +44,23 @@
     border-right: none;
     border-left: none;
     outline: none;
-    border-bottom: 1px solid #ebebeb;
     color: #222;
     box-sizing: border-box;
     font-family: "Noto Sans KR", sans-serif;    
 }
+.login_form_email_input_none_warn{
+    border-bottom: 1px solid #ebebeb;
+}
 .login_form_email_input_warn{
     border-bottom: 1px solid #ef6253;
 }
-.login_form_email_input_warn:focus{
-    border-bottom: 2px solid #ef6253;
-}
-.login_form_email_input:focus{
+.login_form_email_input_none_warn:focus{
     border-bottom: 2px solid black;
 }
-.login_form_email_input:focus::placeholder{
+.login_form_email_input_none_warn:focus::placeholder{
     opacity: 0;
 }
-.login_form_email_input::placeholder{
+.login_form_email_input_none_warn::placeholder{
     color: rgba(34, 34, 34, 0.3);
 }
 
@@ -84,6 +83,9 @@
     font-weight: 700;
     color: #222;
 }
+.login_form_password_input_title_warn{
+    color: #ef6253;
+}
 .login_form_password_input{
     width: 400px;
     height: 38px;
@@ -96,17 +98,26 @@
     border-right: none;
     border-left: none;
     outline: none;
-    border-bottom: 1px solid #ebebeb;
     color: #222;
     box-sizing: border-box;
     letter-spacing: 2px;
     font-family: "Noto Sans KR", sans-serif; 
 }
-.login_form_password_input:focus{
+.login_form_password_input_none_warn{
+    border-bottom: 1px solid #ebebeb;
+}
+.login_form_password_input_warn{
+    border-bottom: 1px solid #ef6253;
+}
+.login_form_password_input_none_warn:focus{
     border-bottom: 2px solid black;
 }
 .login_form_password_input_bottom{
     height: 14px;
+}
+.login_form_password_input_bottom_warn{
+    font-size: 11px;
+    color: #ef6253;
 }
 
 /* 로그인 버튼 */
