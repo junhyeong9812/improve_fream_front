@@ -13,6 +13,7 @@ import SearchModal from "./SearchModal";
 
 // 기본 데스크탑 헤더 컨테이너
 const HeaderContainer = styled.header`
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   max-width: 1280px;
@@ -48,14 +49,13 @@ const MobileHeaderContainer = styled.header`
   display: none;
 
   @media (max-width: 960px) {
+    wdith: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-    z-index: 1000;
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -118,7 +118,6 @@ const MobileNav = styled.nav`
     height: calc(50px + env(safe-area-inset-bottom));
     background-color: #fff;
     box-shadow: 0 -0.5px 0 0 rgba(34, 34, 34, 0.1);
-    z-index: 1000;
     padding-bottom: env(safe-area-inset-bottom);
     min-width: 320px;
 
