@@ -16,6 +16,19 @@ import PrivacyPage from "../pages/FooterPage/PrivacyPage";
 import ServiceInfoPage from "../pages/FooterPage/ServiceInfoPage";
 import StoreInfoPage from "../pages/FooterPage/StoreInfoPage";
 import SellerVisitPage from "../pages/FooterPage/SellerVisitPage";
+import Explore from "../features/style/components/Explore";
+import Following from "../features/style/components/Following";
+import Ranking from "../features/style/components/Ranking";
+import Kicks from "../features/style/components/Kicks";
+import Trend from "../features/style/components/Trend";
+import Winter from "../features/style/components/Winter";
+import Sneakers from "../features/style/components/Sneakers";
+import Luxury from "../features/style/components/Luxury";
+import Clothing from "../features/style/components/Clothing";
+import Bags from "../features/style/components/Bags";
+import Celebrity from "../features/style/components/Celebrity";
+import Collectibles from "../features/style/components/Collectibles";
+import Accessories from "../features/style/components/Accessories";
 
 // 스타일드 컴포넌트로 Wrapping
 const AppRoutesContainer = styled.div`
@@ -32,7 +45,24 @@ const AppRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/style" element={<Style />} />
+        <Route path="/style" element={<Style />}>
+          <Route index element={<Explore />} /> {/* 기본 탭 */}
+          <Route path="explore" element={<Explore />} />
+          <Route path="kicks" element={<Kicks />} />
+          <Route path="following" element={<Following />} />
+          <Route path="explore" element={<Explore />} />
+          <Route path="ranking" element={<Ranking />} />
+          <Route path="trend" element={<Trend />} />
+          <Route path="winter" element={<Winter />} />
+          <Route path="sneakers" element={<Sneakers />} />
+          <Route path="luxury" element={<Luxury />} />
+          <Route path="clothing" element={<Clothing />} />
+          <Route path="bags" element={<Bags />} />
+          <Route path="celebrity" element={<Celebrity />} />
+          <Route path="collectibles" element={<Collectibles />} />
+          <Route path="accessories" element={<Accessories />} />
+          {/* 다른 탭도 동일한 방식으로 추가 */}
+        </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/support" element={<Support />} />
         <Route path="/favorites" element={<Favorites />} />

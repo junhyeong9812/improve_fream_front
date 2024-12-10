@@ -224,7 +224,7 @@ const Header: React.FC = () => {
           </Link>
           <Nav>
             <Link to="/">HOME</Link>
-            <Link to="/style">STYLE</Link>
+            <Link to="/style/explore">STYLE</Link>
             <Link to="/shop">SHOP</Link>
             <Icon onClick={() => setSearchModalOpen(true)}>
               <FiSearch />
