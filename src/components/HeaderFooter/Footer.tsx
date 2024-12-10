@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { RiKakaoTalkFill } from "react-icons/ri";
+import { policies } from "./dummyData";
+import FooterModal from "./footerModal/FooterModal";
+import { Link } from "react-router-dom";
 
 const FooterContainer = styled.footer`
   margin-left: auto;
@@ -114,6 +117,20 @@ const CustomerCenter = styled.div`
       background-color: #555;
     }
   }
+    .faq-link {
+    background-color: #222;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover {
+      background-color: #555;
+    }
 `;
 
 const LinksSection = styled.div`
@@ -191,6 +208,29 @@ const CopyRight = styled.div`
 `;
 
 const Footer: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
+
+  const openModal = (title: string, content: string) => {
+    setModalTitle(title);
+    setModalContent(content);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalTitle("");
+    setModalContent("");
+  };
+
+  const handleClick =
+    (title: string, content: string) =>
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault(); // a 태그 기본 동작 막기
+      openModal(title, content); // 필요한 데이터만 전달
+    };
+
   return (
     <FooterContainer>
       {/* 기본 Footer 섹션 */}
@@ -213,7 +253,9 @@ const Footer: React.FC = () => {
             </div>
           </TimeBox>
           <p>1:1 문의하기는 앱에서만 가능합니다.</p>
-          <button>자주 묻는 질문</button>
+          <Link to="/faq" className="faq-link">
+            자주 묻는 질문
+          </Link>
         </CustomerCenter>
 
         {/* Footer Menu */}
@@ -221,34 +263,32 @@ const Footer: React.FC = () => {
           <MenuBox>
             <MenuTitle>이용안내</MenuTitle>
             <MenuList>
-              <MenuItem>
-                <a href="/review-standards">검수 기준</a>
-              </MenuItem>
-              <MenuItem>
-                <a href="/policy">이용정책</a>
-              </MenuItem>
-              <MenuItem>
-                <a href="/penalty-policy">패널티 정책</a>
-              </MenuItem>
-              <MenuItem>
-                <a href="/community-guidelines">커뮤니티 가이드라인</a>
-              </MenuItem>
+              {policies.map((policy) => (
+                <MenuItem key={policy.id}>
+                  <a
+                    href={`#${policy.id}`} // 페이지 이동 방지와 링크 UI 유지
+                    onClick={handleClick(policy.title, policy.content)}
+                  >
+                    {policy.title}
+                  </a>
+                </MenuItem>
+              ))}
             </MenuList>
           </MenuBox>
           <MenuBox>
             <MenuTitle>고객지원</MenuTitle>
             <MenuList>
               <MenuItem>
-                <a href="/notices">공지사항</a>
+                <Link to="/notices">공지사항</Link>
               </MenuItem>
               <MenuItem>
-                <a href="/service-info">서비스 소개</a>
+                <Link to="/service-info">서비스 소개</Link>
               </MenuItem>
               <MenuItem>
-                <a href="/store-info">스토어 안내</a>
+                <Link to="/store-info">스토어 안내</Link>
               </MenuItem>
               <MenuItem>
-                <a href="/seller-visit">판매자 방문 접수</a>
+                <Link to="/seller-visit">판매자 방문 접수</Link>
               </MenuItem>
             </MenuList>
           </MenuBox>
@@ -258,11 +298,11 @@ const Footer: React.FC = () => {
       {/* 추가 링크 섹션 */}
       <LinksSection>
         <div>
-          <a href="/info">회사소개</a>
-          <a href="/recruit">인재채용</a>
-          <a href="/proposal">제휴제안</a>
-          <a href="/terms">이용약관</a>
-          <a href="/privacy">개인정보처리방침</a>
+          <Link to="/info">회사소개</Link>
+          <Link to="/recruit">인재채용</Link>
+          <Link to="/proposal">제휴제안</Link>
+          <Link to="/terms">이용약관</Link>
+          <Link to="/privacy">개인정보처리방침</Link>
         </div>
         <SocialIcons>
           <a
@@ -309,6 +349,13 @@ const Footer: React.FC = () => {
 
       {/* 모바일 전용 카피라이트 */}
       <CopyRight>© Fream</CopyRight>
+      {/* FooterModal 추가 */}
+      <FooterModal
+        isOpen={isModalOpen}
+        title={modalTitle}
+        content={modalContent}
+        onClose={closeModal}
+      />
     </FooterContainer>
   );
 };
