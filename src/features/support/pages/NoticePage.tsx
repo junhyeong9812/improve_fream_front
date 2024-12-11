@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import styled from "styled-components";
@@ -6,6 +6,8 @@ import SearchBar from "../components/notice/SearchBar";
 import CategoryTabs from "../components/notice/CategoryTabs";
 import SupportList from "../components/notice/SupportList";
 import dummyData from "../services/dummyData";
+import { NoticeResponseDto } from "../types/supportTypes";
+import noticeService from "src/features/support/services/noticeService";
 
 // 스타일 정의
 const Container = styled.div`
@@ -65,29 +67,63 @@ const NoDataMessage = styled.p`
 `;
 
 const NoticePage: React.FC = () => {
+  const [notices, setNotices] = useState<NoticeResponseDto[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
   const { keyword, category } = queryString.parse(location.search);
+
   const noticesPerPage = 10; // 한 페이지에 보여줄 데이터 개수
 
-  // 필터링된 데이터 계산
-  const filteredNotices = dummyData.content.filter((notice) => {
-    if (keyword) {
-      return notice.title.includes(keyword as string);
-    }
-    if (category) {
-      return category === "전체" || notice.category === category;
-    }
-    return true;
-  });
+  // 데이터 가져오기
+  const fetchNotices = async () => {
+    try {
+      if (keyword) {
+        const response = await noticeService.searchNotices(
+          keyword as string,
+          currentPage,
+          noticesPerPage
+        );
+        setNotices(response.data.content);
+        setTotalPages(response.data.totalPages);
+      } else if (category && category !== "전체") {
+        const response = await noticeService.getNoticesByCategory(
+          category as string,
+          currentPage,
+          noticesPerPage
+        );
+        setNotices(response.data.content);
+        setTotalPages(response.data.totalPages);
+      } else {
+        const response = await noticeService.getNotices(
+          currentPage,
+          noticesPerPage
+        );
+        setNotices(response.data.content);
+        setTotalPages(response.data.totalPages);
+      }
+    } catch (error) {
+      console.error("API 요청 실패:", error);
+      // 더미 데이터 처리
+      const filtered = dummyData.content.filter((notice) => {
+        if (keyword) return notice.title.includes(keyword as string);
+        if (category)
+          return category === "전체" || notice.category === category;
+        return true;
+      });
 
-  // 현재 페이지에 해당하는 데이터 계산
-  const totalPages = Math.ceil(filteredNotices.length / noticesPerPage);
-  const currentNotices = filteredNotices.slice(
-    (currentPage - 1) * noticesPerPage,
-    currentPage * noticesPerPage
-  );
+      // 더미 데이터에서 페이징 적용
+      const startIndex = (currentPage - 1) * noticesPerPage;
+      const endIndex = startIndex + noticesPerPage;
+      setNotices(filtered.slice(startIndex, endIndex));
+      setTotalPages(Math.ceil(filtered.length / noticesPerPage));
+    }
+  };
+
+  useEffect(() => {
+    fetchNotices();
+  }, [keyword, category, currentPage]);
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
@@ -113,10 +149,7 @@ const NoticePage: React.FC = () => {
 
       {location.pathname === "/support/notice" ? (
         <>
-          {/* 검색창 */}
           <SearchBar onSearch={handleSearch} />
-
-          {/* 카테고리 탭 */}
           {!keyword && (
             <CategoryTabs
               categories={["전체", "공지", "이벤트", "서비스 안내", "기타"]}
@@ -124,15 +157,13 @@ const NoticePage: React.FC = () => {
               onCategoryChange={handleCategoryChange}
             />
           )}
-
-          {filteredNotices.length === 0 ? (
+          {notices.length === 0 ? (
             <NoDataContainer>
               <NoDataMessage>검색하신 결과가 없습니다.</NoDataMessage>
             </NoDataContainer>
           ) : (
             <>
-              <SupportList notices={currentNotices} />
-              {/* Pagination */}
+              <SupportList notices={notices} />
               <Pagination>
                 <button onClick={() => handlePageChange(1)}>&laquo;</button>
                 <button onClick={() => handlePageChange(currentPage - 1)}>
@@ -165,3 +196,105 @@ const NoticePage: React.FC = () => {
 };
 
 export default NoticePage;
+
+// const NoticePage: React.FC = () => {
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const { keyword, category } = queryString.parse(location.search);
+//   const noticesPerPage = 10; // 한 페이지에 보여줄 데이터 개수
+
+//   // 필터링된 데이터 계산
+//   const filteredNotices = dummyData.content.filter((notice) => {
+//     if (keyword) {
+//       return notice.title.includes(keyword as string);
+//     }
+//     if (category) {
+//       return category === "전체" || notice.category === category;
+//     }
+//     return true;
+//   });
+
+//   // 현재 페이지에 해당하는 데이터 계산
+//   const totalPages = Math.ceil(filteredNotices.length / noticesPerPage);
+//   const currentNotices = filteredNotices.slice(
+//     (currentPage - 1) * noticesPerPage,
+//     currentPage * noticesPerPage
+//   );
+
+//   const handlePageChange = (page: number) => {
+//     if (page > 0 && page <= totalPages) {
+//       setCurrentPage(page);
+//     }
+//   };
+
+//   const handleSearch = (query: string) => {
+//     setCurrentPage(1);
+//     navigate(`?keyword=${query}&list=true`);
+//   };
+
+//   const handleCategoryChange = (selectedCategory: string) => {
+//     setCurrentPage(1);
+//     navigate(`?category=${selectedCategory}&list=true`);
+//   };
+
+//   return (
+//     <Container>
+//       <Title>
+//         <h3>공지사항</h3>
+//       </Title>
+
+//       {location.pathname === "/support/notice" ? (
+//         <>
+//           {/* 검색창 */}
+//           <SearchBar onSearch={handleSearch} />
+
+//           {/* 카테고리 탭 */}
+//           {!keyword && (
+//             <CategoryTabs
+//               categories={["전체", "공지", "이벤트", "서비스 안내", "기타"]}
+//               activeCategory={category ? (category as string) : "전체"}
+//               onCategoryChange={handleCategoryChange}
+//             />
+//           )}
+
+//           {filteredNotices.length === 0 ? (
+//             <NoDataContainer>
+//               <NoDataMessage>검색하신 결과가 없습니다.</NoDataMessage>
+//             </NoDataContainer>
+//           ) : (
+//             <>
+//               <SupportList notices={currentNotices} />
+//               {/* Pagination */}
+//               <Pagination>
+//                 <button onClick={() => handlePageChange(1)}>&laquo;</button>
+//                 <button onClick={() => handlePageChange(currentPage - 1)}>
+//                   &lt;
+//                 </button>
+//                 {Array.from({ length: totalPages }, (_, i) => (
+//                   <button
+//                     key={i}
+//                     className={currentPage === i + 1 ? "active" : ""}
+//                     onClick={() => handlePageChange(i + 1)}
+//                   >
+//                     {i + 1}
+//                   </button>
+//                 ))}
+//                 <button onClick={() => handlePageChange(currentPage + 1)}>
+//                   &gt;
+//                 </button>
+//                 <button onClick={() => handlePageChange(totalPages)}>
+//                   &raquo;
+//                 </button>
+//               </Pagination>
+//             </>
+//           )}
+//         </>
+//       ) : (
+//         <Outlet />
+//       )}
+//     </Container>
+//   );
+// };
+
+// export default NoticePage;

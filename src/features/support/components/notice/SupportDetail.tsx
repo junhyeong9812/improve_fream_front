@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { DummyData, Notice } from "../../types/supportTypes";
 import dummyData from "../../services/dummyData";
+import { NoticeResponseDto } from "../../types/supportTypes";
+import noticeService from "src/features/support/services/noticeService";
 
 // 스타일 정의
 const Container = styled.div`
@@ -70,15 +71,28 @@ const BackButton = styled.a`
   cursor: pointer;
 `;
 
-// 게시글 상세 페이지 컴포넌트
 const NoticeDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [notice, setNotice] = useState<NoticeResponseDto | null>(null);
 
-  // 더미 데이터에서 ID에 해당하는 게시글 찾기
-  const notice: Notice | undefined = dummyData.content.find(
-    (item) => item.id === Number(id)
-  );
+  useEffect(() => {
+    const fetchNotice = async () => {
+      try {
+        const response = await noticeService.getNotice(Number(id));
+        setNotice(response.data);
+      } catch (error) {
+        console.error("API 요청 실패:", error);
+        const fallback = dummyData.content.find(
+          (item) => item.id === Number(id)
+        );
+        setNotice(fallback || null);
+      }
+    };
+
+    fetchNotice();
+  }, [id]);
+
   if (!notice) {
     return (
       <Container>
@@ -94,25 +108,19 @@ const NoticeDetail: React.FC = () => {
 
   return (
     <Container>
-      {/* Header */}
       <Header>
         <Category>{notice.category}</Category>
         <TitleBox>
-          <Date>2024.12.10</Date>
+          <Date>{notice.createdAt}</Date>
           <Title>{notice.title}</Title>
         </TitleBox>
       </Header>
-
-      {/* Content */}
       <ContentContainer>
-        {/* HTML 컨텐츠를 렌더링 */}
         <div
           className="content"
           dangerouslySetInnerHTML={{ __html: notice.content }}
         />
       </ContentContainer>
-
-      {/* Back Button */}
       <BackButtonContainer>
         <BackButton onClick={() => navigate(-1)}>목록으로 돌아가기</BackButton>
       </BackButtonContainer>
@@ -121,3 +129,55 @@ const NoticeDetail: React.FC = () => {
 };
 
 export default NoticeDetail;
+
+// // 게시글 상세 페이지 컴포넌트
+// const NoticeDetail: React.FC = () => {
+//   const { id } = useParams<{ id: string }>();
+//   const navigate = useNavigate();
+
+//   // 더미 데이터에서 ID에 해당하는 게시글 찾기
+//   const notice: Notice | undefined = dummyData.content.find(
+//     (item) => item.id === Number(id)
+//   );
+//   if (!notice) {
+//     return (
+//       <Container>
+//         <p>해당 게시글을 찾을 수 없습니다.</p>
+//         <BackButtonContainer>
+//           <BackButton onClick={() => navigate(-1)}>
+//             목록으로 돌아가기
+//           </BackButton>
+//         </BackButtonContainer>
+//       </Container>
+//     );
+//   }
+
+//   return (
+//     <Container>
+//       {/* Header */}
+//       <Header>
+//         <Category>{notice.category}</Category>
+//         <TitleBox>
+//           <Date>2024.12.10</Date>
+//           <Title>{notice.title}</Title>
+//         </TitleBox>
+//       </Header>
+
+//       {/* Content */}
+//       <ContentContainer>
+//         {/* HTML 컨텐츠를 렌더링 */}
+//         <div
+//           className="content"
+//           dangerouslySetInnerHTML={{ __html: notice.content }}
+//         />
+//       </ContentContainer>
+
+//       {/* Back Button */}
+//       <BackButtonContainer>
+//         <BackButton onClick={() => navigate(-1)}>목록으로 돌아가기</BackButton>
+//       </BackButtonContainer>
+//     </Container>
+//   );
+// };
+
+// export default NoticeDetail;
