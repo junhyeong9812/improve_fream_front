@@ -13,9 +13,9 @@ https://github.com/junhyeong9812/Improve_Fream_Back
 ### 프로젝트 인원 및 역할
 1차 개발 기간 : 24.12.9~24.12.20
 <br>
-김준형 : style / shop / search / 장바구니 / 고객센터 /마이페이지 /관심 / 알림 
+김준형 : style / shop / search / 장바구니 / 고객센터 /마이페이지 /관심 / 알림 /header/footer
 <br>
-이태영 : home/ Login /header/footer
+이태영 : home/ Login 
 
 기본 프로젝트 예상도
 ```
