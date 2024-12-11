@@ -18,6 +18,9 @@ const HeaderContainer = styled.header`
   margin-right: auto;
   max-width: 1280px;
   min-width: 960px;
+  position: fixed; /* 상단에 고정 */
+  z-index: 1000; /* 다른 요소보다 위에 표시 */
+  background: write;
 
   @media (max-width: 960px) {
     display: none; /* 모바일 환경에서는 숨김 */

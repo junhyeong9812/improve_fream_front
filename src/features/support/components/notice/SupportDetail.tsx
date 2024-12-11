@@ -1,0 +1,123 @@
+import React from "react";
+import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import { DummyData, Notice } from "../../types/supportTypes";
+import dummyData from "../../services/dummyData";
+
+// 스타일 정의
+const Container = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 640px;
+  padding: 40px 20px 160px;
+  overflow: hidden;
+`;
+
+const Header = styled.div`
+  align-items: center;
+  border-bottom: 1px solid #ebebeb;
+  cursor: pointer;
+  display: flex;
+  padding: 17px 0 19px;
+`;
+
+const Category = styled.strong`
+  font-size: 14px;
+  letter-spacing: -0.21px;
+  min-width: 68px;
+  width: 68px;
+`;
+
+const TitleBox = styled.div`
+  margin-right: 10px;
+`;
+
+const Date = styled.span`
+  display: inline-flex;
+  font-size: 12px;
+  letter-spacing: -0.06px;
+  margin-bottom: 1px;
+  color: rgba(34, 34, 34, 0.6);
+`;
+
+const Title = styled.p`
+  font-size: 15px;
+  letter-spacing: -0.15px;
+  margin: 0;
+`;
+
+const ContentContainer = styled.div`
+  display: block;
+  margin-top: 20px;
+
+  .content {
+    max-width: 640px;
+    word-break: break-word;
+  }
+`;
+
+const BackButtonContainer = styled.div`
+  margin-top: 30px;
+  text-align: center;
+`;
+
+const BackButton = styled.a`
+  border: 1px solid #d3d3d3;
+  color: rgba(34, 34, 34, 0.8);
+  padding: 10px 20px;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+// 게시글 상세 페이지 컴포넌트
+const NoticeDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  // 더미 데이터에서 ID에 해당하는 게시글 찾기
+  const notice: Notice | undefined = dummyData.content.find(
+    (item) => item.id === Number(id)
+  );
+  if (!notice) {
+    return (
+      <Container>
+        <p>해당 게시글을 찾을 수 없습니다.</p>
+        <BackButtonContainer>
+          <BackButton onClick={() => navigate(-1)}>
+            목록으로 돌아가기
+          </BackButton>
+        </BackButtonContainer>
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      {/* Header */}
+      <Header>
+        <Category>{notice.category}</Category>
+        <TitleBox>
+          <Date>2024.12.10</Date>
+          <Title>{notice.title}</Title>
+        </TitleBox>
+      </Header>
+
+      {/* Content */}
+      <ContentContainer>
+        {/* HTML 컨텐츠를 렌더링 */}
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: notice.content }}
+        />
+      </ContentContainer>
+
+      {/* Back Button */}
+      <BackButtonContainer>
+        <BackButton onClick={() => navigate(-1)}>목록으로 돌아가기</BackButton>
+      </BackButtonContainer>
+    </Container>
+  );
+};
+
+export default NoticeDetail;
