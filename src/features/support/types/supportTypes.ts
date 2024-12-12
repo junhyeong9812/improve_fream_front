@@ -88,3 +88,26 @@ export const inspectionCategoryMapping: Record<string, string> = {
   "프리미엄 시계": "PREMIUM_WATCH",
   "프리미엄 가방": "PREMIUM_BAG",
 };
+
+// FAQ 응답 DTO 형식
+export interface FAQResponseDto {
+  id: number;
+  category: string; // FAQ 카테고리
+  question: string; // 질문
+  answer: string; // 답변
+  imageUrls?: string[]; // 이미지 URL 배열 (옵션)
+  createdAt: string; // 생성 날짜 (ISO 8601 형식)
+  updatedAt: string; // 수정 날짜 (ISO 8601 형식)
+}
+
+// FAQ 페이징 응답 형식
+export type FAQPageResponse = PageResponse<FAQResponseDto>;
+
+// FAQ 카테고리 Enum과 매핑
+export const faqCategoryMapping: Record<string, string> = {
+  전체: "ALL",
+  이용정책: "POLICY",
+  공통: "GENERAL",
+  구매: "BUYING",
+  판매: "SELLING",
+};

@@ -5,9 +5,11 @@ import styled from "styled-components";
 import SearchBar from "../components/notice/SearchBar";
 import CategoryTabs from "../components/notice/CategoryTabs";
 import SupportList from "../components/notice/SupportList";
-import { NoticeResponseDto } from "../types/supportTypes";
+import { FAQResponseDto, NoticeResponseDto } from "../types/supportTypes";
 import noticeService from "src/features/support/services/noticeService";
+import faqService from "../services/FAQService";
 import { faqDummyData } from "../services/dummyData";
+import FAQList from "../components/FaqList";
 
 // 스타일 정의
 const Container = styled.div`
@@ -67,7 +69,7 @@ const NoDataMessage = styled.p`
 `;
 
 const FAQPage: React.FC = () => {
-  const [faqs, setFaqs] = useState<NoticeResponseDto[]>([]);
+  const [faqs, setFaqs] = useState<FAQResponseDto[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
@@ -80,7 +82,7 @@ const FAQPage: React.FC = () => {
   const fetchFaqs = async () => {
     try {
       if (keyword) {
-        const response = await noticeService.searchNotices(
+        const response = await faqService.searchFAQs(
           keyword as string,
           currentPage,
           faqsPerPage
@@ -88,7 +90,7 @@ const FAQPage: React.FC = () => {
         setFaqs(response.data.content);
         setTotalPages(response.data.totalPages);
       } else if (category && category !== "전체") {
-        const response = await noticeService.getNoticesByCategory(
+        const response = await faqService.getFAQsByCategory(
           category as string,
           currentPage,
           faqsPerPage
@@ -96,10 +98,7 @@ const FAQPage: React.FC = () => {
         setFaqs(response.data.content);
         setTotalPages(response.data.totalPages);
       } else {
-        const response = await noticeService.getNotices(
-          currentPage,
-          faqsPerPage
-        );
+        const response = await faqService.getFAQs(currentPage, faqsPerPage);
         setFaqs(response.data.content);
         setTotalPages(response.data.totalPages);
       }
@@ -107,7 +106,7 @@ const FAQPage: React.FC = () => {
       console.error("API 요청 실패:", error);
       // 더미 데이터 처리
       const filtered = faqDummyData.content.filter((faq) => {
-        if (keyword) return faq.title.includes(keyword as string);
+        if (keyword) return faq.question.includes(keyword as string);
         if (category) return category === "전체" || faq.category === category;
         return true;
       });
@@ -162,7 +161,7 @@ const FAQPage: React.FC = () => {
             </NoDataContainer>
           ) : (
             <>
-              <SupportList notices={faqs} />
+              <FAQList faqs={faqs} />
               <Pagination>
                 <button onClick={() => handlePageChange(1)}>&laquo;</button>
                 <button onClick={() => handlePageChange(currentPage - 1)}>
