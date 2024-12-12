@@ -9,7 +9,7 @@ import noticeService from "src/features/support/services/noticeService";
 const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
-  max-width: 640px;
+  width: 100%;
   padding: 40px 20px 160px;
   overflow: hidden;
 `;
@@ -129,55 +129,3 @@ const NoticeDetail: React.FC = () => {
 };
 
 export default NoticeDetail;
-
-// // 게시글 상세 페이지 컴포넌트
-// const NoticeDetail: React.FC = () => {
-//   const { id } = useParams<{ id: string }>();
-//   const navigate = useNavigate();
-
-//   // 더미 데이터에서 ID에 해당하는 게시글 찾기
-//   const notice: Notice | undefined = dummyData.content.find(
-//     (item) => item.id === Number(id)
-//   );
-//   if (!notice) {
-//     return (
-//       <Container>
-//         <p>해당 게시글을 찾을 수 없습니다.</p>
-//         <BackButtonContainer>
-//           <BackButton onClick={() => navigate(-1)}>
-//             목록으로 돌아가기
-//           </BackButton>
-//         </BackButtonContainer>
-//       </Container>
-//     );
-//   }
-
-//   return (
-//     <Container>
-//       {/* Header */}
-//       <Header>
-//         <Category>{notice.category}</Category>
-//         <TitleBox>
-//           <Date>2024.12.10</Date>
-//           <Title>{notice.title}</Title>
-//         </TitleBox>
-//       </Header>
-
-//       {/* Content */}
-//       <ContentContainer>
-//         {/* HTML 컨텐츠를 렌더링 */}
-//         <div
-//           className="content"
-//           dangerouslySetInnerHTML={{ __html: notice.content }}
-//         />
-//       </ContentContainer>
-
-//       {/* Back Button */}
-//       <BackButtonContainer>
-//         <BackButton onClick={() => navigate(-1)}>목록으로 돌아가기</BackButton>
-//       </BackButtonContainer>
-//     </Container>
-//   );
-// };
-
-// export default NoticeDetail;

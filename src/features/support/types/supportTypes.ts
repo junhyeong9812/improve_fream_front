@@ -52,3 +52,39 @@ export const categoryMapping: Record<string, string> = {
   "서비스 안내": "SERVICE",
   기타: "OTHERS",
 };
+
+// Inspection 관련 타입
+export interface Inspection {
+  id: number;
+  category: string; // 검수 기준 카테고리
+  content: string; // 검수 기준 내용
+  imageUrls: string[]; // 이미지 URL 배열
+  createdAt: string; // 생성 날짜 (ISO 8601 형식)
+  updatedAt: string; // 수정 날짜 (ISO 8601 형식)
+}
+
+// Inspection 응답 DTO 형식
+export interface InspectionResponseDto {
+  id: number;
+  category: string;
+  content: string;
+  imageUrls: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 공통 페이징 응답 형식에 Inspection 추가
+export type InspectionPageResponse = PageResponse<InspectionResponseDto>;
+
+// InspectionCategory Enum과 매핑
+export const inspectionCategoryMapping: Record<string, string> = {
+  신발: "SHOES",
+  아우터: "OUTER",
+  상의: "TOP",
+  하의: "BOTTOM",
+  가방: "BAG",
+  테크: "TECH",
+  뷰티: "BEAUTY",
+  "프리미엄 시계": "PREMIUM_WATCH",
+  "프리미엄 가방": "PREMIUM_BAG",
+};

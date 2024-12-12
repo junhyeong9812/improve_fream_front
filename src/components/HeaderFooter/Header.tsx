@@ -19,6 +19,8 @@ const HeaderContainer = styled.header`
   max-width: 1280px;
   min-width: 960px;
   position: fixed; /* 상단에 고정 */
+  left: 50%; /* 왼쪽 기준으로 50% */
+  transform: translateX(-50%); /* 자신의 너비 절반만큼 왼쪽으로 이동 */
   z-index: 1000; /* 다른 요소보다 위에 표시 */
   background: write;
 
