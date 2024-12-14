@@ -34,6 +34,7 @@ import NoticePage from "../features/support/pages/NoticePage";
 import FAQPage from "../features/support/pages/FAQPage";
 import InspectionPage from "../features/support/pages/InspectionPage";
 import NoticeDetail from "../features/support/components/notice/SupportDetail";
+import My from "../pages/MyPage";
 
 // 스타일드 컴포넌트로 Wrapping
 const AppRoutesContainer = styled.div`
@@ -69,6 +70,7 @@ const AppRoutes: React.FC = () => {
           {/* 다른 탭도 동일한 방식으로 추가 */}
         </Route>
         <Route path="/cart" element={<Cart />} />
+        <Route path="/my" element={<My />} />
         {/* /support 메인 경로 */}
         <Route path="/support" element={<SupportPage />}>
           {/* 하위 경로 설정 */}
