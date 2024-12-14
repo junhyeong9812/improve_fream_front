@@ -23,7 +23,6 @@ const HeaderContainer = styled.header`
   transform: translateX(-50%); /* 자신의 너비 절반만큼 왼쪽으로 이동 */
   z-index: 1000; /* 다른 요소보다 위에 표시 */
   background-color: #fff; /* 배경을 흰색으로 고정 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 하단 그림자 추가 */
 
   @media (max-width: 960px) {
     display: none; /* 모바일 환경에서는 숨김 */

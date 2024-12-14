@@ -5,8 +5,6 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Style from "../pages/Style";
 import Cart from "../pages/Cart";
-import Support from "../pages/Support";
-import Favorites from "../pages/Favorites";
 import Notifications from "../pages/Notifications";
 import InfoPage from "../pages/FooterPage/InfoPage";
 import RecruitPage from "../pages/FooterPage/RecruitPage";
@@ -35,6 +33,17 @@ import FAQPage from "../features/support/pages/FAQPage";
 import InspectionPage from "../features/support/pages/InspectionPage";
 import NoticeDetail from "../features/support/components/notice/SupportDetail";
 import My from "../pages/MyPage";
+import LoginInfo from "../features/mypage/pages/LoginInfo";
+import Profile from "../features/mypage/pages/Profile";
+import Address from "../features/mypage/pages/Address";
+import PaymentInfo from "../features/mypage/pages/PaymentInfo";
+import Account from "../features/mypage/pages/Account";
+import CashReceipt from "../features/mypage/pages/CashReceipt";
+import MyHomePage from "../features/mypage/pages/myHomePage";
+import Purchase from "../features/mypage/pages/Purchase";
+import Sales from "../features/mypage/pages/Sales";
+import Storage from "../features/mypage/pages/Storage";
+import Favorites from "../features/mypage/pages/Favorites";
 
 // 스타일드 컴포넌트로 Wrapping
 const AppRoutesContainer = styled.div`
@@ -70,7 +79,21 @@ const AppRoutes: React.FC = () => {
           {/* 다른 탭도 동일한 방식으로 추가 */}
         </Route>
         <Route path="/cart" element={<Cart />} />
-        <Route path="/my" element={<My />} />
+        {/* 메인 마이페이지 */}
+        <Route path="/my" element={<My />}>
+          {/* 하위 라우트 설정 */}
+          <Route path="" element={<MyHomePage />} />
+          <Route path="purchase" element={<Purchase />} />
+          <Route path="sales" element={<Sales />} />
+          <Route path="storage" element={<Storage />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="login-info" element={<LoginInfo />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="address" element={<Address />} />
+          <Route path="payment-info" element={<PaymentInfo />} />
+          <Route path="account" element={<Account />} />
+          <Route path="cash-receipt" element={<CashReceipt />} />
+        </Route>
         {/* /support 메인 경로 */}
         <Route path="/support" element={<SupportPage />}>
           {/* 하위 경로 설정 */}
@@ -81,7 +104,6 @@ const AppRoutes: React.FC = () => {
           <Route path="faq" element={<FAQPage />} />
           <Route path="inspection" element={<InspectionPage />} />
         </Route>
-        <Route path="/favorites" element={<Favorites />} />
         <Route path="/notifications" element={<Notifications />} />
         {/* 추가 페이지를 여기에 추가 */}
         {/* footerPage */}

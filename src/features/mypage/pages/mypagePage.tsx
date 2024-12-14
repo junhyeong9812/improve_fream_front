@@ -1,9 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import MyHomePage from "./myHomePage";
+import { Link, Outlet } from "react-router-dom";
 
 // 공통 스타일의 Link 컴포넌트
-const StyledLink = styled.a`
+// const StyledLink = styled.a`
+//   text-decoration: none;
+//   color: inherit;
+//   &:hover,
+//   &:focus,
+//   &:active {
+//     text-decoration: none;
+//   }
+// `;
+// 공통 스타일의 Link 컴포넌트
+const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   &:hover,
@@ -44,6 +55,15 @@ const SidebarTitle = styled.strong`
   vertical-align: top;
 `;
 
+// h2 제목 스타일
+const PageTitle = styled.h2`
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.15px;
+  line-height: 29px;
+  margin-bottom: 30px;
+`;
+
 // 리스트 컨테이너
 const List = styled.ul`
   list-style: none;
@@ -69,31 +89,34 @@ const MainContent = styled.div`
 const MypagePage: React.FC = () => {
   // 사이드바 메뉴 데이터
   const shoppingMenu = [
-    { name: "구매 내역", href: "/mypage/purchase" },
-    { name: "판매 내역", href: "/mypage/sales" },
-    { name: "보관 판매", href: "/mypage/storage" },
-    { name: "관심", href: "/mypage/favorites" },
+    { name: "구매 내역", href: "/my/purchase" },
+    { name: "판매 내역", href: "/my/sales" },
+    { name: "보관 판매", href: "/my/storage" },
+    { name: "관심", href: "/my/favorites" },
   ];
 
   const infoMenu = [
-    { name: "로그인 정보", href: "/mypage/login-info" },
-    { name: "프로필 관리", href: "/mypage/profile" },
-    { name: "주소록", href: "/mypage/address" },
-    { name: "결제 정보", href: "/mypage/payment-info" },
-    { name: "판매 정상 계좌", href: "/mypage/account" },
-    { name: "현금영수증 정보", href: "/mypage/cash-receipt" },
+    { name: "로그인 정보", href: "/my/login-info" },
+    { name: "프로필 관리", href: "/my/profile" },
+    { name: "주소록", href: "/my/address" },
+    { name: "결제 정보", href: "/my/payment-info" },
+    { name: "판매 정상 계좌", href: "/my/account" },
+    { name: "현금영수증 정보", href: "/my/cash-receipt" },
   ];
 
   return (
     <Container>
       <Sidebar>
+        <StyledLink to="/my">
+          <PageTitle>마이 페이지</PageTitle>
+        </StyledLink>
         {/* 쇼핑 정보 */}
         <SubList>
           <SidebarTitle>쇼핑 정보</SidebarTitle>
           <List>
             {shoppingMenu.map((item) => (
               <ListItem key={item.href}>
-                <StyledLink href={item.href}>{item.name}</StyledLink>
+                <StyledLink to={item.href}>{item.name}</StyledLink>
               </ListItem>
             ))}
           </List>
@@ -105,14 +128,14 @@ const MypagePage: React.FC = () => {
           <List>
             {infoMenu.map((item) => (
               <ListItem key={item.href}>
-                <StyledLink href={item.href}>{item.name}</StyledLink>
+                <StyledLink to={item.href}>{item.name}</StyledLink>
               </ListItem>
             ))}
           </List>
         </SubList>
       </Sidebar>
       <MainContent>
-        <MyHomePage />
+        <Outlet />
       </MainContent>
     </Container>
   );
