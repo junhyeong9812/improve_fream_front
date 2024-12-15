@@ -253,7 +253,7 @@ const Footer: React.FC = () => {
             </div>
           </TimeBox>
           <p>1:1 문의하기는 앱에서만 가능합니다.</p>
-          <Link to="/faq" className="faq-link">
+          <Link to="/support/faq" className="faq-link">
             자주 묻는 질문
           </Link>
         </CustomerCenter>
@@ -279,7 +279,7 @@ const Footer: React.FC = () => {
             <MenuTitle>고객지원</MenuTitle>
             <MenuList>
               <MenuItem>
-                <Link to="/notices">공지사항</Link>
+                <Link to="/support/notice">공지사항</Link>
               </MenuItem>
               <MenuItem>
                 <Link to="/service-info">서비스 소개</Link>

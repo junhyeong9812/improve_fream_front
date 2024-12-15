@@ -18,6 +18,11 @@ const HeaderContainer = styled.header`
   margin-right: auto;
   max-width: 1280px;
   min-width: 960px;
+  position: fixed; /* 상단에 고정 */
+  left: 50%; /* 왼쪽 기준으로 50% */
+  transform: translateX(-50%); /* 자신의 너비 절반만큼 왼쪽으로 이동 */
+  z-index: 1000; /* 다른 요소보다 위에 표시 */
+  background-color: #fff; /* 배경을 흰색으로 고정 */
 
   @media (max-width: 960px) {
     display: none; /* 모바일 환경에서는 숨김 */
@@ -199,10 +204,10 @@ const Header: React.FC = () => {
         <TopNav>
           <ul>
             <li>
-              <Link to="/support">고객센터</Link>
+              <Link to="/support/notice">고객센터</Link>
             </li>
             <li>
-              <Link to="/mypage">마이페이지</Link>
+              <Link to="/my">마이페이지</Link>
             </li>
             <li>
               <Link to="/favorites">관심</Link>
@@ -224,7 +229,7 @@ const Header: React.FC = () => {
           </Link>
           <Nav>
             <Link to="/">HOME</Link>
-            <Link to="/style">STYLE</Link>
+            <Link to="/style/explore">STYLE</Link>
             <Link to="/shop">SHOP</Link>
             <Icon onClick={() => setSearchModalOpen(true)}>
               <FiSearch />
