@@ -1,15 +1,164 @@
 import './../css/joinPage.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { IoIosArrowForward } from "react-icons/io";
+import JoinComponents from '../components/joinComponents';
+import { JoinData } from '../types/joinTypes';
+import { fetchJoinData } from '../services/joinService';
 
 const JoinPage: React.FC = () => {
 
-    const agreementTexts: string[] = ["[필수] 만 14세 이상입니다", "[필수] 이용약관 동의", "[필수] 개인 정보 수집 및 이용 동의", "[선택] 개인 정보 수집 및 이용 동의", "[선택] 광고성 정보 수신 모두 동의"];
-    const [agreementCheck1, setAgreementCheck1] = useState<boolean>(false);
-    const [agreementCheck2, setAgreementCheck2] = useState<boolean>(false);
-    const [agreementCheck3, setAgreementCheck3] = useState<boolean>(false);
-    const [agreementCheck4, setAgreementCheck4] = useState<boolean>(false);
-    const [agreementCheck5, setAgreementCheck5] = useState<boolean>(false);
+    const [joinData, setJoinData] = useState<JoinData>({
+        email: '',
+        password: '',
+        size: '',
+        code: ''
+    });
 
+    useEffect(() => {
+        console.log("이메일 : ", joinData.email);
+        console.log("비밀번호 : ", joinData.password);
+        console.log("사이즈 : ", joinData.size);
+        console.log("코드 : ", joinData.code);
+    }, [joinData]);
+
+    // 이메일 변경 함수
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setJoinData((prevData) => ({
+            ...prevData, // 기존 값 복사
+            email: e.target.value, // email만 업데이트
+        }));
+    };
+    
+    // 비밀번호 변경 함수
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setJoinData((prevData) => ({
+            ...prevData, // 기존 값 복사
+            password: e.target.value, // password만 업데이트
+        }));
+    };
+    
+    // 코드 변경 함수
+    const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setJoinData((prevData) => ({
+            ...prevData, // 기존 값 복사
+            code: e.target.value, // password만 업데이트
+        }));
+    };
+    
+    const [sizeModal, setSizeModal] = useState<boolean>(false);
+    const [selectedSize, setSelectedSize] = useState<string>('선택하세요');
+
+    useEffect(() => {
+        setJoinData((prevData) => ({
+          ...prevData,
+          size: selectedSize, // size 값을 동기화
+        }));
+      }, [selectedSize]); // size가 변경될 때마다 실행
+
+    const agreementTexts: string[] = ["[필수] 만 14세 이상입니다", "[필수] 이용약관 동의", "[필수] 개인 정보 수집 및 이용 동의", "[선택] 개인 정보 수집 및 이용 동의", "[선택] 광고성 정보 수신 모두 동의"];
+    
+    const [agreementBtn, setAgreementBtn] = useState<boolean>(false);
+
+    const [agreementAge, setAgreementAge] = useState<boolean>(false);
+    const [agreementTerms, setAgreementTerms] = useState<boolean>(false);
+    const [agreementPrivacyRequired, setAgreementPrivacyRequired] = useState<boolean>(false);
+    const [agreementPrivacyOptional, setAgreementPrivacyOptional] = useState<boolean>(false);
+    const [agreementAdvertisement, setAgreementAdvertisement] = useState<boolean>(false);
+
+    const agreementAllCheck = () => {
+        setAgreementBtn(prevState => !prevState);
+    };
+
+    useEffect(() => {
+        if (agreementBtn) {
+            setAgreementAge(true);
+            setAgreementTerms(true);
+            setAgreementPrivacyRequired(true);
+            setAgreementPrivacyOptional(true);
+            setAgreementAdvertisement(true);
+        }
+        if (!agreementBtn){
+            setAgreementAge(false);
+            setAgreementTerms(false);
+            setAgreementPrivacyRequired(false);
+            setAgreementPrivacyOptional(false);
+            setAgreementAdvertisement(false);
+        }
+    }, [agreementBtn])
+
+    // useEffect(() => {
+    //     if (agreementAge) {
+    //         console.log("1")
+    //     } 
+    //     if (agreementTerms) {
+    //         console.log("2")
+    //     }
+    //     if (agreementPrivacyRequired) {
+    //         console.log("3")
+    //     }
+    //     if (agreementPrivacyOptional) {
+    //         console.log("4")
+    //     }
+    //     if (agreementAdvertisement) {
+    //         console.log("5")
+    //     }
+    // }, [agreementAge, agreementTerms, agreementPrivacyRequired, agreementPrivacyOptional, agreementAdvertisement])
+
+    
+
+    let [emailWarn, setEmailWarn] = useState<boolean>(true);
+    let [emailSuccess, setEmailSuccess] = useState<boolean>(false);
+
+    let [passwordWarn, setPasswordWarn] = useState<boolean>(true);
+    let [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
+
+    let [signupBtn, setSignupBtn] = useState<boolean>(false);
+
+    useEffect(() => {
+        // 이메일 정규식
+        const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
+        if (joinData.email.length > 0) {
+            if (emailRegex.test(joinData.email)) {
+            setEmailWarn(false);
+            setEmailSuccess(true);
+            console.log("이메일 완성");
+            }else{
+            setEmailWarn(true);
+            setEmailSuccess(false);
+            console.log("이메일 미완성");
+            }
+        }else{
+            setEmailWarn(false);
+        }
+
+        // 비밀번호 정규식
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>~\-=_+\[\]/])[A-Za-z\d!@#$%^&*(),.?":{}|<>~\-=_+\[\]/]{8,16}$/;
+        if (joinData.password.length > 0) {
+            if (passwordRegex.test(joinData.password)) {
+            setPasswordWarn(false);
+            setPasswordSuccess(true);
+            console.log("비밀번호 완성");
+            }else{
+            setPasswordWarn(true); 
+            setPasswordSuccess(false);       
+            console.log("비밀번호 미완성")
+            }
+        }else{
+            setPasswordWarn(false);
+        }
+
+        // 최종 로그인
+        if (emailSuccess && passwordSuccess) {
+            setSignupBtn(true);
+        }else{
+            setSignupBtn(false);
+        }
+
+    }, [joinData.email, joinData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, signupBtn]);
+
+    const handleSignupFetch = () => {
+        fetchJoinData(joinData.email, joinData.password, joinData.size, joinData.code);
+    }
     return(
         <div className='signup_form_container'>
             <div className='signup_form_margin_content'>
@@ -19,32 +168,40 @@ const JoinPage: React.FC = () => {
                     </div>
 
                     <div className='signup_form_email_input_content'>
-                        <label className='signup_form_email_input_title'>이메일 주소</label>
-                        <br />
-                        <input className='signup_form_email_input' placeholder='예) kream@kream.co.kr' type='text'></input>
+                        <div className={`signup_form_email_input_title ${emailWarn ? 'signup_form_email_input_title_warn' : ''}`}>이메일 주소</div>
+                        <input className={`signup_form_email_input ${emailWarn ? 'signup_form_email_input_warn' : 'signup_form_email_input_none_warn'}`} onChange={handleEmailChange} placeholder='예) kream@kream.co.kr' type='text'></input>
+                        <div className={`signup_form_email_input_bottom ${emailWarn ? 'signup_form_email_input_bottom_warn' : ''}`}>{emailWarn ? "이메일 주소를 정확히 입력해주세요." : ""}</div>
                     </div>
 
                     <div className='signup_form_password_input_content'>
-                        <label className='signup_form_password_input_title'>비밀번호</label>
-                        <br />
-                        <input className='signup_form_password_input' placeholder='영문, 숫자, 특수문자 조합 8-16자' type='password'></input>
+                        <div className={`signup_form_password_input_title ${passwordWarn ? 'signup_form_password_input_title_warn' : ''}`}>비밀번호</div>
+                        <input className={`signup_form_password_input ${passwordWarn ? 'signup_form_password_input_warn' : 'signup_form_password_input_none_warn'}`} onChange={handlePasswordChange} placeholder='영문, 숫자, 특수문자 조합 8-16자' type='password'></input>
+                        <div className={`signup_form_password_input_bottom ${passwordWarn ? 'signup_form_password_input_bottom_warn' : ''}`}>{passwordWarn ? "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)" : ""}</div>
                     </div>
 
-                    {/* <div className='signup_form_referrer_input_content'>
-                        <label className='signup_form_referrer_input_title'>추천인코드</label>
-                        <br />
-                        <input className='signup_form_referrer_input' placeholder='추천인 코드를 입력하세요' type='text'></input>
-                    </div> */}
+                    <div className='signup_form_referrer_input_content'>
+                        <div className='signup_form_referrer_input_title'>추천인코드</div>
+                        <input className='signup_form_referrer_input' onChange={handleCodeChange} placeholder='추천인 코드를 입력하세요' type='text'></input>
+                    </div>
 
                     <div className='signup_form_shoes_input_content'>
-                        <label className='signup_form_shoes_input_title'>신발 사이즈</label>
-                        <br />
-                        <input className='signup_form_shoes_input'></input>
+                        <div className='signup_form_shoes_input_title'>신발 사이즈</div>
+                        <div onClick={() => setSizeModal(true)} className='signup_form_shoes_input'>
+                            <div className={`signup_form_shoes_input_text ${selectedSize === '선택하세요' ? 'unselected' : 'selected'}`}>{selectedSize}</div>
+                            <div className='signup_form_shoes_input_arrow_content'>
+                                <IoIosArrowForward className='signup_form_shoes_input_arrow'/>
+                            </div>
+                        </div>
+                        {sizeModal ? 
+                            <JoinComponents setSizeModal={setSizeModal} setSize={setSelectedSize} size={selectedSize} />
+                        :
+                            <></>
+                        }
                     </div>
 
                     <div className='signup_form_agreement_input_container'>
                         <div className='signup_form_agreement_input_title_container'>
-                            <div className='signup_form_agreement_input_title_checkbox_content'>
+                            <div onClick={() => agreementAllCheck()} className='signup_form_agreement_input_title_checkbox_content'>
                                 <input id='check1' className='signup_form_agreement_input_title_checkbox' type='checkbox' />
                                 <label htmlFor='check1' className='signup_form_agreement_input_title_checkbox_label' >
                                 </label>
@@ -59,7 +216,11 @@ const JoinPage: React.FC = () => {
                         {agreementTexts.map((item, index) => (
                             <div className='signup_form_agreement_input_content'>
                                 <div className='signup_form_agreement_input_content_check'>
-                                    ✔
+                                    {index === 0 && (agreementAge ? '✔' : '✘')}
+                                    {index === 1 && (agreementTerms ? '✔' : '✘')}
+                                    {index === 2 && (agreementPrivacyRequired ? '✔' : '✘')}
+                                    {index === 3 && (agreementPrivacyOptional ? '✔' : '✘')}
+                                    {index === 4 && (agreementAdvertisement ? '✔' : '✘')}
                                 </div>
                                 <div className='signup_form_agreement_input_content_text'>
                                     {item}
@@ -67,12 +228,15 @@ const JoinPage: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    {
-
+                    {signupBtn ? 
+                        <div onClick={handleSignupFetch} className='signup_form_signup_btn_content'>
+                            본인 인증하고 가입하기
+                        </div>
+                    :
+                        <div className='signup_form_signup_btn_none_content'>
+                            본인 인증하고 가입하기
+                        </div>
                     }
-                    <div className='signup_form_signup_btn_content'>
-                        본인 인증하고 가입하기
-                    </div>
                 </div>
             </div>
         </div>

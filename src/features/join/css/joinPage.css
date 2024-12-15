@@ -5,7 +5,7 @@
     width: 100%;
     background-color: #f4f4f4;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 70px;
 }
 .signup_form_content{
     width: 480px;
@@ -19,78 +19,110 @@
 /* 제목 */
 .signup_form_title_content{
     font-size: 30px;
-    line-height: 30px;
     font-weight: 700;
     color: #000;
     margin-bottom: 6px;
+    letter-spacing: -3px;
 }
 
 /* 이메일 */
 .signup_form_email_input_content{
-    padding: 10px 0px 18px;
+    padding-top: 10px;
 }
 .signup_form_email_input_title{
     font-size: 13px;
     font-weight: 600;
     color: #222;
+    letter-spacing: -1px;
 }
 .signup_form_email_input_title:after {
     content: "*";
+}
+.signup_form_email_input_title_warn{
+    color: #ef6253;
 }
 .signup_form_email_input{
     width: 448px;
     height: 38px;
     padding: 8px 30px 8px 0;
     border: none;
-    border-bottom: 1px solid #ebebeb;
     box-sizing: border-box;
     font-size: 15px;
     outline: none;
     font-family: "Noto Sans KR", sans-serif; 
 }
-.signup_form_email_input:focus{
+.signup_form_email_input_none_warn{
+    border-bottom: 1px solid #ebebeb;
+}
+.signup_form_email_input_warn{
+    border-bottom: 1px solid #ef6253;
+}
+.signup_form_email_input_none_warn:focus{
     border-bottom: 2px solid black;
 }
-.signup_form_email_input:focus::placeholder{
+.signup_form_email_input_none_warn:focus::placeholder{
     opacity: 0;
 }
-.signup_form_email_input::placeholder{
+.signup_form_email_input_none_warn::placeholder{
     color: rgba(34, 34, 34, 0.3);
+}
+.signup_form_email_input_bottom{
+    height: 18px;
+}
+.signup_form_email_input_bottom_warn{
+    font-size: 11px;
+    color: #f15746;
 }
 
 /* 비밀번호 */
 .signup_form_password_input_content{
-    padding: 10px 0px 18px;
+    padding-top: 10px;
 }
 .signup_form_password_input_title{
     font-size: 13px;
     font-weight: 600;
     color: #222;
+    letter-spacing: -1px;
 }
 .signup_form_password_input_title:after {
     content: "*";
+}
+.signup_form_password_input_title_warn{
+    color: #ef6253;
 }
 .signup_form_password_input{
     width: 448px;
     height: 38px;
     padding: 8px 30px 8px 0;
     border: none;
-    border-bottom: 1px solid #ebebeb;
     box-sizing: border-box;
     font-size: 15px;
     outline: none;
     letter-spacing: 2px;
     font-family: "Noto Sans KR", sans-serif;
 }
-.signup_form_password_input:focus{
+.signup_form_password_input_none_warn{
+    border-bottom: 1px solid #ebebeb;
+}
+.signup_form_password_input_warn{
+    border-bottom: 1px solid #ef6253;
+}
+.signup_form_password_input_none_warn:focus{
     border-bottom: 2px solid black;
 }
-.signup_form_password_input:focus::placeholder{
+.signup_form_password_input_none_warn:focus::placeholder{
     opacity: 0;
 }
-.signup_form_password_input::placeholder{
+.signup_form_password_input_none_warn::placeholder{
     color: rgba(34, 34, 34, 0.3);
-    letter-spacing: 0px;
+    letter-spacing: -1px;
+}
+.signup_form_password_input_bottom{
+    height: 18px;
+}
+.signup_form_password_input_bottom_warn{
+    font-size: 11px;
+    color: #f15746;
 }
 
 /* 추천인 코드 */
@@ -101,9 +133,7 @@
     font-size: 13px;
     font-weight: 600;
     color: #222;
-}
-.signup_form_referrer_input_title:after {
-    content: "*";
+    letter-spacing: -1px;
 }
 .signup_form_referrer_input{
     width: 448px;
@@ -124,6 +154,7 @@
 }
 .signup_form_referrer_input::placeholder{
     color: rgba(34, 34, 34, 0.3);
+    letter-spacing: -1px;
 }
 
 /* 신발 사이즈 */
@@ -134,29 +165,35 @@
     font-size: 13px;
     font-weight: 600;
     color: #222;
-}
-.signup_form_shoes_input_title:after {
-    content: "*";
+    letter-spacing: -1px;
 }
 .signup_form_shoes_input{
     width: 448px;
     height: 38px;
-    padding: 8px 30px 8px 0;
+    padding: 8px 0;
     border: none;
     border-bottom: 1px solid #ebebeb;
     box-sizing: border-box;
     font-size: 15px;
+    display: flex;
+    justify-content: space-between;
     outline: none;
-    font-family: "Noto Sans KR", sans-serif;
+    cursor: pointer;
 }
-.signup_form_shoes_input:focus{
-    border-bottom: 2px solid black;
-}
-.signup_form_shoes_input:focus::placeholder{
-    opacity: 0;
-}
-.signup_form_shoes_input::placeholder{
+.signup_form_shoes_input_text.unselected{
     color: rgba(34, 34, 34, 0.3);
+}
+.signup_form_shoes_input_text.selected{
+    color: #222;
+}
+.signup_form_shoes_input_arrow_content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding-right: 1 px; */
+}
+.signup_form_shoes_input_arrow{
+    font-size: 20px;
 }
 
 /* 동의 사항 */
@@ -175,16 +212,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
-
 .signup_form_agreement_input_title_checkbox{
     margin: 0;
     width: 0;
     height: 0;
 }
 .signup_form_agreement_input_title_checkbox_label{
-    width: 14px; /* 체크박스 크기 */
-    height: 14px;
+    width: 18px; /* 체크박스 크기 */
+    height: 18px;
     border: 2px solid rgba(34, 34, 34, 0.2); /* 체크박스 테두리 */
     cursor: pointer;
     position: relative; /* 자식 요소 정렬을 위한 relative */
@@ -235,6 +272,7 @@
     align-items: center;
     font-size: 18px;
     color: rgba(0,0,0,0.15);
+    cursor: pointer;
 }
 .signup_form_agreement_input_content_text{
     padding: 4px 0px 0px 12px;
@@ -255,6 +293,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .signup_form_signup_btn_none_content{
     height: 52px;
