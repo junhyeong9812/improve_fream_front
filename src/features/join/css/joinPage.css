@@ -265,15 +265,19 @@
     display: flex;
 }
 .signup_form_agreement_input_content_check{
-    width: 24px;
-    height: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
-    color: rgba(0,0,0,0.15);
     cursor: pointer;
 }
+.signup_form_agreement_input_content_check.active{
+    color: black;
+}
+.signup_form_agreement_input_content_check.inactive{
+    color: rgba(0,0,0,0.15);
+}
+
 .signup_form_agreement_input_content_text{
     padding: 4px 0px 0px 12px;
     font-size: 14px;

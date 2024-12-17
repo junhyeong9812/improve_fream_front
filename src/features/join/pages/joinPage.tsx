@@ -45,6 +45,7 @@ const JoinPage: React.FC = () => {
         }));
     };
     
+    // 사이즈 변경 함수
     const [sizeModal, setSizeModal] = useState<boolean>(false);
     const [selectedSize, setSelectedSize] = useState<string>('선택하세요');
 
@@ -53,8 +54,9 @@ const JoinPage: React.FC = () => {
           ...prevData,
           size: selectedSize, // size 값을 동기화
         }));
-      }, [selectedSize]); // size가 변경될 때마다 실행
+    }, [selectedSize]); // size가 변경될 때마다 실행
 
+    // 동의사항 변경 함수
     const agreementTexts: string[] = ["[필수] 만 14세 이상입니다", "[필수] 이용약관 동의", "[필수] 개인 정보 수집 및 이용 동의", "[선택] 개인 정보 수집 및 이용 동의", "[선택] 광고성 정보 수신 모두 동의"];
     
     const [agreementBtn, setAgreementBtn] = useState<boolean>(false);
@@ -68,6 +70,12 @@ const JoinPage: React.FC = () => {
     const agreementAllCheck = () => {
         setAgreementBtn(prevState => !prevState);
     };
+
+    const agreementAgeCheck = () => {setAgreementAge(prevState => !prevState);}
+    const agreementTermsCheck = () => {setAgreementTerms(prevState => !prevState);}
+    const agreementPrivacyRequiredCheck = () => {setAgreementPrivacyRequired(prevState => !prevState);}
+    const agreementPrivacyOptionalCheck = () => {setAgreementPrivacyOptional(prevState => !prevState);}
+    const agreementAdvertisementCheck = () => {setAgreementAdvertisement(prevState => !prevState);}
 
     useEffect(() => {
         if (agreementBtn) {
@@ -87,24 +95,12 @@ const JoinPage: React.FC = () => {
     }, [agreementBtn])
 
     // useEffect(() => {
-    //     if (agreementAge) {
-    //         console.log("1")
+    //     if (agreementAge && agreementTerms && agreementPrivacyRequired && agreementPrivacyOptional && agreementAdvertisement) {
+    //         setAgreementBtn(true)
+    //     }else{
+    //         setAgreementBtn(false)
     //     } 
-    //     if (agreementTerms) {
-    //         console.log("2")
-    //     }
-    //     if (agreementPrivacyRequired) {
-    //         console.log("3")
-    //     }
-    //     if (agreementPrivacyOptional) {
-    //         console.log("4")
-    //     }
-    //     if (agreementAdvertisement) {
-    //         console.log("5")
-    //     }
-    // }, [agreementAge, agreementTerms, agreementPrivacyRequired, agreementPrivacyOptional, agreementAdvertisement])
-
-    
+    // }, [agreementBtn, agreementAge, agreementTerms, agreementPrivacyRequired, agreementPrivacyOptional, agreementAdvertisement])
 
     let [emailWarn, setEmailWarn] = useState<boolean>(true);
     let [emailSuccess, setEmailSuccess] = useState<boolean>(false);
@@ -148,17 +144,18 @@ const JoinPage: React.FC = () => {
         }
 
         // 최종 로그인
-        if (emailSuccess && passwordSuccess) {
+        if (emailSuccess && passwordSuccess && agreementAge && agreementTerms && agreementPrivacyRequired) {
             setSignupBtn(true);
         }else{
             setSignupBtn(false);
         }
 
-    }, [joinData.email, joinData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, signupBtn]);
+    }, [joinData.email, joinData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, signupBtn, agreementAge, agreementTerms, agreementPrivacyRequired]);
 
     const handleSignupFetch = () => {
         fetchJoinData(joinData.email, joinData.password, joinData.size, joinData.code);
     }
+
     return(
         <div className='signup_form_container'>
             <div className='signup_form_margin_content'>
@@ -201,8 +198,8 @@ const JoinPage: React.FC = () => {
 
                     <div className='signup_form_agreement_input_container'>
                         <div className='signup_form_agreement_input_title_container'>
-                            <div onClick={() => agreementAllCheck()} className='signup_form_agreement_input_title_checkbox_content'>
-                                <input id='check1' className='signup_form_agreement_input_title_checkbox' type='checkbox' />
+                            <div className='signup_form_agreement_input_title_checkbox_content'>
+                                <input checked={agreementBtn} onChange={agreementAllCheck} id='check1' className='signup_form_agreement_input_title_checkbox' type='checkbox' />
                                 <label htmlFor='check1' className='signup_form_agreement_input_title_checkbox_label' >
                                 </label>
                             </div>
@@ -215,13 +212,31 @@ const JoinPage: React.FC = () => {
                         </div>
                         {agreementTexts.map((item, index) => (
                             <div className='signup_form_agreement_input_content'>
-                                <div className='signup_form_agreement_input_content_check'>
-                                    {index === 0 && (agreementAge ? '✔' : '✘')}
-                                    {index === 1 && (agreementTerms ? '✔' : '✘')}
-                                    {index === 2 && (agreementPrivacyRequired ? '✔' : '✘')}
-                                    {index === 3 && (agreementPrivacyOptional ? '✔' : '✘')}
-                                    {index === 4 && (agreementAdvertisement ? '✔' : '✘')}
-                                </div>
+                                {/* <div
+                                    className={`signup_form_agreement_input_content_check ${
+                                        index === 0 && agreementAge ||
+                                        index === 1 && agreementTerms ||
+                                        index === 2 && agreementPrivacyRequired ||
+                                        index === 3 && agreementPrivacyOptional ||
+                                        index === 4 && agreementAdvertisement
+                                            ? 'active' // 체크된 스타일 클래스
+                                            : 'inactive' // 미체크된 스타일 클래스
+                                    }`}
+                                    onClick={() => {
+                                        if (index === 0) agreementAgeCheck();
+                                        if (index === 1) agreementTermsCheck();
+                                        if (index === 2) agreementPrivacyRequiredCheck();
+                                        if (index === 3) agreementPrivacyOptionalCheck();
+                                        if (index === 4) agreementAdvertisementCheck();
+                                    }}
+                                >
+                                ✔
+                                </div> */}
+                                {index === 0 && (agreementAge ? <div onClick={() => agreementAgeCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementAgeCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
+                                {index === 1 && (agreementTerms ? <div onClick={() => agreementTermsCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementTermsCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
+                                {index === 2 && (agreementPrivacyRequired ? <div onClick={() => agreementPrivacyRequiredCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementPrivacyRequiredCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
+                                {index === 3 && (agreementPrivacyOptional ? <div onClick={() => agreementPrivacyOptionalCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementPrivacyOptionalCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
+                                {index === 4 && (agreementAdvertisement ? <div onClick={() => agreementAdvertisementCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementAdvertisementCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
                                 <div className='signup_form_agreement_input_content_text'>
                                     {item}
                                 </div>  
