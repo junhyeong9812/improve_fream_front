@@ -1,11 +1,32 @@
 import React from "react";
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+  padding: 0 20px;
+`;
+
+const PageHeader = styled.div`
+  display: flex;
+  border-bottom: 3px solid #222;
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+`;
+
+const Title = styled.h3`
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.36px;
+  margin: 0;
+`;
 
 const Address: React.FC = () => {
   return (
-    <div>
-      <h2>주소록</h2>
-      <p>주소를 추가하거나 수정할 수 있습니다.</p>
-    </div>
+    <PageContainer>
+      {/* 페이지 헤더 */}
+      <PageHeader>
+        <Title>주소록</Title>
+      </PageHeader>
+  </PageContainer>
   );
 };
 

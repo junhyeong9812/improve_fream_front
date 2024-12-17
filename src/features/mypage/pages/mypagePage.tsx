@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MyHomePage from "./myHomePage";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 // 공통 스타일의 Link 컴포넌트
 // const StyledLink = styled.a`
@@ -14,9 +14,11 @@ import { Link, Outlet } from "react-router-dom";
 //   }
 // `;
 // 공통 스타일의 Link 컴포넌트
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<{ $isActive?: boolean }>`
   text-decoration: none;
-  color: inherit;
+  color: ${(props) => (props.$isActive ? "black" : "inherit")};
+  font-weight: ${(props) => (props.$isActive ? "bold" : "normal")};
+
   &:hover,
   &:focus,
   &:active {
@@ -87,6 +89,8 @@ const MainContent = styled.div`
 
 // Mypage 컴포넌트
 const MypagePage: React.FC = () => {
+  const location = useLocation();
+
   // 사이드바 메뉴 데이터
   const shoppingMenu = [
     { name: "구매 내역", href: "/my/purchase" },
@@ -116,7 +120,12 @@ const MypagePage: React.FC = () => {
           <List>
             {shoppingMenu.map((item) => (
               <ListItem key={item.href}>
-                <StyledLink to={item.href}>{item.name}</StyledLink>
+                <StyledLink
+                  to={item.href}
+                  $isActive={location.pathname === item.href}
+                >
+                  {item.name}
+                </StyledLink>
               </ListItem>
             ))}
           </List>
@@ -128,7 +137,12 @@ const MypagePage: React.FC = () => {
           <List>
             {infoMenu.map((item) => (
               <ListItem key={item.href}>
-                <StyledLink to={item.href}>{item.name}</StyledLink>
+                <StyledLink
+                  to={item.href}
+                  $isActive={location.pathname === item.href}
+                >
+                  {item.name}
+                </StyledLink>
               </ListItem>
             ))}
           </List>
