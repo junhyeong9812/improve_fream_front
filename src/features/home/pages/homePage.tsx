@@ -1,10 +1,13 @@
+import './../css/homePage.css';
 import React from "react";
+import HomeTop from '../components/homeTop';
+import HomeBanner from "../components/homeBanner";
 
 const HomePage: React.FC = () => {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Home 도메인 전용 페이지</p>
+    <div className='home_page_container'>
+      <HomeTop />
+      <HomeBanner />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import './../css/joinPage.css';
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowForward } from "react-icons/io";
-import JoinComponents from '../components/joinComponents';
+import JoinModal from '../components/joinModal';
 import { JoinData } from '../types/joinTypes';
 import { fetchJoinData } from '../services/joinService';
 import { useNavigate } from 'react-router-dom';
@@ -192,7 +192,7 @@ const JoinPage: React.FC = () => {
                             </div>
                         </div>
                         {sizeModal ? 
-                            <JoinComponents setSizeModal={setSizeModal} setSize={setSelectedSize} size={selectedSize} />
+                            <JoinModal setSizeModal={setSizeModal} setSize={setSelectedSize} size={selectedSize} />
                         :
                             <></>
                         }

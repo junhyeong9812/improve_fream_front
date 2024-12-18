@@ -1,6 +1,7 @@
+import './../css/homeBanner.css';
 import React from "react";
 
-const HomeComponents: React.FC = () => {
+const HomeBanner: React.FC = () => {
   return (
     <div>
       <h1>Home Components</h1>
@@ -9,4 +10,4 @@ const HomeComponents: React.FC = () => {
   );
 };
 
-export default HomeComponents;
+export default HomeBanner;

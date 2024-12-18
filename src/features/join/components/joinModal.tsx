@@ -1,8 +1,8 @@
-import './../css/joinComponents.css';
+import './../css/joinModal.css';
 import React from "react";
 import { JoinComponentsProps } from '../types/joinTypes';
 
-const JoinComponents: React.FC<JoinComponentsProps> = ({ setSizeModal, setSize, size }) => {
+const JoinModal: React.FC<JoinComponentsProps> = ({ setSizeModal, setSize, size }) => {
 
   const sizes: string[] = ["220", "225", "230", "235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290", "295", "300"];
 
@@ -35,4 +35,4 @@ const JoinComponents: React.FC<JoinComponentsProps> = ({ setSizeModal, setSize, 
   );
 };
 
-export default JoinComponents;
+export default JoinModal;
