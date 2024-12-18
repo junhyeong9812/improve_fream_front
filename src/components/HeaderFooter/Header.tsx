@@ -12,6 +12,23 @@ import NotificationModal from "./headerModal/NotificationModal";
 import SearchModal from "./headerModal/SearchModal";
 
 // 기본 데스크탑 헤더 컨테이너
+const HeaderAllContainer = styled.div`
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+  min-width: 960px;
+  position: fixed; /* 상단에 고정 */
+  left: 50%; /* 왼쪽 기준으로 50% */
+  transform: translateX(-50%); /* 자신의 너비 절반만큼 왼쪽으로 이동 */
+  z-index: 1000; /* 다른 요소보다 위에 표시 */
+  background-color: #fff; /* 배경을 흰색으로 고정 */
+
+  @media (max-width: 960px) {
+    display: none; /* 모바일 환경에서는 숨김 */
+  }
+`;
+
 const HeaderContainer = styled.header`
   width: 100%;
   margin-left: auto;
@@ -200,46 +217,45 @@ const Header: React.FC = () => {
   return (
     <>
       {/* 기본 데스크탑 헤더 */}
-      <HeaderContainer>
-        <TopNav>
-          <ul>
-            <li>
-              <Link to="/support/notice">고객센터</Link>
-            </li>
-            <li>
-              <Link to="/my">마이페이지</Link>
-            </li>
-            <li>
-              <Link to="/favorites">관심</Link>
-            </li>
-            <li>
-              <Link to="#" onClick={() => setNotificationModalOpen(true)}>
-                알림
-              </Link>
-            </li>
-            <li>
-              <Link to="/login">로그인</Link>
-            </li>
-          </ul>
-        </TopNav>
+      <HeaderAllContainer>
+        <HeaderContainer>
+          <TopNav>
+            <ul>
+              <li>
+                <Link to="/support/notice">고객센터</Link>
+              </li>
+              <li>
+                <Link to="/my">마이페이지</Link>
+              </li>
+              <li>
+                <Link to="/favorites">관심</Link>
+              </li>
+              <li>
+                <Link to="#" onClick={() => setNotificationModalOpen(true)}>
+                  알림
+                </Link>
+              </li>
+              <li>
+                <Link to="/login">로그인</Link>
+              </li>
+            </ul>
+          </TopNav>
 
-        <BottomNav>
-          <Link to="/">
-            <LogoImage src="/Fream.png" alt="KREAM Logo" />
-          </Link>
-          <Nav>
-            <Link to="/">HOME</Link>
-            <Link to="/style/explore">STYLE</Link>
-            <Link to="/shop">SHOP</Link>
-            <Icon onClick={() => setSearchModalOpen(true)}>
-              <FiSearch />
-            </Icon>
-            <Icon>
-              <FiShoppingBag />
-            </Icon>
-          </Nav>
-        </BottomNav>
-      </HeaderContainer>
+          <BottomNav>
+            <Nav>
+              <Link to="/">HOME</Link>
+              <Link to="/style/explore">STYLE</Link>
+              <Link to="/shop">SHOP</Link>
+              <Icon onClick={() => setSearchModalOpen(true)}>
+                <FiSearch />
+              </Icon>
+              <Icon>
+                <FiShoppingBag />
+              </Icon>
+            </Nav>
+          </BottomNav>
+        </HeaderContainer>
+      </HeaderAllContainer>
 
       {/* 모바일 전용 헤더 */}
       <MobileHeaderContainer>
