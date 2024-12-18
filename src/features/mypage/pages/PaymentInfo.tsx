@@ -1,11 +1,32 @@
 import React from "react";
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+  padding: 0 20px;
+`;
+
+const PageHeader = styled.div`
+  display: flex;
+  border-bottom: 3px solid #222;
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+`;
+
+const Title = styled.h3`
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.36px;
+  margin: 0;
+`;
 
 const PaymentInfo: React.FC = () => {
   return (
-    <div>
-      <h2>결제 정보</h2>
-      <p>결제 정보를 관리하고 업데이트할 수 있습니다.</p>
-    </div>
+    <PageContainer>
+      {/* 페이지 헤더 */}
+      <PageHeader>
+        <Title>결제 정보</Title>
+      </PageHeader>
+    </PageContainer>
   );
 };
 

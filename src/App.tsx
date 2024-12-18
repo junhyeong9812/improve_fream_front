@@ -13,6 +13,7 @@ const AppContainer = styled.div`
   /* display: block;        */
   /* 기본 블록 레이아웃 (default) */
   width: 100%;
+  background-color: white;
 `;
 
 // Header와 겹치지 않게 컨텐츠에 top-margin 적용
