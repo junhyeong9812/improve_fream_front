@@ -11,7 +11,6 @@ import {
 import NotificationModal from "./headerModal/NotificationModal";
 import SearchModal from "./headerModal/SearchModal";
 
-// 기본 데스크탑 헤더 컨테이너
 const HeaderAllContainer = styled.div`
   width: 100%;
   margin-left: auto;
@@ -29,6 +28,7 @@ const HeaderAllContainer = styled.div`
   }
 `;
 
+// 기본 데스크탑 헤더 컨테이너
 const HeaderContainer = styled.header`
   width: 100%;
   margin-left: auto;
@@ -126,6 +126,27 @@ const BottomNav = styled.div`
   padding: 20px 40px;
   width: 100%;
   box-sizing: border-box;
+
+  ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin-left: 15px;
+
+    a {
+      text-decoration: none;
+      color: #555;
+      font-size: 20px;
+      font-weight: 500;
+
+      &:hover {
+        color: #000;
+      }
+    }
 `;
 
 const MobileNav = styled.nav`
@@ -242,16 +263,31 @@ const Header: React.FC = () => {
           </TopNav>
 
           <BottomNav>
+            <Link to="/">
+              <LogoImage src="/Fream.png" alt="KREAM Logo" />
+            </Link>
             <Nav>
-              <Link to="/">HOME</Link>
-              <Link to="/style/explore">STYLE</Link>
-              <Link to="/shop">SHOP</Link>
-              <Icon onClick={() => setSearchModalOpen(true)}>
-                <FiSearch />
-              </Icon>
-              <Icon>
-                <FiShoppingBag />
-              </Icon>
+              <ul>
+                <li>
+                  <Link to="/">HOME</Link>
+                </li>
+                <li>
+                  <Link to="/style/explore">STYLE</Link>
+                </li>
+                <li>
+                  <Link to="/shop">SHOP</Link>
+                </li>
+                <li>
+                  <Icon onClick={() => setSearchModalOpen(true)}>
+                    <FiSearch />
+                  </Icon>
+                </li>
+                <li>
+                  <Icon>
+                    <FiShoppingBag />
+                  </Icon>
+                </li>
+              </ul>
             </Nav>
           </BottomNav>
         </HeaderContainer>
