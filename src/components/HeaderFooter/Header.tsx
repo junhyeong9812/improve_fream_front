@@ -13,19 +13,12 @@ import SearchModal from "./headerModal/SearchModal";
 
 const HeaderAllContainer = styled.div`
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1280px;
-  min-width: 960px;
   position: fixed; /* 상단에 고정 */
-  left: 50%; /* 왼쪽 기준으로 50% */
-  transform: translateX(-50%); /* 자신의 너비 절반만큼 왼쪽으로 이동 */
+  top: 0;
+  left: 0;
   z-index: 1000; /* 다른 요소보다 위에 표시 */
   background-color: #fff; /* 배경을 흰색으로 고정 */
-
-  @media (max-width: 960px) {
-    display: none; /* 모바일 환경에서는 숨김 */
-  }
+  height: 100px;
 `;
 
 // 기본 데스크탑 헤더 컨테이너
@@ -40,7 +33,7 @@ const HeaderContainer = styled.header`
   transform: translateX(-50%); /* 자신의 너비 절반만큼 왼쪽으로 이동 */
   z-index: 1000; /* 다른 요소보다 위에 표시 */
   background-color: #fff; /* 배경을 흰색으로 고정 */
-
+  height: 100px;
   @media (max-width: 960px) {
     display: none; /* 모바일 환경에서는 숨김 */
   }
@@ -204,9 +197,11 @@ const MobileNav = styled.nav`
 `;
 
 const LogoImage = styled.img`
-  width: 100px;
+  width: 50px; /* 원래의 절반 크기 */
+  height: auto;
   background: none;
   display: block;
+  margin-top: -10px; /* 위로 10px 올림 */
 
   @media (max-width: 960px) {
     width: 80px; /* 모바일 로고 크기 조정 */
