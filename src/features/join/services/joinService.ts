@@ -7,6 +7,9 @@ export const fetchJoinData = async (email: string, password: string, size: strin
   console.log(size);
   console.log(code);
 
+  return "ok";
+  // return "no";
+
   try {
     const response = await axios.post('https://your-api-endpoint.com/join', {
       email: email,

@@ -45,6 +45,8 @@ import Purchase from "../features/mypage/pages/Purchase";
 import Sales from "../features/mypage/pages/Sales";
 import Storage from "../features/mypage/pages/Storage";
 import Favorites from "../features/mypage/pages/Favorites";
+import FindEmail from "../features/login/pages/findEmailPage";
+import FindPassword from "../features/login/pages/findPasswordPage";
 
 // 스타일드 컴포넌트로 Wrapping
 const AppRoutesContainer = styled.div`
@@ -107,6 +109,8 @@ const AppRoutes: React.FC = () => {
         </Route>
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/login/find_email" element={<FindEmail />} />
+        <Route path="/login/find_password" element={<FindPassword />} />
         {/* 추가 페이지를 여기에 추가 */}
         {/* footerPage */}
         <Route path="/info" element={<InfoPage />} />

@@ -5,6 +5,9 @@ export const fetchLoginData = async (email: string, password: string) => {
   console.log(email);
   console.log(password);
 
+  return "ok";
+  // return "no";
+
   try {
     const response = await axios.post('https://your-api-endpoint.com/login', {
       email: email,

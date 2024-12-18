@@ -4,8 +4,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import JoinComponents from '../components/joinComponents';
 import { JoinData } from '../types/joinTypes';
 import { fetchJoinData } from '../services/joinService';
+import { useNavigate } from 'react-router-dom';
 
 const JoinPage: React.FC = () => {
+    const navigate = useNavigate()
 
     const [joinData, setJoinData] = useState<JoinData>({
         email: '',
@@ -94,14 +96,6 @@ const JoinPage: React.FC = () => {
         }
     }, [agreementBtn])
 
-    // useEffect(() => {
-    //     if (agreementAge && agreementTerms && agreementPrivacyRequired && agreementPrivacyOptional && agreementAdvertisement) {
-    //         setAgreementBtn(true)
-    //     }else{
-    //         setAgreementBtn(false)
-    //     } 
-    // }, [agreementBtn, agreementAge, agreementTerms, agreementPrivacyRequired, agreementPrivacyOptional, agreementAdvertisement])
-
     let [emailWarn, setEmailWarn] = useState<boolean>(true);
     let [emailSuccess, setEmailSuccess] = useState<boolean>(false);
 
@@ -152,8 +146,16 @@ const JoinPage: React.FC = () => {
 
     }, [joinData.email, joinData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, signupBtn, agreementAge, agreementTerms, agreementPrivacyRequired]);
 
-    const handleSignupFetch = () => {
-        fetchJoinData(joinData.email, joinData.password, joinData.size, joinData.code);
+    const handleSignupFetch = async () => {
+        const result = await fetchJoinData(joinData.email, joinData.password, joinData.size, joinData.code);
+        console.log(result);
+        if (result === "ok") {
+            navigate('/login');
+            alert("회원가입이 완료되었습니다.");
+        }if (result === "no") {
+            navigate('/join');
+            alert("회원가입에 실패하였습니다.");
+        }
     }
 
     return(
@@ -212,26 +214,6 @@ const JoinPage: React.FC = () => {
                         </div>
                         {agreementTexts.map((item, index) => (
                             <div className='signup_form_agreement_input_content'>
-                                {/* <div
-                                    className={`signup_form_agreement_input_content_check ${
-                                        index === 0 && agreementAge ||
-                                        index === 1 && agreementTerms ||
-                                        index === 2 && agreementPrivacyRequired ||
-                                        index === 3 && agreementPrivacyOptional ||
-                                        index === 4 && agreementAdvertisement
-                                            ? 'active' // 체크된 스타일 클래스
-                                            : 'inactive' // 미체크된 스타일 클래스
-                                    }`}
-                                    onClick={() => {
-                                        if (index === 0) agreementAgeCheck();
-                                        if (index === 1) agreementTermsCheck();
-                                        if (index === 2) agreementPrivacyRequiredCheck();
-                                        if (index === 3) agreementPrivacyOptionalCheck();
-                                        if (index === 4) agreementAdvertisementCheck();
-                                    }}
-                                >
-                                ✔
-                                </div> */}
                                 {index === 0 && (agreementAge ? <div onClick={() => agreementAgeCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementAgeCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
                                 {index === 1 && (agreementTerms ? <div onClick={() => agreementTermsCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementTermsCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}
                                 {index === 2 && (agreementPrivacyRequired ? <div onClick={() => agreementPrivacyRequiredCheck()} className='signup_form_agreement_input_content_check active'>✔</div> : <div onClick={() => agreementPrivacyRequiredCheck()} className='signup_form_agreement_input_content_check inactive'>✔</div>)}

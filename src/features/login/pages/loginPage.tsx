@@ -85,8 +85,16 @@ const LoginPage: React.FC = () => {
 
   }, [loginData.email, loginData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, loginBtn]);
 
-  const handleLoginFetch = () => {
-    fetchLoginData(loginData.email, loginData.password);
+  const handleLoginFetch = async () => {
+    const result = await fetchLoginData(loginData.email, loginData.password);
+    console.log(result);
+    if (result === "ok") {
+      navigate('/');
+      alert("로그인 성공");
+    }if (result === "no") {
+      navigate('/login');
+      alert("로그인 실패");
+    }
   }
 
   return (
@@ -120,10 +128,10 @@ const LoginPage: React.FC = () => {
               <div onClick={() => {navigate('/join')}} className='login_form_category1'>
                   이메일 가입
               </div>
-              <div className='login_form_category2'>
+              <div onClick={() => {navigate('/login/find_email')}} className='login_form_category2'>
                   이메일 찾기
               </div>
-              <div className='login_form_category3'>
+              <div onClick={() => {navigate('/login/find_password')}} className='login_form_category3'>
                   비밀번호 찾기
               </div>
           </div>
