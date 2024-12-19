@@ -3,11 +3,13 @@
     border-bottom: 1px solid rgba(0,0,0,0.1);
     position: fixed;
     z-index: 1000;
-    top: 86px;
+    top: 100px;
     background-color: white;
 }
 .home_top_content{
-    width: 1200px;
+    width: 1280px;
+    padding-left: 40px;
+    padding-right: 40px;
     margin: auto;
     height: 45px;
     display: flex;

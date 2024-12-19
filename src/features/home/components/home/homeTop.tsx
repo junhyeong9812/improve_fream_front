@@ -1,5 +1,5 @@
+import './../../css/home/homeTop.css';
 import React, { useState } from 'react';
-import './../css/homeTop.css';
 import { useNavigate } from 'react-router-dom';
 
 const HomeTop: React.FC = () => {
