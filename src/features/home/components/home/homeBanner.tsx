@@ -13,7 +13,7 @@ const HomeBanner: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
-    console.log("banner index : ", currentIndex);
+    // console.log("banner index : ", currentIndex);
   }, [currentIndex])
 
   useEffect(() => {

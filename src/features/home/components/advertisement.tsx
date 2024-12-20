@@ -1,11 +1,12 @@
 import './../css/advertisement.css';
 import React from 'react';
+import { AdvertisementProps } from '../types/homeTypes';
 
-const Advertisement: React.FC = () => {
+const Advertisement: React.FC<AdvertisementProps> = ({ advertisement }) => {
 
     return(
-        <div className='advertisement_container'>
-            <img className='advertisement_content' src={`${process.env.PUBLIC_URL}/advertisement/advertisement1.webp`} />
+        <div style={{backgroundColor:advertisement.backgroundcolor}} className='advertisement_container'>
+            <img className='advertisement_content' src={advertisement.img} />
         </div>
     )
 }

@@ -6,7 +6,7 @@ import { ShortcutItemWrapProps } from '../types/homeTypes';
 const ShortcutItemWrap: React.FC<ShortcutItemWrapProps> = ({ shortcutList }) => {
 
   return (
-    <div className='home_shortcut_container'>
+    <div className='shortcut_item_wrap'>
       {shortcutList.map((item, index) => (
         <ShortcutItem shortcut={item}/>
       ))}
