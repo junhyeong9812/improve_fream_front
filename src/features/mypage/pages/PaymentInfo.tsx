@@ -8,8 +8,17 @@ const PageContainer = styled.div`
 const PageHeader = styled.div`
   display: flex;
   border-bottom: 3px solid #222;
-  padding-bottom: 16px;
-  margin-bottom: 40px;
+  padding: 5px 0 22px;
+`;
+const TitleContainer = styled.div`
+  display: block;
+  unicode-bidi: isolate;
+  font-size: 24px;
+  letter-spacing: -0.36px;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
 `;
 
 const Title = styled.h3`
@@ -18,13 +27,62 @@ const Title = styled.h3`
   letter-spacing: -0.36px;
   margin: 0;
 `;
+const SubTitle = styled.p`
+  color: rgba(34, 34, 34, 0.5);
+  font-size: 12px;
+  letter-spacing: -0.005em;
+  margin: 0;
+`;
+const SubTitleButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: 30px;
+  padding-top: 4px;
+`;
+
+const AddButton = styled.a`
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #fff;
+  color: rgba(34, 34, 34, 0.8);
+  cursor: pointer;
+  border: 1px solid #222;
+  border-radius: 10px;
+  font-size: 12px;
+  height: 34px;
+  letter-spacing: -0.06px;
+  line-height: 32px;
+  margin-right: 0;
+  padding: 0 14px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
 
 const PaymentInfo: React.FC = () => {
   return (
     <PageContainer>
       {/* 페이지 헤더 */}
       <PageHeader>
-        <Title>결제 정보</Title>
+        <TitleContainer>
+          결제 정보
+          <SubTitle>
+            수수료(페널티, 착불배송비 등)가 정산되지 않을 경우, 별도 고지 없이
+            해당 금액을 결제 시도할 수 있습니다.
+          </SubTitle>
+        </TitleContainer>
+        <SubTitleButtonContainer>
+          <AddButton>
+            <span>+ 새 카드 추가하기</span>
+          </AddButton>
+        </SubTitleButtonContainer>
       </PageHeader>
     </PageContainer>
   );
