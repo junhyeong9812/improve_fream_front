@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import AddCardModal from "../components/AddCardModal";
 
 const PageContainer = styled.div`
   padding: 0 20px;
@@ -67,6 +68,10 @@ const AddButton = styled.a`
 `;
 
 const PaymentInfo: React.FC = () => {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const openModal = () => setIsModalOpened(true);
+  const closeModal = () => setIsModalOpened(false);
   return (
     <PageContainer>
       {/* 페이지 헤더 */}
@@ -79,11 +84,14 @@ const PaymentInfo: React.FC = () => {
           </SubTitle>
         </TitleContainer>
         <SubTitleButtonContainer>
-          <AddButton>
+          <AddButton onClick={openModal}>
             <span>+ 새 카드 추가하기</span>
           </AddButton>
         </SubTitleButtonContainer>
       </PageHeader>
+      {isModalOpened && (
+        <AddCardModal isOpened={isModalOpened} onClose={closeModal} />
+      )}
     </PageContainer>
   );
 };
