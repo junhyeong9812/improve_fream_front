@@ -57,6 +57,11 @@ const HomeBanner: React.FC = () => {
           <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
+      <div className='home_banner_pagination_content'>
+        {bannerItemList.map((_, index) => (
+          <span style={{backgroundColor: currentIndex === index ? 'white' : "rgba(127, 127, 127, 0.5)"}} onClick={() => {setCurrentIndex(index); startAutoSlide();}} className='home_banner_pagination'></span>
+        ))}
+      </div>
     </div>
                         
 
