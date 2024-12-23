@@ -161,7 +161,7 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         <div>
             <div className='product_wrap_container'>
                 {productList.slice(0, productListCount).map((product, index) => (
-                    <Product product={product}/>
+                    <Product product={product} key={index}/> 
                 ))}
             </div>
             {productListCount < productList.length && (

@@ -1,7 +1,6 @@
 import './../css/product.css';
 import React from 'react';
 import { productProps } from '../types/homeTypes';
-import { LiaBookmarkSolid } from "react-icons/lia";
 import { PiBookmarkSimpleThin } from "react-icons/pi";
 
 const Product: React.FC<productProps> = ({ product }) => {

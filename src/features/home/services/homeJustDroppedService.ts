@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchJustDroppedData = async () => {
-  console.log("Fetching Just Dropped Data...");
+  // console.log("Fetching Just Dropped Data...");
 
   return "no";
 

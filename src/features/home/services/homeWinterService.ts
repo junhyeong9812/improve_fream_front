@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchWinterData = async () => {
-  console.log("Fetching Winter Data...");
+  // console.log("Fetching Winter Data...");
 
   return "no";
 

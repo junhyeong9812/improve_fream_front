@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchMostPopularData = async () => {
-  console.log("Fetching Most Popular Data...");
+  // console.log("Fetching Most Popular Data...");
 
   return "no";
 

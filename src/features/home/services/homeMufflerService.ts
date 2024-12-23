@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchMufflerData = async () => {
-  console.log("Fetching Muffler Data...");
+  // console.log("Fetching Muffler Data...");
 
   return "no";
 

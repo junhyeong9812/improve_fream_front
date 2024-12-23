@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchPeachesData = async () => {
-  console.log("Fetching Peaches Data...");
+  // console.log("Fetching Peaches Data...");
 
   return "no";
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchNewInData = async () => {
-  console.log("Fetching New In Data...");
+  // console.log("Fetching New In Data...");
 
   return "no";
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchOutdoorData = async () => {
-  console.log("Fetching Outdoor Data...");
+  // console.log("Fetching Outdoor Data...");
 
   return "no";
 

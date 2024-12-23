@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchBlrLeebokData = async () => {
-  console.log("Fetching Blr Leebok Data...");
+  // console.log("Fetching Blr Leebok Data...");
 
   return "no";
 

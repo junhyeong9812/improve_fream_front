@@ -8,7 +8,7 @@ const ShortcutItemWrap: React.FC<ShortcutItemWrapProps> = ({ shortcutList }) => 
   return (
     <div className='shortcut_item_wrap'>
       {shortcutList.map((item, index) => (
-        <ShortcutItem shortcut={item}/>
+        <ShortcutItem shortcut={item} key={index}/>
       ))}
     </div>
   );

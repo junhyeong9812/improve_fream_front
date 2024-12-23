@@ -681,3 +681,7 @@ export const winterData = [
     earn: true
   }
 ]
+
+export const recommendData = [
+  ...new Array(5).fill(mostPopularData).flat()
+]
