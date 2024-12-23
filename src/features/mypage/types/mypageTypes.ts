@@ -20,3 +20,8 @@ export interface AddAddressModalProps {
   onSubmit: (data: AddressData) => void;
   initialData?: AddressData | null;
 }
+
+export interface AddCardModalProps {
+  isOpened: boolean;
+  onClose: () => void;
+}
