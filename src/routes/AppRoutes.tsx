@@ -2,6 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Home from "../pages/Home";
+import MainRanking from "../pages/Ranking";
+import RankingBuyPage from "../features/ranking/pages/rankingBuyPage";
+import RankingBrandPage from "../features/ranking/pages/rankingBrandPage";
 import Login from "../pages/Login";
 import Style from "../pages/Style";
 import Cart from "../pages/Cart";
@@ -62,7 +65,6 @@ const AppRoutes: React.FC = () => {
     <AppRoutesContainer>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/style" element={<Style />}>
           <Route index element={<Explore />} /> {/* 기본 탭 */}
           <Route path="explore" element={<Explore />} />
@@ -109,8 +111,13 @@ const AppRoutes: React.FC = () => {
         </Route>
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/login/find_email" element={<FindEmail />} />
         <Route path="/login/find_password" element={<FindPassword />} />
+        <Route path="/ranking" element={<MainRanking />} />
+        <Route path="/ranking/buy" element={<RankingBuyPage />} />
+        <Route path="/ranking/brand" element={<RankingBrandPage />} />
+
         {/* 추가 페이지를 여기에 추가 */}
         {/* footerPage */}
         <Route path="/info" element={<InfoPage />} />
