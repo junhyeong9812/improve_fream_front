@@ -54,9 +54,8 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
     // JustDropped 정보
     async function handleJustDropped() {
         const productData = await fetchJustDroppedData();
-        console.log(productData); 
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(justDroppedData);
         }else {
             console.log("정상적으로 데이터 들어옴");
@@ -66,9 +65,8 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
     // MostPopular 정보
     async function handleMostPopular() {
         const productData = await fetchMostPopularData();
-        console.log(productData); 
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(mostPopularData);
         }else {
             console.log("정상적으로 데이터 들어옴");
@@ -78,9 +76,8 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
     // NewIn 정보
     async function handleNewIn() {
         const productData = await fetchNewInData();
-        console.log(productData); 
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(newInData);
         }else {
             console.log("정상적으로 데이터 들어옴");
@@ -90,33 +87,30 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
     // muffler 정보
     async function handleMuffler() {
         const productData = await fetchMufflerData();
-        console.log(productData); 
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(mufflerData);
         }else {
             console.log("정상적으로 데이터 들어옴");
             setProductList(productData);
         }
     }  
-    // outdoor 정보보
+    // outdoor 정보
     async function handleOutdoor() {
         const productData = await fetchOutdoorData();
-        console.log(productData);
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(outdoorData);
         }else {
             console.log("정상적으로 데이터 들어옴");
             setProductList(productData);
         }
     }
-    // peaches 정보보
+    // peaches 정보
     async function handleBlrLeebok() {
         const productData = await fetchBlrLeebokData();
-        console.log(productData);
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(blrLeebokData);
         }else {
             console.log("정상적으로 데이터 들어옴");
@@ -126,9 +120,8 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
     // blrLeebok 정보
     async function handlePeaches() {
         const productData = await fetchPeachesData();
-        console.log(productData);
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(peachesData);
         }else {
             console.log("정상적으로 데이터 들어옴");
@@ -138,9 +131,8 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
     // winter 정보
     async function handleWinter() {
         const productData = await fetchWinterData();
-        console.log(productData);
         if (productData === "no") {
-            console.log("더미데이터 들어옴");
+            // console.log("더미데이터 들어옴");
             setProductList(winterData);
         }else {
             console.log("정상적으로 데이터 들어옴");

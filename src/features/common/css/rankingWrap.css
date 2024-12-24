@@ -1,18 +1,19 @@
-.recommend_wrap_container{
+.ranking_wrap_container{
     width: 1200px;
     margin: auto;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    column-gap: 8px;
-    row-gap: 28px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 12px;
+    margin-top: 16px;
+    margin-bottom: 24px;
 }
-.recommend_wrap_loading_content{
+.ranking_wrap_loading_content{
     height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.recommend_wrap_loading{
+.ranking_wrap_loading{
     width: 40px;
     height: 40px;
     border: 2px solid white; /* 배경색 */

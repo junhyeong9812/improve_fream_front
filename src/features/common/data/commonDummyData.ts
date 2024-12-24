@@ -685,3 +685,166 @@ export const justDroppedData = [
   export const recommendData = [
     ...new Array(5).fill(mostPopularData).flat()
   ]
+
+
+  // ranking
+  export const testRanking = [
+    {
+      transaction: "25.1만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see1.webp`,
+      backgroundcolor: "#ebf0f5",
+      polarity: true,
+      porarityNum: "1",
+      brand: "Nike",
+      name: "Nike Air Force 1 '07 WB Flax",
+      price: "116,000",
+    },
+    {
+      transaction: "0",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see2.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "496",
+      brand: "Farven",
+      name: "[6th reorder] FARVEN Santa Wool Cape Ice Blue",
+      price: "248,000",
+    },
+    {
+      transaction: "53.9만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see3.webp`,
+      backgroundcolor: "#ebf0f5",
+      polarity: true,
+      porarityNum: "2",
+      brand: "Nike",
+      name: "Nike Air Force 1 '07 Low White",
+      price: "96,000",
+    },
+    {
+      transaction: "4,375",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see4.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: false,
+      porarityNum: "1",
+      brand: "Nike",
+      name: "Nike ACG Therma-Fit ADV Lunar Lake Loose Hooded Jacket Black Summit White - Asia",
+      price: "249,000",
+    },
+    {
+      transaction: "1,408",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see5.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "3",
+      brand: "The North Face",
+      name: "(W) The North Face White Label Novelty Nuptse Down Jacket Cream Beige",
+      price: "288,000",
+    },
+    {
+      transaction: "1.6만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see6.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "1",
+      brand: "UGG",
+      name: "UGG Tasman Slipper Chestnut",
+      price: "152,000",
+    },
+    {
+      transaction: "1.6만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see7.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "992",
+      brand: "The North Face",
+      name: "The North Face On Ball Jacket Black",
+      price: "150,000",
+    },
+    {
+      transaction: "363",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see8.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "3",
+      brand: "Supreme",
+      name: "Supreme Box Logo Hooded Sweatshirt Navy - 24FW",
+      price: "339,000",
+    },
+    {
+      transaction: "7.7만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see9.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: false,
+      porarityNum: "2",
+      brand: "New Balance",
+      name: "New Balance 993 Made in USA Grey - D Standard",
+      price: "263,000",
+    },
+    {
+      transaction: "0",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see10.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "3",
+      brand: "Farven",
+      name: "[KREAM 단독] FARVEN Santa Wool Cape Apple Sage",
+      price: "248,000",
+    },
+    {
+      transaction: "2.5만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see11.webp`,
+      backgroundcolor: "#ebf0f5",
+      polarity: true,
+      porarityNum: "252",
+      brand: "Nike",
+      name: "(W) Nike Air Force 1 '07 Cacao Wow",
+      price: "154,000",
+    },
+    {
+      transaction: "692",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see12.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "11",
+      brand: "Monamhee",
+      name: "Monamhee x Peaceminusone Daihee Plush Keyring",
+      price: "107,000",
+    },
+    {
+      transaction: "249",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see13.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: true,
+      porarityNum: "13",
+      brand: "Supreme",
+      name: "Supreme Box Logo Hooded Sweatshirt Black - 24FW",
+      price: "320,000",
+    },
+    {
+      transaction: "0",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see14.webp`,
+      backgroundcolor: "#f4f4f4",
+      polarity: false,
+      porarityNum: "9",
+      brand: "PROJECT G/R",
+      name: "Project G/R 3 Layered Sweatshirt Black",
+      price: "239,000",
+    },
+    {
+      transaction: "1.1만",
+      img: `${process.env.PUBLIC_URL}/rankingImg/see/see15.webp`,
+      backgroundcolor: "#f6eeed",
+      polarity: true,
+      porarityNum: "10",
+      brand: "Jordan",
+      name: "Jordan 1 x Travis Scott Retro Low OG SP Reverse Olive",
+      price: "600,000",
+    }
+  ]
+
+  export const rankingSeeData = [
+    ...new Array(10).fill(testRanking).flat()
+  ]
+
+  export const rankingBuyData = [
+    ...new Array(10).fill([...testRanking].reverse()).flat()
+  ]

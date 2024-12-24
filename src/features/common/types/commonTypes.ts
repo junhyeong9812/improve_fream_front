@@ -51,7 +51,23 @@ export interface productLoadingProps {
   select: string;
 }
 
-// ranking top
+// ranking 
 export interface rankingTopProps {
   select: string;
+}
+export interface rankingWrapProps {
+  select: string;
+}
+export interface rankingInfo {
+  transaction: string;
+  img: string;
+  backgroundcolor: string;
+  polarity: boolean; 
+  porarityNum: string;
+  name: string;
+  price: string;
+}
+export interface rankingProps {
+  ranking: rankingInfo;
+  rank: number;
 }

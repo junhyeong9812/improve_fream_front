@@ -9,8 +9,8 @@ import { recommendData } from '../data/commonDummyData';
 const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
 
     const [productList, setProductList] = useState<productInfo[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);  // 로딩 상태
     const [productListCount, setProductListCount] = useState<number>(15);  // 보여줄 제품 개수
+    const [loading, setLoading] = useState<boolean>(false);  // 로딩 상태
     const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);  // 모든 데이터 로드 여부
 
     // Recommend 정보
