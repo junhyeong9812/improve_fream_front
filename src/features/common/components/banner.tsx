@@ -54,7 +54,7 @@ const HomeBanner: React.FC = () => {
       <img src={bannerItemList[currentIndex].img} className='home_banner_content'/>
       <div className='home_banner_right_arrow_content'>
         <svg onClick={handleRightArrowClick} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round" />
+          <path style={{cursor:"pointer"}} d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
       <div className='home_banner_pagination_content'>

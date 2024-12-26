@@ -46,9 +46,6 @@ const RankingWrap: React.FC<rankingWrapProps> = ({select}) => {
         if (select === "buy") {
             handleRankingBuy();
         }
-        if (select === "brand") {
-            
-        }
     })
 
     // 스크롤 이벤트 처리

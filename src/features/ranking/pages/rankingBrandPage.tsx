@@ -3,7 +3,7 @@ import React from 'react';
 import HomeTop from '../../common/components/top';
 import RankingTop from '../../common/components/rankingTop';
 import RankingCategory from '../components/rankingCategory';
-import RankingWrap from '../../common/components/rankingWrap';
+import RankingBrand from '../components/rankingBrand';
 
 const RankingBrandPage: React.FC = () => {
     
@@ -12,7 +12,7 @@ const RankingBrandPage: React.FC = () => {
             <HomeTop select="ranking" />
             <RankingTop select="brand" />
             <RankingCategory select='brand' />
-            <RankingWrap select='brand' />
+            <RankingBrand />
         </div>
     )
 }
