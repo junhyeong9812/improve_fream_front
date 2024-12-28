@@ -1,15 +1,32 @@
 import '../css/banner.css';
 import React, { useEffect, useRef, useState } from "react";
+import { BannerSelect } from '../types/commonTypes';
 import { BannerItems } from '../types/commonTypes';
 
-const HomeBanner: React.FC = () => {
+const HomeBanner: React.FC<BannerSelect> = ({select}) => {
 
-  const bannerItemList: BannerItems[] = [
+  const homeBannerItemList: BannerItems[] = [
     {img: `${process.env.PUBLIC_URL}/mainImg/banner/banner1.webp`, backgroundColor: "#ADACB3"},
     {img: `${process.env.PUBLIC_URL}/mainImg/banner/banner2.webp`, backgroundColor: "#818C8F"},
     {img: `${process.env.PUBLIC_URL}/mainImg/banner/banner3.webp`, backgroundColor: "#9C9B99"},
   ]
-
+  const LuxuryBannerItemList: BannerItems[] = [
+    {img: `${process.env.PUBLIC_URL}/luxuryImg/banner/banner1.webp`, backgroundColor: "#BEDAB7"},
+    {img: `${process.env.PUBLIC_URL}/luxuryImg/banner/banner2.webp`, backgroundColor: "#D1CBBD"},
+    {img: `${process.env.PUBLIC_URL}/luxuryImg/banner/banner3.webp`, backgroundColor: "#BDBDBF"},
+  ]
+  
+  const [bannerItemList, setBannerItemLIst] = useState<BannerItems[]>(homeBannerItemList);
+  
+  useEffect(() => {
+    if (select === "home") {
+      setBannerItemLIst(homeBannerItemList);
+    }
+    if (select === "luxury") {
+      setBannerItemLIst(LuxuryBannerItemList);
+    }
+  }, [select])
+  
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null); // interval을 저장할 ref
 

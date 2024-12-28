@@ -20,6 +20,15 @@ import { peachesData } from '../data/commonDummyData';
 import { blrLeebokData } from '../data/commonDummyData';
 import { winterData } from '../data/commonDummyData';
 
+import { fetchLuxuryWishData } from '../../luxury/services/luxuryWishService';
+import { fetchLuxuryHotData } from '../../luxury/services/luxuryHotService';
+import { fetchLuxuryCheapData } from '../../luxury/services/luxuryCheapService';
+import { fetchLuxurySmallData } from '../../luxury/services/luxurySmallService';
+import { luxuryWishData } from '../data/commonDummyData';
+import { luxuryHotData } from '../data/commonDummyData';
+import { luxuryCheapData } from '../data/commonDummyData';
+import { luxurySmallData } from '../data/commonDummyData';
+
 const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
 
     const [productList, setProductList] = useState<productInfo[]>([]);
@@ -48,6 +57,19 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         }
         if (productCategory === "winter") {
             handleWinter();
+        }
+
+        if (productCategory === "luxuryWish") {
+            handleLuxuryWish();
+        }
+        if (productCategory === "luxuryHot") {
+            handleLuxuryHot();
+        }
+        if (productCategory === "luxuryCheap") {
+            handleLuxuryCheap();
+        }
+        if (productCategory === "luxurySmall") {
+            handleLuxurySmall();
         }
     }, [productCategory]);
     
@@ -140,6 +162,51 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         }
     }
     
+
+    // luxuryWish
+    async function handleLuxuryWish() {
+        const productData = await fetchLuxuryWishData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(luxuryWishData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // luxuryHot
+    async function handleLuxuryHot() {
+        const productData = await fetchLuxuryHotData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(luxuryHotData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // luxuryCheap
+    async function handleLuxuryCheap() {
+        const productData = await fetchLuxuryCheapData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(luxuryCheapData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // luxurySmall
+    async function handleLuxurySmall() {
+        const productData = await fetchLuxurySmallData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(luxurySmallData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
 
 
     // 더보기 버튼

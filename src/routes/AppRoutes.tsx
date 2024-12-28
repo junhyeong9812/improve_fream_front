@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Home from "../pages/Home";
 import MainRanking from "../pages/Ranking";
+import MainLuxury from "../pages/Luxury";
+
+import MainExhibition from "../pages/Exhibition";
 import RankingBuyPage from "../features/ranking/pages/rankingBuyPage";
 import RankingBrandPage from "../features/ranking/pages/rankingBrandPage";
 import Login from "../pages/Login";
@@ -117,7 +120,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/ranking" element={<MainRanking />} />
         <Route path="/ranking/buy" element={<RankingBuyPage />} />
         <Route path="/ranking/brand" element={<RankingBrandPage />} />
-
+        <Route path="/luxury" element={<MainLuxury />} />
+        <Route path="/exhibition" element={<MainExhibition />} />
         {/* 추가 페이지를 여기에 추가 */}
         {/* footerPage */}
         <Route path="/info" element={<InfoPage />} />

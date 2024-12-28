@@ -1,6 +1,6 @@
 import '../css/homePage.css';
 import React from "react";
-import Top from '../../common/components/top';
+import HomeTop from '../../common/components/top';
 import Banner from "../../common/components/banner";
 import HomeItem from '../components/homeItem';
 import HomeTopPicks from '../components/homeTopPicks';
@@ -21,8 +21,8 @@ const HomePage: React.FC = () => {
 
   return (
     <div className='home_page_container'>
-      <Top select="home" />
-      <Banner />
+      <HomeTop select="home" />
+      <Banner select='home' />
       <HomeItem />
       <HomeTopPicks />
       <HomeJustDropped />

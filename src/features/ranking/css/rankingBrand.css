@@ -10,6 +10,7 @@
     border-radius: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
+    width: 590px;
 }
 
 /* info */
@@ -57,17 +58,17 @@
     justify-content: center;
 }
 .ranking_brand_info_name_eng{
+    position: relative;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: -0.15px;
     display: flex;
-    position: relative;
+
 }
 .ranking_brand_info_name_eng_arrow{
     width: 20px;
     height: 20px;
     color: rgba(34, 34, 34, 0.5);
-    position: absolute;
     left: 30px;
     top: 1px;
 }
@@ -85,13 +86,14 @@
 /* img */
 .ranking_brand_img_container{
     position: relative;
-    width: 590px;
+    width: 100%;
     display: flex;
     overflow: hidden;
 }
 .ranking_brand_img_wrapper{
     display: flex;
     transition: transform 1s ease-in-out;
+    width: auto;
 }
 .ranking_brand_img_content{
     position: relative;
@@ -110,25 +112,28 @@
     margin-left: 12px;
     margin-bottom: 16px;
 }
-.ranking_brand_img_left_arrow,
-.ranking_brand_img_right_arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
+.ranking_brand_img_left_arrow_content,
+.ranking_brand_img_right_arrow_content {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #FFFFFF;
+    color: black;
+    border-radius: 50%;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.ranking_brand_img_left_arrow {
-  left: 0;
+.ranking_brand_img_left_arrow_content {
+    left: 10px;
 }
-
-.ranking_brand_img_right_arrow {
-  right: 0;
+.ranking_brand_img_right_arrow_content {
+    right: 10px;
 }
 
 /* more */
@@ -144,4 +149,25 @@
     border-radius: 10px;
     font-size: 14px;
     letter-spacing: -0.5px;
+}
+
+/* loading */
+.ranking_brand_loading_content{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ranking_brand_loading{
+    width: 40px;
+    height: 40px;
+    border: 2px solid white; /* 배경색 */
+    border-top: 2px solid rgba(127, 127, 127, 0.4); /* 회전하는 색 */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* spin 애니메이션 */
+}
+/* 회전 애니메이션 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

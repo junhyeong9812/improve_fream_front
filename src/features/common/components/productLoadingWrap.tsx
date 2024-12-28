@@ -4,15 +4,14 @@ import Product from './product';
 import { productInfo } from '../types/commonTypes';
 import { productLoadingProps } from '../types/commonTypes';
 import { fetchRecommendData } from '../../home/services/homeRecommendService';
+import { fetchTransactionData } from '../../luxury/services/luxuryTransactionService';
 import { recommendData } from '../data/commonDummyData';
+import { luxuryTransactionData } from '../data/commonDummyData';
 
 const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
 
     const [productList, setProductList] = useState<productInfo[]>([]);
-    const [productListCount, setProductListCount] = useState<number>(15);  // 보여줄 제품 개수
-    const [loading, setLoading] = useState<boolean>(false);  // 로딩 상태
-    const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);  // 모든 데이터 로드 여부
-
+    
     // Recommend 정보
     async function handleRecommend() {
         try {
@@ -27,14 +26,34 @@ const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
             setProductList(recommendData);  // 에러 발생 시 더미 데이터 사용
         }
     } 
-
-
+    // luxury transaction 정보
+    async function handleLuxuryTransaction() {
+        try {
+            const productData = await fetchTransactionData();
+            if (productData === "no") {
+                setProductList(luxuryTransactionData);  // 더미 데이터 사용
+            } else {
+                setProductList(productData);
+            }
+        } catch (error) {
+            console.error("데이터 로드 오류:", error);
+            setProductList(luxuryTransactionData);  // 에러 발생 시 더미 데이터 사용
+        }
+    } 
+    
     useEffect(() => {
         if (select === "home") {
             handleRecommend();
         }
-    }, [])
-
+        if (select === "luxury") {
+            handleLuxuryTransaction();
+        }
+    }, []);
+    
+    
+    const [productListCount, setProductListCount] = useState<number>(15);  // 보여줄 제품 개수
+    const [loading, setLoading] = useState<boolean>(false);  // 로딩 상태
+    const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);  // 모든 데이터 로드 여부
     // 스크롤 이벤트 처리
     const handleScroll = () => {
         const scrollTop = document.documentElement.scrollTop;

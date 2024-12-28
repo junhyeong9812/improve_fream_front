@@ -4,6 +4,9 @@ export interface TopProps {
 }
 
 // 배너
+export interface BannerSelect {
+  select: string;
+}
 export interface BannerItems {
   img: string;
   backgroundColor: string;
