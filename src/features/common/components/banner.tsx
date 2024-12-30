@@ -15,6 +15,11 @@ const HomeBanner: React.FC<BannerSelect> = ({select}) => {
     {img: `${process.env.PUBLIC_URL}/luxuryImg/banner/banner2.webp`, backgroundColor: "#D1CBBD"},
     {img: `${process.env.PUBLIC_URL}/luxuryImg/banner/banner3.webp`, backgroundColor: "#BDBDBF"},
   ]
+  const DiscoveryBannerItemList: BannerItems[] = [
+    {img: `${process.env.PUBLIC_URL}/discoveryImg/banner/banner1.webp`, backgroundColor: "#B5A3E7"},
+    {img: `${process.env.PUBLIC_URL}/discoveryImg/banner/banner2.webp`, backgroundColor: "#E1DFD9"},
+    {img: `${process.env.PUBLIC_URL}/discoveryImg/banner/banner3.webp`, backgroundColor: "#040404"},
+  ]
   
   const [bannerItemList, setBannerItemLIst] = useState<BannerItems[]>(homeBannerItemList);
   
@@ -24,6 +29,9 @@ const HomeBanner: React.FC<BannerSelect> = ({select}) => {
     }
     if (select === "luxury") {
       setBannerItemLIst(LuxuryBannerItemList);
+    }
+    if (select === "discovery") {
+      setBannerItemLIst(DiscoveryBannerItemList);
     }
   }, [select])
   

@@ -29,6 +29,30 @@ import { luxuryHotData } from '../data/commonDummyData';
 import { luxuryCheapData } from '../data/commonDummyData';
 import { luxurySmallData } from '../data/commonDummyData';
 
+import { fetchDiscoverySomethingData } from '../../discovery/services/discoverySomethingService';
+import { fetchDiscoveryPdpData } from '../../discovery/services/discoveryPdpService';
+import { fetchDiscoveryMellowData } from '../../discovery/services/discoveryMellowService';
+import { fetchDiscoveryRoughneckData } from '../../discovery/services/discoveryRoughneckService';
+import { discoverySomethingData } from '../data/commonDummyData';
+import { discoveryPdpData } from '../data/commonDummyData';
+import { discoveryMellowData } from '../data/commonDummyData';
+import { discoveryRoughneckData } from '../data/commonDummyData';
+
+import { fetchMenForData } from '../../men/services/menForService';
+import { fetchMenSneakersData } from '../../men/services/menSneakersService';
+import { fetchMenArrivalsData } from '../../men/services/menArrivalsService';
+import { fetchMenKnitData } from '../../men/services/menKnitService';
+import { fetchMenJacketData } from '../../men/services/menJacketService';
+import { fetchMenLightData } from '../../men/services/menLightService';
+import { fetchMenChoiceData } from '../../men/services/menChoiceService';
+import { menForData } from '../data/commonDummyData';
+import { menSneakersData } from '../data/commonDummyData';
+import { menArrivalsData } from '../data/commonDummyData';
+import { menKnitData } from '../data/commonDummyData';
+import { menJacketData } from '../data/commonDummyData';
+import { menLightData } from '../data/commonDummyData';
+import { menChoiceData } from '../data/commonDummyData';
+
 const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
 
     const [productList, setProductList] = useState<productInfo[]>([]);
@@ -70,6 +94,41 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         }
         if (productCategory === "luxurySmall") {
             handleLuxurySmall();
+        }
+
+        if (productCategory === "discoverySomething") {
+            handleDiscoverySomething();
+        }
+        if (productCategory === "discoveryPdp") {
+            handleDiscoveryPdp();
+        }
+        if (productCategory === "discoveryMellow") {
+            handleDiscoveryMellow();
+        }
+        if (productCategory === "discoveryRoughneck") {
+            handleDiscoveryRoughneck();
+        }
+
+        if (productCategory === "menFor") {
+            handleMenFor();
+        }
+        if (productCategory === "menSneakers") {
+            handleMenSneakers();
+        }
+        if (productCategory === "menArrivals") {
+            handleMenArrivals();
+        }
+        if (productCategory === "menKnit") {
+            handleMenKnit();
+        }
+        if (productCategory === "menJacket") {
+            handleMenJacket();
+        }
+        if (productCategory === "menLight") {
+            handleMenLight();
+        }
+        if (productCategory === "menChoice") {
+            handleMenChoice();
         }
     }, [productCategory]);
     
@@ -202,6 +261,131 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         if (productData === "no") {
             // console.log("더미데이터 들어옴");
             setProductList(luxurySmallData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+
+
+    // discoverySomething
+    async function handleDiscoverySomething() {
+        const productData = await fetchDiscoverySomethingData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(discoverySomethingData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // discoveryPdp
+    async function handleDiscoveryPdp() {
+        const productData = await fetchDiscoveryPdpData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(discoveryPdpData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // discoveryMellow
+    async function handleDiscoveryMellow() {
+        const productData = await fetchDiscoveryMellowData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(discoveryMellowData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // discoveryRoughneck
+    async function handleDiscoveryRoughneck() {
+        const productData = await fetchDiscoveryRoughneckData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(discoveryRoughneckData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+
+
+    // menFor 
+    async function handleMenFor() {
+        const productData = await fetchMenForData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menForData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // menSneakers
+    async function handleMenSneakers() {
+        const productData = await fetchMenSneakersData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menSneakersData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // menArrivals
+    async function handleMenArrivals() {
+        const productData = await fetchMenArrivalsData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menArrivalsData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // menKnit
+    async function handleMenKnit() {
+        const productData = await fetchMenKnitData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menKnitData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // menJacket
+    async function handleMenJacket() {
+        const productData = await fetchMenJacketData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menJacketData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // menLight
+    async function handleMenLight() {
+        const productData = await fetchMenLightData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menLightData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // menChoice
+    async function handleMenChoice() {
+        const productData = await fetchMenChoiceData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(menChoiceData);
         }else {
             console.log("정상적으로 데이터 들어옴");
             setProductList(productData);

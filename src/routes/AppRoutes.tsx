@@ -4,7 +4,9 @@ import styled from "styled-components";
 import Home from "../pages/Home";
 import MainRanking from "../pages/Ranking";
 import MainLuxury from "../pages/Luxury";
-
+import MainMen from "../pages/Men";
+import MainWomen from "../pages/Women";
+import MainDiscovery from "../pages/Discovery";
 import MainExhibition from "../pages/Exhibition";
 import RankingBuyPage from "../features/ranking/pages/rankingBuyPage";
 import RankingBrandPage from "../features/ranking/pages/rankingBrandPage";
@@ -121,7 +123,10 @@ const AppRoutes: React.FC = () => {
         <Route path="/ranking/buy" element={<RankingBuyPage />} />
         <Route path="/ranking/brand" element={<RankingBrandPage />} />
         <Route path="/luxury" element={<MainLuxury />} />
+        <Route path="/discovery" element={<MainDiscovery />} />
         <Route path="/exhibition" element={<MainExhibition />} />
+        <Route path="/men" element={<MainMen />} />
+        <Route path="/women" element={<MainWomen />} />
         {/* 추가 페이지를 여기에 추가 */}
         {/* footerPage */}
         <Route path="/info" element={<InfoPage />} />

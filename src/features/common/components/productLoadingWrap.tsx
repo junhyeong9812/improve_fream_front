@@ -5,8 +5,12 @@ import { productInfo } from '../types/commonTypes';
 import { productLoadingProps } from '../types/commonTypes';
 import { fetchRecommendData } from '../../home/services/homeRecommendService';
 import { fetchTransactionData } from '../../luxury/services/luxuryTransactionService';
+import { fetchPopularData } from '../../discovery/services/discoveryPopularService';
+import { fetchMenPopularData } from '../../men/services/menPopularService';
 import { recommendData } from '../data/commonDummyData';
 import { luxuryTransactionData } from '../data/commonDummyData';
+import { discoveryPopularData } from '../data/commonDummyData';
+import { menPopularData } from '../data/commonDummyData';
 
 const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
 
@@ -40,6 +44,35 @@ const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
             setProductList(luxuryTransactionData);  // 에러 발생 시 더미 데이터 사용
         }
     } 
+    // discovery popular 정보
+    async function handleDiscoveryPopular() {
+        try {
+            const productData = await fetchPopularData();
+            if (productData === "no") {
+                setProductList(discoveryPopularData);  // 더미 데이터 사용
+            } else {
+                setProductList(productData);
+            }
+        } catch (error) {
+            console.error("데이터 로드 오류:", error);
+            setProductList(luxuryTransactionData);  // 에러 발생 시 더미 데이터 사용
+        }
+    } 
+    // men popular 정보
+    async function handleMenPopular() {
+        try {
+            const productData = await fetchMenPopularData();
+            if (productData === "no") {
+                setProductList(menPopularData);  // 더미 데이터 사용
+            } else {
+                setProductList(productData);
+            }
+        } catch (error) {
+            console.error("데이터 로드 오류:", error);
+            setProductList(luxuryTransactionData);  // 에러 발생 시 더미 데이터 사용
+        }
+    } 
+
     
     useEffect(() => {
         if (select === "home") {
@@ -47,6 +80,12 @@ const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
         }
         if (select === "luxury") {
             handleLuxuryTransaction();
+        }
+        if (select === "discovery") {
+            handleDiscoveryPopular();
+        }
+        if (select === "men") {
+            handleMenPopular();
         }
     }, []);
     

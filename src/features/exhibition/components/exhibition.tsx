@@ -2,10 +2,11 @@ import '../css/exhibition.css';
 import React, { useEffect, useState } from 'react';
 import { fetchExhibitionData } from '../services/exhibitionService';
 import { exhibitionData } from '../data/exhibitionDummyData';
+import { ExhibitioinInfo } from '../types/exhibitionTypes';
 
 const Exhibition: React.FC = () => {
 
-    const [exhibitionList, setExhibitionList] = useState([]);
+    const [exhibitionList, setExhibitionList] = useState<ExhibitioinInfo[]>([]);
 
     useEffect(() => {
         handleJustDropped();
@@ -25,7 +26,13 @@ const Exhibition: React.FC = () => {
 
     return(
         <div className='exhibition_container'>
-            asdf
+            {exhibitionList.map((item, index) => (
+                <div className='exhibition_content'>
+                    <img src={item.img} className='exhibition_img' />
+                    <p className='exhibition_title'>{item.title}</p>
+                    <p className='exhibition_serve_title'>{item.serveTitle}</p>
+                </div>
+            ))}
         </div>
     )
 }
