@@ -7,10 +7,12 @@ import { fetchRecommendData } from '../../home/services/homeRecommendService';
 import { fetchTransactionData } from '../../luxury/services/luxuryTransactionService';
 import { fetchPopularData } from '../../discovery/services/discoveryPopularService';
 import { fetchMenPopularData } from '../../men/services/menPopularService';
+import { fetchWomenPopularData } from '../../women/services/womenPopularService';
 import { recommendData } from '../data/commonDummyData';
 import { luxuryTransactionData } from '../data/commonDummyData';
 import { discoveryPopularData } from '../data/commonDummyData';
 import { menPopularData } from '../data/commonDummyData';
+import { womenPopularData } from '../data/commonDummyData';
 
 const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
 
@@ -72,6 +74,21 @@ const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
             setProductList(luxuryTransactionData);  // 에러 발생 시 더미 데이터 사용
         }
     } 
+    // women popular 정보
+    async function handleWomenPopular() {
+        try {
+            const productData = await fetchWomenPopularData();
+            if (productData === "no") {
+                setProductList(womenPopularData);  // 더미 데이터 사용
+            } else {
+                setProductList(productData);
+            }
+        } catch (error) {
+            console.error("데이터 로드 오류:", error);
+            setProductList(luxuryTransactionData);  // 에러 발생 시 더미 데이터 사용
+        }
+    } 
+
 
     
     useEffect(() => {
@@ -86,6 +103,9 @@ const ProductLoadingWrap: React.FC<productLoadingProps> = ({ select }) => {
         }
         if (select === "men") {
             handleMenPopular();
+        }
+        if (select === "women") {
+            handleWomenPopular();
         }
     }, []);
     

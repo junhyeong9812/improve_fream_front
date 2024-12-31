@@ -53,6 +53,27 @@ import { menJacketData } from '../data/commonDummyData';
 import { menLightData } from '../data/commonDummyData';
 import { menChoiceData } from '../data/commonDummyData';
 
+import { fetchWomenForData } from '../../women/services/womenForService';
+import { fetchWomenRisingData } from '../../women/services/womenRisingService';
+import { fetchWomenArrivalsData } from '../../women/services/womenArrivalsService';
+import { fetchWomenRocciData } from '../../women/services/womenRocciService';
+import { fetchWomenWishData } from '../../women/services/womenWishService';
+import { fetchWomenBeautyData } from '../../women/services/womenBeautyService';
+import { fetchWomenCuteData } from '../../women/services/womenCuteService';
+import { fetchWomenPinkBrownData } from '../../women/services/womenPinkBrownService';
+import { fetchWomenHeavyData } from '../../women/services/womenHeavyService';
+import { fetchWomenSienneData } from '../../women/services/womenSienneService';
+import { womenForData } from '../data/commonDummyData';
+import { womenRisingData } from '../data/commonDummyData';
+import { womenArrivalsData } from '../data/commonDummyData';
+import { womenRocciData } from '../data/commonDummyData';
+import { womenWishData } from '../data/commonDummyData';
+import { womenBeautyData } from '../data/commonDummyData';
+import { womenCuteData } from '../data/commonDummyData';
+import { womenPinkBrownData } from '../data/commonDummyData';
+import { womenHeavyData } from '../data/commonDummyData';
+import { womenSienneData } from '../data/commonDummyData';
+
 const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
 
     const [productList, setProductList] = useState<productInfo[]>([]);
@@ -129,6 +150,37 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         }
         if (productCategory === "menChoice") {
             handleMenChoice();
+        }
+
+        if (productCategory === "womenFor") {
+            handleWomenFor();
+        }
+        if (productCategory === "womenRising") {
+            handleWomenRising();
+        }
+        if (productCategory === "womenArrivals") {
+            handleWomenArrivals();
+        }
+        if (productCategory === "womenRocci") {
+            handleWomenRocci();
+        }
+        if (productCategory === "womenWish") {
+            handleWomenWish();
+        }
+        if (productCategory === "womenBeauty") {
+            handleWomenBeauty();
+        }
+        if (productCategory === "womenCute") {
+            handleWomenCute();
+        }
+        if (productCategory === "womenPinkBrown") {
+            handleWomenPinkBrown();
+        }
+        if (productCategory === "womenHeavy") {
+            handleWomenHeavy();
+        }
+        if (productCategory === "womenSienne") {
+            handleWomenSienne();
         }
     }, [productCategory]);
     
@@ -386,6 +438,118 @@ const ProductWrap: React.FC<productWrapProps> = ({ productCategory }) => {
         if (productData === "no") {
             // console.log("더미데이터 들어옴");
             setProductList(menChoiceData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+
+
+    // womenFor
+    async function handleWomenFor() {
+        const productData = await fetchWomenForData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenForData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenRising
+    async function handleWomenRising() {
+        const productData = await fetchWomenRisingData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenRisingData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenArrivals
+    async function handleWomenArrivals() {
+        const productData = await fetchWomenArrivalsData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenArrivalsData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenRocci
+    async function handleWomenRocci() {
+        const productData = await fetchWomenRocciData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenRocciData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenWish
+    async function handleWomenWish() {
+        const productData = await fetchWomenWishData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenWishData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenBeauty
+    async function handleWomenBeauty() {
+        const productData = await fetchWomenBeautyData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenBeautyData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenCute
+    async function handleWomenCute() {
+        const productData = await fetchWomenCuteData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenCuteData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenPinkBrown
+    async function handleWomenPinkBrown() {
+        const productData = await fetchWomenPinkBrownData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenPinkBrownData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenHeavy
+    async function handleWomenHeavy() {
+        const productData = await fetchWomenHeavyData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenHeavyData);
+        }else {
+            console.log("정상적으로 데이터 들어옴");
+            setProductList(productData);
+        }
+    }
+    // womenSienne
+    async function handleWomenSienne() {
+        const productData = await fetchWomenSienneData();
+        if (productData === "no") {
+            // console.log("더미데이터 들어옴");
+            setProductList(womenSienneData);
         }else {
             console.log("정상적으로 데이터 들어옴");
             setProductList(productData);
