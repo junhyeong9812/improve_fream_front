@@ -15,8 +15,8 @@ const LoginPage: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log("이메일 : ", loginData.email);
-    console.log("비밀번호 : ", loginData.password);
+    // console.log("이메일 : ", loginData.email);
+    // console.log("비밀번호 : ", loginData.password);
   }, [loginData]);
 
   // 이메일 변경 함수
