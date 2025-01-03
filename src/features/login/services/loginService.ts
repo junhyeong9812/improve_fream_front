@@ -7,7 +7,7 @@ export const fetchLoginData = async (email: string, password: string) => {
 
   
   try {
-    const response = await axios.post('https://3.36.55.233/login', {
+    const response = await axios.post('http://3.36.55.233/api/users/login', {
       email: email,
       password: password,
     });
@@ -15,8 +15,8 @@ export const fetchLoginData = async (email: string, password: string) => {
     console.log(response.data); // API 응답 처리
     return response.data;
   } catch (error) {
-    return "no";
     console.error("Error fetching login data with Axios:", error);
+    return "no";
   }
 
 };
