@@ -7,7 +7,7 @@ export const fetchLoginData = async (email: string, password: string) => {
 
   
   try {
-    const response = await axios.post('http://3.36.55.233/api/users/login', {
+    const response = await axios.post('http://3.34.123.19:8080/api/users/login', {
       email: email,
       password: password,
     });

@@ -147,9 +147,10 @@ const JoinPage: React.FC = () => {
     }, [joinData.email, joinData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, signupBtn, agreementAge, agreementTerms, agreementPrivacyRequired]);
 
     const handleSignupFetch = async () => {
-        const result = await fetchJoinData(joinData.email, joinData.password, joinData.size, joinData.code);
-        console.log(result);
-        if (result === "ok") {
+        const result = await fetchJoinData(joinData.email, joinData.password, joinData.size, joinData.code,
+                agreementAge, agreementTerms, agreementPrivacyRequired, agreementPrivacyOptional, agreementAdvertisement);
+        console.log("회원가입 결과 : ", result);
+        if (result !== "no") {
             navigate('/login');
             alert("회원가입이 완료되었습니다.");
         }if (result === "no") {
