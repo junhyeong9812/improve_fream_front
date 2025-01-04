@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
+import OrderList from "../components/OrderList";
 
 const PageContainer = styled.div`
   padding: 0 20px;
@@ -182,6 +183,61 @@ const StatusItem = styled.li`
   }
 `;
 
+// 더미 데이터 정의
+const dummyOrders = {
+  "구매 입찰": [
+    {
+      orderBidId: 1,
+      productId: 101,
+      productName: "Nike x Comme des Garçons",
+      productEnglishName: "Nike x Comme des Garçons",
+      size: "250",
+      colorName: "Black",
+      imageUrl: "https://via.placeholder.com/80",
+      bidPrice: 50000,
+      bidStatus: "Accepted",
+      orderStatus: "Confirmed",
+      shipmentStatus: "대기 중",
+      createdDate: new Date("2022-11-23"),
+      modifiedDate: new Date(),
+    },
+  ],
+  "진행 중": [
+    {
+      orderBidId: 2,
+      productId: 102,
+      productName: "Adidas Yeezy Boost",
+      productEnglishName: "Adidas Yeezy Boost",
+      size: "260",
+      colorName: "White",
+      imageUrl: "https://via.placeholder.com/80",
+      bidPrice: 60000,
+      bidStatus: "Accepted",
+      orderStatus: "Confirmed",
+      shipmentStatus: "배송 중",
+      createdDate: new Date("2022-11-24"),
+      modifiedDate: new Date(),
+    },
+  ],
+  종료: [
+    {
+      orderBidId: 3,
+      productId: 103,
+      productName: "Jordan 1 Retro High",
+      productEnglishName: "Jordan 1 Retro High",
+      size: "270",
+      colorName: "Red",
+      imageUrl: "https://via.placeholder.com/80",
+      bidPrice: 70000,
+      bidStatus: "Completed",
+      orderStatus: "Confirmed",
+      shipmentStatus: "배송완료",
+      createdDate: new Date("2022-11-25"),
+      modifiedDate: new Date(),
+    },
+  ],
+};
+
 const PurchaseHeader: React.FC<{
   onFilterChange: (filter: string) => void;
 }> = ({ onFilterChange }) => {
@@ -245,22 +301,27 @@ const PurchaseHeader: React.FC<{
 const Purchase: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [filter, setFilter] = useState<string>("전체");
+  const [purchaseData, setPurchaseData] = useState({
+    "구매 입찰": dummyOrders["구매 입찰"],
+    "진행 중": dummyOrders["진행 중"],
+    종료: dummyOrders["종료"],
+  });
   // 카운트 데이터
   const counts: Counts = {
-    "구매 입찰": 10,
-    "진행 중": 5,
-    종료: 7,
+    "구매 입찰": dummyOrders["구매 입찰"].length,
+    "진행 중": dummyOrders["진행 중"].length,
+    종료: dummyOrders["종료"].length,
   };
 
   // 구매 내역 데이터
-  const purchaseData = {
-    "구매 입찰": [],
-    "진행 중": [{ id: 1, title: "진행 중 상품 1" }],
-    종료: [
-      { id: 2, title: "종료 상품 1" },
-      { id: 3, title: "종료 상품 2" },
-    ],
-  };
+  // const purchaseData = {
+  //   "구매 입찰": [],
+  //   "진행 중": [{ id: 1, title: "진행 중 상품 1" }],
+  //   종료: [
+  //     { id: 2, title: "종료 상품 1" },
+  //     { id: 3, title: "종료 상품 2" },
+  //   ],
+  // };
 
   // 탭 변경 핸들러
   const handleTabChange = (index: number) => {
@@ -298,11 +359,7 @@ const Purchase: React.FC = () => {
             <ShopButton href="/search">SHOP 바로가기</ShopButton>
           </EmptyPage>
         ) : (
-          <div>
-            {purchaseData[currentTab].map((item) => (
-              <div key={item.id}>{item.title}</div>
-            ))}
-          </div>
+          <OrderList orders={dummyOrders[currentTab]} />
         )}
       </MyAccount>
     </PageContainer>
