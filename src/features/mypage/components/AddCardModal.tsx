@@ -500,11 +500,11 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpened, onClose }) => {
 
   return (
     <Layer>
-      <LayerBackground onClick={() => handleCloseModal} />
+      <LayerBackground onClick={handleCloseModal} />
       <LayerContainer>
         <AddCardHeader>
           <TitleText>카드 등록</TitleText>
-          <CloseIcon onClick={() => handleCloseModal} />
+          <CloseIcon onClick={handleCloseModal} />
         </AddCardHeader>
         <Container>
           <ContainerHeader>

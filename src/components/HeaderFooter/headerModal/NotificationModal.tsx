@@ -12,6 +12,7 @@ const ModalOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: flex-end;
+  z-index: 2000;
 `;
 
 const ModalContainer = styled.div`
