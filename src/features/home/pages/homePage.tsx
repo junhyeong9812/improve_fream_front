@@ -1,26 +1,28 @@
-import './../css/home/homePage.css';
+import '../css/homePage.css';
 import React from "react";
-import HomeTop from '../components/home/homeTop';
-import HomeBanner from "../components/home/homeBanner";
-import HomeItem from '../components/home/homeItem';
-import HomeTopPicks from '../components/home/homeTopPicks';
-import HomeJustDropped from '../components/home/homeJustDropped';
-import HomeTopBrand from '../components/home/homeTopBrand';
-import HomeAdvertisement from '../components/home/homeAdvertisement';
-import HomeMostPopular from '../components/home/homeMostPopular';
-import HomeNewIn from '../components/home/homeNewIn';
-import HomeMuffler from '../components/home/homeMuffler';
-import HomeOutdoor from '../components/home/homeOutdoor';
-import HomePeaches from '../components/home/homePeaches';
-import HomeBlrLeebok from '../components/home/homeBlrLeebok';
-import HomeWinter from '../components/home/homeWinter';
-import HomeRecommend from '../components/home/homeRecommend';
+import HomeTop from '../../common/components/top';
+import Banner from "../../common/components/banner";
+import HomeItem from '../components/homeItem';
+import HomeTopPicks from '../components/homeTopPicks';
+import HomeJustDropped from '../components/homeJustDropped';
+import HomeTopBrand from '../components/homeTopBrand';
+import HomeAdvertisement from '../components/homeAdvertisement';
+import HomeMostPopular from '../components/homeMostPopular';
+import HomeNewIn from '../components/homeNewIn';
+import HomeMuffler from '../components/homeMuffler';
+import HomeOutdoor from '../components/homeOutdoor';
+import HomePeaches from '../components/homePeaches';
+import HomeBlrLeebok from '../components/homeBlrLeebok';
+import HomeWinter from '../components/homeWinter';
+import HomeRecommend from '../components/homeRecommend';
+
 
 const HomePage: React.FC = () => {
+
   return (
     <div className='home_page_container'>
-      <HomeTop />
-      <HomeBanner />
+      <HomeTop select="home" />
+      <Banner select='home' />
       <HomeItem />
       <HomeTopPicks />
       <HomeJustDropped />

@@ -15,8 +15,8 @@ const LoginPage: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log("이메일 : ", loginData.email);
-    console.log("비밀번호 : ", loginData.password);
+    // console.log("이메일 : ", loginData.email);
+    // console.log("비밀번호 : ", loginData.password);
   }, [loginData]);
 
   // 이메일 변경 함수
@@ -50,11 +50,11 @@ const LoginPage: React.FC = () => {
       if (emailRegex.test(loginData.email)) {
         setEmailWarn(false);
         setEmailSuccess(true);
-        console.log("이메일 완성");
+        // console.log("이메일 완성");
       }else{
         setEmailWarn(true);
         setEmailSuccess(false);
-        console.log("이메일 미완성");
+        // console.log("이메일 미완성");
       }
     }else{
       setEmailWarn(false);
@@ -66,11 +66,11 @@ const LoginPage: React.FC = () => {
       if (passwordRegex.test(loginData.password)) {
         setPasswordWarn(false);
         setPasswordSuccess(true);
-        console.log("비밀번호 완성");
+        // console.log("비밀번호 완성");
       }else{
         setPasswordWarn(true); 
         setPasswordSuccess(false);       
-        console.log("비밀번호 미완성")
+        // console.log("비밀번호 미완성")
       }
     }else{
       setPasswordWarn(false);
@@ -81,14 +81,16 @@ const LoginPage: React.FC = () => {
       setLoginBtn(true);
     }else{
       setLoginBtn(false);
-    }
+    } 
 
   }, [loginData.email, loginData.password, emailWarn, passwordWarn, emailSuccess, passwordSuccess, loginBtn]);
 
   const handleLoginFetch = async () => {
     const result = await fetchLoginData(loginData.email, loginData.password);
-    console.log(result);
-    if (result === "ok") {
+    console.log("로그인 결과 : ", result.token);
+    if (result !== "no") { 
+      localStorage.setItem('userToken', result.token);
+      console.log("로그인 토큰값 : ", localStorage.getItem('userToken'));
       navigate('/');
       alert("로그인 성공");
     }if (result === "no") {

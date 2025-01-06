@@ -69,7 +69,7 @@ const FindPassword: React.FC = () => {
     const handleFindPasswordFetch = async () => {
         const result = await fetchFindPasswordData(findPasswordData.phone, findPasswordData.email);
         console.log(result);
-        if (!(result === "no")) {
+        if (result !== "no") {
             setFindPasswordCheck(true);
         } if (result === "no") {
             navigate('/login/find_password');

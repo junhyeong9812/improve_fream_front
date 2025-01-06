@@ -39,7 +39,7 @@ const FindEmail: React.FC = () => {
 
     const maskEmail = (email: string): string => {
         // 이메일이 빈 값이거나 형식에 맞지 않으면 그대로 반환
-        if (!email || !email.includes('@')) return email;
+        if (typeof email !== 'string' || !email.includes('@')) return email;
       
         const [localPart, domainPart] = email.split('@'); // 이메일을 '@' 기준으로 분리
         if (localPart.length < 3) return email; // 로컬 부분이 너무 짧으면 마스킹하지 않음
@@ -49,19 +49,37 @@ const FindEmail: React.FC = () => {
           localPart[0] + '*'.repeat(localPart.length - 2) + localPart[localPart.length - 1];
       
         return `${maskedLocalPart}@${domainPart}`;
-      };
+    };
+
+    const formatPhoneNumber = (number: string) => {
+        if (number.length === 11) {
+            // "01011223344" -> "010-1122-3344"
+            return number.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+        } else if (number.length === 10) {
+            // "0101123344" -> "010-112-3344"
+            return number.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1-$2-$3');
+        }
+        return number; 
+    };
 
     const handleFindEmailFetch = async () => {
-        const result = await fetchFindEmailData(phoneNumber.phone);
+        const result = await fetchFindEmailData(formatPhoneNumber(phoneNumber.phone));
         console.log(result);
-        if (!(result === 'no')) {
-            setFindEmailCheck(true);
-            setFindEmail(result);
-        }if (result === 'no') {
+        if (result === 'no') {
             navigate('/login/find_email');
             alert("일치하는 사용자 정보를 찾을 수 없습니다.");
+        } else if (typeof result === 'string') {
+            // 이메일을 반환하는 경우
+            setFindEmailCheck(true);
+            setFindEmail(result);
+        } else if (result && result.email) {
+            // result가 객체일 경우, email 속성 추출
+            setFindEmailCheck(true);
+            setFindEmail(result.email);  // 이메일 값만 설정
         }
     }
+
+    // const displayEmail = maskEmail(findEmail);
 
     return(
         <div className='find_email_form_container'>
