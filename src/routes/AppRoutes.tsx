@@ -47,6 +47,7 @@ import Storage from "../features/mypage/pages/Storage";
 import Favorites from "../features/mypage/pages/Favorites";
 import FindEmail from "../features/login/pages/findEmailPage";
 import FindPassword from "../features/login/pages/findPasswordPage";
+import Shop from "../pages/Shop";
 
 // 스타일드 컴포넌트로 Wrapping
 const AppRoutesContainer = styled.div`
@@ -107,6 +108,7 @@ const AppRoutes: React.FC = () => {
           <Route path="faq" element={<FAQPage />} />
           <Route path="inspection" element={<InspectionPage />} />
         </Route>
+        <Route path="/shop" element={<Shop />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login/find_email" element={<FindEmail />} />
