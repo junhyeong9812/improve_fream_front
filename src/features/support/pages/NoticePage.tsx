@@ -82,7 +82,7 @@ const NoticePage: React.FC = () => {
       if (keyword) {
         const response = await noticeService.searchNotices(
           keyword as string,
-          currentPage,
+          currentPage - 1,
           noticesPerPage
         );
         setNotices(response.data.content);
@@ -90,14 +90,14 @@ const NoticePage: React.FC = () => {
       } else if (category && category !== "전체") {
         const response = await noticeService.getNoticesByCategory(
           category as string,
-          currentPage,
+          currentPage - 1,
           noticesPerPage
         );
         setNotices(response.data.content);
         setTotalPages(response.data.totalPages);
       } else {
         const response = await noticeService.getNotices(
-          currentPage,
+          currentPage - 1,
           noticesPerPage
         );
         setNotices(response.data.content);

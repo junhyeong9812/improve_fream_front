@@ -33,9 +33,9 @@ const inspectionService = {
     size: number
   ): Promise<AxiosResponse<InspectionPageResponse>> => {
     // 한글 카테고리를 백엔드 Enum 값으로 변환
-    const mappedCategory = inspectionCategoryMapping[category] || "ALL";
+
     return apiClient.get<InspectionPageResponse>("/inspections", {
-      params: { category: mappedCategory, page, size },
+      params: { category: category, page, size },
     });
   },
 };
@@ -47,9 +47,7 @@ interface InspectionService {
     size: number
   ) => Promise<AxiosResponse<InspectionPageResponse>>;
 
-  getInspection: (
-    id: number
-  ) => Promise<AxiosResponse<InspectionResponseDto>>;
+  getInspection: (id: number) => Promise<AxiosResponse<InspectionResponseDto>>;
 
   getInspectionsByCategory: (
     category: string,

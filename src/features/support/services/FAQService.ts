@@ -51,9 +51,8 @@ const faqService: FAQService = {
 
   // 카테고리별 FAQ 조회
   getFAQsByCategory: (category, page, size) => {
-    const mappedCategory = faqCategoryMapping[category] || "ALL";
     return apiClient.get<FAQPageResponse>("/faq", {
-      params: { category: mappedCategory, page, size },
+      params: { category: category, page, size },
     });
   },
 };

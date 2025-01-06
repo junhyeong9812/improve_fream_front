@@ -10,15 +10,13 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh; /* 전체 화면 높이 */
-  /* display: block;        */
-  /* 기본 블록 레이아웃 (default) */
   width: 100%;
   background-color: white;
 `;
 
 // Header와 겹치지 않게 컨텐츠에 top-margin 적용
-const ContentWrapper = styled.div<{ headerHeight: number }>`
-  margin-top: ${({ headerHeight }) => headerHeight}px;
+const ContentWrapper = styled.div<{ $headerHeight: number }>`
+  margin-top: ${({ $headerHeight }) => $headerHeight}px;
 `;
 
 function App() {
@@ -34,7 +32,7 @@ function App() {
   return (
     <AppContainer>
       <Header /> {/* AppContainer 내부에 위치 */}
-      <ContentWrapper headerHeight={headerHeight}>
+      <ContentWrapper $headerHeight={headerHeight}>
         <AppRoutes />
       </ContentWrapper>
       <Footer />

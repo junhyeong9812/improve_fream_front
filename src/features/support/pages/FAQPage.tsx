@@ -68,6 +68,17 @@ const NoDataMessage = styled.p`
   letter-spacing: -0.16px;
 `;
 
+const categoryMapping: Record<string, string> = {
+  이용정책: "POLICY",
+  공통: "GENERAL",
+  구매: "BUYING",
+  판매: "SELLING",
+};
+// 역매핑: 영어 → 한글
+const reverseCategoryMapping: Record<string, string> = Object.fromEntries(
+  Object.entries(categoryMapping).map(([k, v]) => [v, k])
+);
+
 const FAQPage: React.FC = () => {
   const [faqs, setFaqs] = useState<FAQResponseDto[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,26 +91,51 @@ const FAQPage: React.FC = () => {
 
   // 데이터 가져오기
   const fetchFaqs = async () => {
+    console.log("fetchFaqs 함수 호출됨");
     try {
       if (keyword) {
+        console.log("키워드 검색 조건", keyword);
         const response = await faqService.searchFAQs(
           keyword as string,
-          currentPage,
+          currentPage - 1,
           faqsPerPage
         );
+        if (response) {
+          console.log("API 응답 데이터 (키워드 검색):", response);
+        } else {
+          console.warn("응답 데이터가 없습니다!");
+        }
         setFaqs(response.data.content);
         setTotalPages(response.data.totalPages);
-      } else if (category && category !== "전체") {
+      } else if (category) {
+        // 'category' 파라미터가 존재할 때
+        console.log("카테고리별 검색 조건", category);
+
         const response = await faqService.getFAQsByCategory(
           category as string,
-          currentPage,
+          currentPage - 1,
           faqsPerPage
         );
-        setFaqs(response.data.content);
+        // 데이터 카테고리 한글 변환
+        const transformedFaqs = response.data.content.map((faq) => ({
+          ...faq,
+          category: reverseCategoryMapping[faq.category] || faq.category, // 영어 → 한글 변환
+        }));
+        console.log("transformedFaqs:", transformedFaqs);
+
+        setFaqs(transformedFaqs); // 변환된 데이터를 설정
         setTotalPages(response.data.totalPages);
       } else {
-        const response = await faqService.getFAQs(currentPage, faqsPerPage);
-        setFaqs(response.data.content);
+        // 'category' 파라미터가 없을 때
+        console.log("전체 FAQ 조회 조건");
+        const response = await faqService.getFAQs(currentPage - 1, faqsPerPage);
+        // 데이터 카테고리 한글 변환
+        const transformedFaqs = response.data.content.map((faq) => ({
+          ...faq,
+          category: reverseCategoryMapping[faq.category] || faq.category, // 영어 → 한글 변환
+        }));
+        console.log("transformedFaqs:", transformedFaqs);
+        setFaqs(transformedFaqs);
         setTotalPages(response.data.totalPages);
       }
     } catch (error) {
@@ -120,6 +156,7 @@ const FAQPage: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect 호출됨");
     fetchFaqs();
   }, [keyword, category, currentPage]);
 
@@ -136,7 +173,12 @@ const FAQPage: React.FC = () => {
 
   const handleCategoryChange = (selectedCategory: string) => {
     setCurrentPage(1);
-    navigate(`?category=${selectedCategory}&list=true`);
+    if (selectedCategory === "전체") {
+      navigate(`?list=true`); // '전체' 선택 시 'category' 파라미터 제거
+    } else {
+      const mappedCategory = categoryMapping[selectedCategory];
+      navigate(`?category=${mappedCategory}&list=true`);
+    }
   };
 
   return (

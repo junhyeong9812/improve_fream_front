@@ -104,6 +104,16 @@ const categories = [
   ["테크", "뷰티 · 컬렉터블 · 캠핑 · 가구/리빙", "프리미엄 시계"],
   ["프리미엄 가방"],
 ];
+// 한글 → 영어 매핑 객체
+const categoryMapping: Record<string, string> = {
+  신발: "SHOES",
+  "아우터 · 상의 · 하의": "OUTER",
+  "가방 · 시계 · 지갑 · 패션잡화": "BAG",
+  테크: "TECH",
+  "뷰티 · 컬렉터블 · 캠핑 · 가구/리빙": "BEAUTY",
+  "프리미엄 시계": "PREMIUM_WATCH",
+  "프리미엄 가방": "PREMIUM_BAG",
+};
 
 const InspectionPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("신발"); // 기본값: "신발"
@@ -120,9 +130,10 @@ const InspectionPage: React.FC = () => {
   // 데이터 가져오기
   const fetchData = async (category: string) => {
     try {
+      const mappedCategory = categoryMapping[category] || "SHOES"; // 한글 → 영어 매핑
       const response = await inspectionService.getInspectionsByCategory(
-        category,
-        1, // 첫 번째 페이지
+        mappedCategory,
+        0, // 첫 번째 페이지
         10 // 페이지 크기
       );
       const content = response.data.content[0]?.content || ""; // 첫 번째 데이터의 콘텐츠
