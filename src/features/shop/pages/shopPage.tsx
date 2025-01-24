@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import styled, { css } from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark , faNewspaper} from "@fortawesome/free-regular-svg-icons";
+import { faBolt ,faTruck, faDollarSign, faArrowUp, faArrowDown} from "@fortawesome/free-solid-svg-icons";
+
+
 // 리액트 아이콘
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import FilterModal from "../components/filterModal";
+import PopularModal from "../components/popularityModal";
 
 // 최상위 컨테이너
 const ShopContainer = styled.div`
   width: 1200px;
   margin: 0 auto;
 `;
-
+// FilterButton에 사용할 타입 정의
+interface FilterButtonProps {
+  isClicked: boolean;
+}
 // 검색 영역
 const SearchContainer = styled.div``;
 export const SearchPcTitle = styled.div`
@@ -149,7 +158,7 @@ export const TabLink = styled.a<{ active?: boolean }>`
 ----------------------------------*/
 export const TrendContainer = styled.div`
   padding: 16px;
-  margin: 0 48.5px;
+  //margin: 0 48.5px;
   max-width: 1280px;
   overflow-x: hidden;
 
@@ -324,12 +333,29 @@ const FilterChipButtons = styled.div`
   }
 `;
 
-const FilterButton = styled.button`
-  background: #fff;
+const FilterButton = styled.button<FilterButtonProps>`
+  background: ${(props) => (props.isClicked ? "#000" : "#fff")};
+  color: ${(props) => (props.isClicked ? "#fff" : "#000")};
+  border: 1px solid #f0f0f0;
+  border-radius: 30px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  .buttonIcon {
+    margin-right: 4px;
+  }
+`;
+
+const FilterButtonMeun = styled.button`
+  background: #f4f4f4;
   border: 1px solid #f0f0f0;
   border-radius: 30px;
   color: #4e4e4e;
-  display: flex;
+  display: flex;  
   flex-direction: row;
   font-size: 13px;
   font-weight: 600;
@@ -342,7 +368,7 @@ const FilterButton = styled.button`
 const SearchFilterButtons = styled.div`
   display: grid;
   grid-gap: 6px;
-  grid-template-columns: 32px auto;
+  //grid-template-columns: 32px auto;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 12px 16px 0;
@@ -380,34 +406,134 @@ const ShopCounts = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 16px;
+
+  .filter_sorting button.sorting_title {
+    border: none;
+    background: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    gap: 4px;
+  }
 `;
 
 const FilterFixed = styled.div`
   display: flex;
   gap: 12px;
-
+  
+  input[type="checkbox"] {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle; /* 텍스트와 체크박스를 동일 라인에 위치시킴 */
+  }
   .filter-check-button {
     display: flex;
     align-items: center;
     background-color: #fff;
-    border-radius: 20px;
-    padding: 4px 12px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    padding: 5px 16px;
   }
+  line-height: 1; /* 텍스트 라인 높이 */
+  font-size: 16px; /* 텍스트 크기 */
 `;
 
-const SearchContent = styled.div``;
+
+const SearchContent = styled.div`
+//1
+  display: grid;
+  grid-gap: 20px 12px;
+  grid-template-columns: repeat(auto-fill, minmax(min(192px, 100%), 1fr));
+`;
+
 const ShopMainContent = styled.div`
-  /* .shop-content */
+  /* .shop-content 2 */
 `;
 const SearchResult = styled.div`
-  /* .search_result */
-  p {
-    padding: 16px;
-  }
+  /* .search_result 3 */
+  display: flex;
+  flex-direction: column;
 `;
 
+const ImageGrid = styled.div`
+  // 4
+  `;
+  
+  const ImageWrapper = styled.div`
+  position: relative; /* 텍스트를 이미지 위에 겹치게 하기 위해 사용 */
+  width: 150px; /* 이미지와 텍스트의 공통 영역 크기 */
+  height: 150px;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color:green;
+  }
+  `;
+
+const OverlayText = styled.div`
+  position: absolute; /* 부모를 기준으로 위치 설정 */
+  top: 7%; /* 세로 중앙 정렬 */
+  left: 56%; /* 가로 중앙 정렬 */
+  transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
+  font-size: 13px;
+  font-weight: bold;
+  width: 120px;
+  text-align: right;
+`;
+const ImageInfo = styled.div`
+text-align: left;
+margin-top: 8px;
+font-size: 13px;
+font-weight: 700;
+line-height: 16px;
+color: #333;
+
+  .imgTitle{
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  
+  .brandName {
+    align-items: center;
+    color: #333;
+    display: flex;
+    font-size: 13px;
+    line-height: 16px;
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+
+  .name {
+    display: block;
+    font-size: 13px;
+  }
+
+  .translated_name {
+    color: rgba(34, 34, 34, 0.5);
+    font-size: 11px;
+    line-height: 13px;
+    margin-top: 2px;
+  }
+
+  .infoPrice {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 17px;
+  }
+
+  .price {
+    margin-top: 12px;
+  }
+
+  .action_icon{
+    display: flex;
+    column-gap: 12px;
+    padding-top:12px;
+  }
+`;
 /*-----------------------------
     예시: 탭 데이터 / 슬라이드 데이터
 ------------------------------*/
@@ -453,6 +579,7 @@ const SLIDE_DATA = [
   { id: 20, imgUrl: "https://via.placeholder.com/90", name: "패딩 정리" },
 ];
 
+
 const FILTER_DATA = [
   { id: "category", label: "카테고리" },
   { id: "gender", label: "성별" },
@@ -467,6 +594,8 @@ const FILTER_DATA = [
 /*--------------------------------
       ShopPage 컴포넌트
 ---------------------------------*/
+type FilterKey = "isBelowOriginalPrice" | "isExcludeSoldOut";
+
 const ShopPage: React.FC = () => {
   // 탭 상태
   const [activeTabId, setActiveTabId] = useState<string>("all");
@@ -481,14 +610,146 @@ const ShopPage: React.FC = () => {
 
   // 모달 열고 닫기
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+  const handleCloseModal = () => {
+    console.log("모달창 닫기 완료"); // 로그로 확인
+    setIsModalOpen(false); // 모달 닫기
+  };
 
+  //배송버튼 변경 함수
+  const [clickedButton, setClickedButton] = useState<string | null>(null);
+
+  // 배송버튼 클릭 시 호출되는 함수
+  const handleButtonClick = (buttonLabel: string) => {
+    console.log(`${buttonLabel}`)
+    setClickedButton((prevLabel) => (prevLabel === buttonLabel ? null : buttonLabel));
+    sendToBackend(buttonLabel); // 클릭된 데이터를 백엔드로 전송
+  };
+  //배송버튼 백앤드 전송 코드
+  const sendToBackend = async (buttonLabel: string) => {
+    try {
+      const response = await fetch("주소넣음.", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ filter: buttonLabel }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to send data to the backend");
+      }
+  
+      console.log("Data successfully sent to the backend");
+    } catch (error) {
+      console.error("Error sending data to the backend:", error);
+    }
+  };
+
+  //라디오 버튼 (정가이하, 품절제외)
+  const [filters, setFilters] = useState<{
+    isBelowOriginalPrice: boolean;
+    isExcludeSoldOut: boolean;
+  }>({
+    isBelowOriginalPrice: false,
+    isExcludeSoldOut: false,
+  });
+  const handleToggle = (filterKey: FilterKey) => {
+    const newFilters = {
+      ...filters,
+      [filterKey]: !filters[filterKey], // 해당 키의 상태만 반전
+    };
+  
+    setFilters(newFilters);
+  
+    // 백엔드로 전송
+    sendFiltersToBackend(newFilters);
+  
+    console.log(filterKey, newFilters[filterKey]);
+  };
+  //체크박스 백앤드 데이터 전송코드
+  const sendFiltersToBackend = async (updatedFilters: {
+    isBelowOriginalPrice: boolean;
+    isExcludeSoldOut: boolean;
+  }) => {
+    try {
+      const response = await fetch("주소", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedFilters),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send filters to backend");
+      }
+
+      console.log("Filters successfully sent to backend:", updatedFilters);
+    } catch (error) {
+      console.error("Error sending filters to backend:", error);
+    }
+  };
+  
+
+
+  //인기순 버튼의 모달창
+  const [buttonListModal, setButtonListModal] = useState(false);
+  
+  const handlePopularityOpenModal = () => setButtonListModal(true);
+  const handlePopularityCloseModal = () => setButtonListModal(false);
+
+  //shop의 이미지 출력
+  // const imageList = [
+  //   { id: 1, imgUrl: "/logo512.png", brandName: "아디다스", productName: "제품명" , productPrice: "50000"},
+  //   { id: 2, imgUrl: "/logo512.png", brandName: "닥스", productName: "제품명", productPrice: "50000"},
+  //   { id: 3, imgUrl: "/logo512.png", brandName: "구찌", productName: "제품명", productPrice: "50000"},
+  //   { id: 4, imgUrl: "/logo512.png", brandName: "아디다스", productName: "제품명", productPrice: "50000"},
+  //   { id: 5, imgUrl: "/logo512.png", brandName: "닥스", productName: "제품명", productPrice: "50000"},
+  //   { id: 6, imgUrl: "/logo512.png", brandName: "아디다스", productName: "제품명", productPrice: "50000"},
+  //   { id: 7, imgUrl: "/logo512.png", brandName: "구찌", productName: "제품명", productPrice: "50000" },
+  //   { id: 8, imgUrl: "/logo512.png", brandName: "닥스", productName: "제품명", productPrice: "50000" }
+  // ];
+
+  //이미지 데이터 get 코드
+  type ImageData = {
+    id: number;
+    imgUrl: string;
+    brandName: string;
+    productName: string;
+    productPrice: string;
+  };
+
+    const [imageList, setImageList] = useState<ImageData[]>([]);
+  
+    // 데이터를 백엔드에서 받아오는 함수
+    const fetchImageData = async () => {
+      try {
+        const response = await fetch("주소"); // 백엔드 API URL로 변경
+        if (!response.ok) {
+          throw new Error("fetchImageData에서 발생");
+        }
+  
+        const data: ImageData[] = await response.json(); // JSON 데이터를 배열 형태로 파싱
+        console.log("확인데이터:", data); // 데이터 확인용 로그
+        setImageList(data); // 상태 업데이트
+      } catch (error) {
+        console.error("fetchImageData data에서 발생", error);
+      }
+    };
+  
+    // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
+    useEffect(() => {
+      fetchImageData();
+    }, []);
+  
   return (
     <>
       <ShopContainer>
         {/* 상단 검색 */}
-        <SearchContainer>
+        {/* <SearchContainer> */}
           <SearchPcTitle>
             <div className="suggests-visibility" />
             <SearchArea style={{ display: "none" }}>
@@ -504,7 +765,7 @@ const ShopPage: React.FC = () => {
             </SearchArea>
             <h1 className="title_txt">SHOP</h1>
           </SearchPcTitle>
-        </SearchContainer>
+        {/* </SearchContainer> */}
 
         {/* 네비게이션 탭 */}
         <ShopTab>
@@ -599,11 +860,34 @@ const ShopPage: React.FC = () => {
           <ShopFilterOpenButtonsContainer>
             <ShopFilters>
               <FilterDeliveryContainer>
-                <FilterChipButtons>
-                  <FilterButton>빠른배송</FilterButton>
-                  <FilterButton>브랜드배송</FilterButton>
-                  <FilterButton>프리미엄배송</FilterButton>
-                </FilterChipButtons>
+              <FilterChipButtons>
+                <FilterButton
+                  isClicked={clickedButton === "빠른배송"}
+                  onClick={() => handleButtonClick("빠른배송")}>
+                  <FontAwesomeIcon 
+                    className="buttonIcon" 
+                    icon={faBolt} />
+                  빠른배송
+                </FilterButton>
+
+                <FilterButton
+                  isClicked={clickedButton === "브랜드배송"}
+                  onClick={() => handleButtonClick("브랜드배송")}>
+                  <FontAwesomeIcon 
+                    className="buttonIcon" 
+                    icon={faTruck} />
+                  브랜드배송
+                </FilterButton>
+
+                <FilterButton
+                  isClicked={clickedButton === "프리미엄배송"}
+                  onClick={() => handleButtonClick("프리미엄배송")}>
+                  <FontAwesomeIcon 
+                    className="buttonIcon" 
+                    icon={faDollarSign} />
+                  프리미엄배송
+                </FilterButton>
+              </FilterChipButtons>
               </FilterDeliveryContainer>
               <div id="search-filter-divider" className="divider" />
               <SearchFilterButtons>
@@ -619,69 +903,69 @@ const ShopPage: React.FC = () => {
                     <FilterChipButtons>
                       {/* 필터 모달 열기 버튼 */}
                       {/* 카테고리 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">카테고리</span>
                           {/* ▼ 아이콘 (React Icons) */}
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 성별 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">성별</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 색상 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">색상</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 혜택/할인 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">혜택/할인</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 브랜드 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">브랜드</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 컬렉션 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">컬렉션</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 사이즈 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">사이즈</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
 
                       {/* 가격대 */}
-                      <FilterButton onClick={handleOpenModal}>
+                      <FilterButtonMeun onClick={handleOpenModal}>
                         <p className="text-group">
                           <span className="title">가격대</span>
                           <FaChevronDown />
                         </p>
-                      </FilterButton>
+                      </FilterButtonMeun>
                       {/* ... 나머지 필터 */}
                     </FilterChipButtons>
                   </ScrollContainer>
@@ -693,23 +977,80 @@ const ShopPage: React.FC = () => {
           <SearchContainerShopSortingCounts>
             <ShopCounts>
               <FilterFixed>
-                <div className="filter-check-button">정가이하</div>
-                <div className="filter-check-button">품절제외</div>
+                <div className="filter-check-button">
+                  <label>
+                    <input
+                      type="checkbox"
+                      className="checkBox"
+                      checked={filters.isBelowOriginalPrice}
+                      onChange={() => handleToggle("isBelowOriginalPrice")}
+                      style={{ marginRight: "8px" }} 
+                    ></input>
+                  </label>
+                    <span>정가이하</span>
+                </div>
+                <div className="filter-check-button">
+                  <label>
+                      <input
+                        type="checkbox"
+                        checked={filters.isExcludeSoldOut}
+                        onChange={() => handleToggle("isExcludeSoldOut")}
+                        style={{ marginRight: "8px" }} 
+                        ></input>
+                  </label>
+                        <span>품절제외</span>
+                </div>
               </FilterFixed>
               <div className="filter_sorting">
-                <button type="button" className="sorting_title">
-                  <span>인기순</span>
+                <button 
+                  type="button" 
+                  className="sorting_title"
+                  onClick={handlePopularityOpenModal}>
+                  <span>인기순 <FontAwesomeIcon icon={faArrowUp} /><FontAwesomeIcon icon={faArrowDown} /></span>
                 </button>
+                <PopularModal open={buttonListModal} onClose={handlePopularityCloseModal}/>
               </div>
+              {/* <!--> */}
             </ShopCounts>
           </SearchContainerShopSortingCounts>
 
           <SearchContent>
-            <ShopMainContent>
+          {imageList.map((image) => (
+            <ShopMainContent key={image.id}>
               <SearchResult>
-                <p>메인 컨텐츠 영역</p>
+
+                <ImageGrid>
+                  <ImageWrapper>
+                    <img src={image.imgUrl} alt={`sample-${image.id}`} />
+                    <OverlayText>거래 12.3만</OverlayText>
+                  </ImageWrapper>
+                </ImageGrid>
+
+
+                <ImageInfo>
+                  <div className="imgTitle">
+                      <span className="brandName">{image.brandName}</span>
+                      <div className="img_info">
+                        <span className="name">{image.productName}</span>
+                        <span className="translated_name">{image.productName}</span>
+                      </div>
+                    </div>
+                  <div className="img_info price">
+                    <span className="infoPrice">{image.productPrice}원</span>
+                    <span className="translated_name">즉시 구매가</span>
+                  </div>
+                  <div className="action_icon">
+                    <FontAwesomeIcon className="translated_name" icon={faBookmark} />
+                    <span className="translated_name">00.0만</span>
+                    <FontAwesomeIcon className="translated_name" icon={faNewspaper} />                  
+                    <span className="translated_name">1,1234</span>
+                  </div>
+                </ImageInfo>
+
+
               </SearchResult>
             </ShopMainContent>
+          ))}
           </SearchContent>
         </ContentContainer>
       </ShopContainer>

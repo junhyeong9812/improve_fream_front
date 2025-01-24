@@ -10,12 +10,16 @@ const FilterModal: React.FC<FilterModalProps> = ({ open, onClose }) => {
   if (!open) return null; // open이 false면 null 리턴
 
   return (
-    <ModalOverlay>
-      <ModalWrapper>
+    <ModalOverlay onClick={onClose}>
+      <ModalWrapper onClick={(e) => e.stopPropagation()}>
         <ModalContainer>
           {/* 배경 클릭으로 닫기 */}
-          <ModalBackground onClick={onClose} />
-
+          <ModalBackground
+            onClick={() => {
+              console.log("Background clicked!"); // 클릭 이벤트 확인
+              onClose(); // 모달 닫기
+            }}
+          />
           {/* 실제 컨텐츠 */}
           <ModalInner>
             {/* 닫기 버튼 */}
@@ -104,7 +108,7 @@ const ModalOverlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2000; /* 페이지 위를 덮는 가장 큰 z-index */
+  z-index: 1000; /* 페이지 위를 덮는 가장 큰 z-index */
 `;
 
 const ModalWrapper = styled.div`
@@ -129,21 +133,22 @@ const ModalContainer = styled.div`
 
 const ModalBackground = styled.div`
   /* 회색 반투명 배경 */
-  background-color: rgba(34, 34, 34, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
 `;
 
 const ModalInner = styled.div`
   /* 실제 컨텐츠 부분 */
-  background: #fff;
   position: relative;
+  background: #fff;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2010; 
   display: flex;
   flex-direction: column;
   overflow: hidden;
