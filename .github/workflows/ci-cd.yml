@@ -58,5 +58,5 @@ jobs:
           script: |
             # 서버에서 docker-compose pull + up
             cd /home/ubuntu/fream-back/docker/prod
-            docker-compose pull front
-            docker-compose up -d front
+            docker compose pull front
+            docker compose up -d front
