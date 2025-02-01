@@ -1,0 +1,49 @@
+.footer-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.footer-modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  position: relative;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.footer-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.footer-modal-header h2 {
+  font-size: 18px;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.footer-modal-header button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.footer-modal-body {
+  font-size: 14px;
+  line-height: 1.6;
+}

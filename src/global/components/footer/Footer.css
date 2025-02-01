@@ -1,0 +1,202 @@
+.footer-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+  padding: 50px 40px;
+  width: 100%;
+  border-top: 1px solid #ddd;
+}
+
+@media (max-width: 960px) {
+  .footer-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* 상단 Section */
+.section {
+  display: flex;
+  flex-direction: row-reverse; /* 역순 배치 */
+  justify-content: space-between;
+  padding-bottom: 56px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+@media (max-width: 960px) {
+  .section {
+    display: none; /* 960px 이하에서 숨김 */
+  }
+}
+
+/* 고객센터 */
+.customer-center h4 {
+  font-size: 16px;
+  letter-spacing: -0.16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.customer-center .phone-number {
+  margin-left: 4px;
+  letter-spacing: normal;
+}
+
+.time-box {
+  line-height: 17px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.time-box div {
+  margin-bottom: 5px;
+}
+
+.time-term {
+  margin-right: 4px;
+  color: rgba(34, 34, 34, 0.5);
+  display: inline-block;
+}
+
+.customer-center p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.faq-link {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.faq-link:hover {
+  background-color: #555;
+}
+
+/* 푸터 메뉴 */
+.footer-menu {
+  display: flex;
+}
+
+.menu-box {
+  width: 160px;
+  margin-left: 40px; /* 혹은 원하는 간격으로 조정 */
+}
+
+.menu-title {
+  font-size: 16px;
+  letter-spacing: -0.16px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.menu-list {
+  padding-top: 16px;
+  list-style: none;
+}
+
+.menu-item {
+  margin-bottom: 8px;
+}
+
+.menu-item a {
+  color: rgba(34, 34, 34, 0.5);
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: -0.21px;
+  text-decoration: none;
+}
+
+.menu-item a:hover {
+  color: #000;
+}
+
+/* 링크 섹션 */
+.links-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.links-section a {
+  text-decoration: none;
+  color: #222;
+  font-size: 14px;
+  margin-right: 15px;
+}
+
+.links-section a:hover {
+  color: #000;
+}
+
+@media (max-width: 960px) {
+  .links-section {
+    display: none; /* 960px 이하에서 숨김 */
+  }
+}
+
+/* 소셜 아이콘 */
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  color: #555;
+  font-size: 20px;
+}
+
+.social-icons a:hover {
+  color: #000;
+}
+
+/* 하단 정보 */
+.bottom-info {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #999;
+}
+
+.bottom-info p {
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.bottom-info a {
+  text-decoration: none;
+  color: #222;
+}
+
+.bottom-info a:hover {
+  color: #000;
+}
+
+@media (max-width: 960px) {
+  .bottom-info {
+    display: none; /* 960px 이하에서 숨김 */
+  }
+}
+
+/* 모바일 전용 카피라이트 */
+.copyright {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .copyright {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #222;
+  }
+}
