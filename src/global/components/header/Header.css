@@ -31,6 +31,15 @@
     display: none; /* 모바일에서는 숨김 */
   }
 }
+/* 예) Header.css에 추가 */
+/* 상단 날씨/접속자 영역 */
+.top-bar-info {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #444;
+  background-color: #fafafa;
+}
 
 /* 데스크탑 상단 메뉴 */
 .top-nav {
