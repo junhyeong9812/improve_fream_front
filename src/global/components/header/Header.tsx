@@ -23,69 +23,75 @@ const Header: React.FC = () => {
     null
   );
   const [todayAccessCount, setTodayAccessCount] = useState<number>(0);
+
+  // (예시) 현재 날짜(YYYY-MM-DD) 표시용
+  const [currentDateString, setCurrentDateString] = useState<string>("");
+
   useEffect(() => {
-    // 컴포넌트 마운트 시, 날씨 & 오늘 접속자 조회
+    // 컴포넌트 마운트 시, 날씨 & 오늘 접속자 조회 + 날짜 세팅
     async function loadData() {
-      const weather = await fetchCurrentWeather
-      ();
+      const weather = await fetchCurrentWeather();
       if (weather) {
         setCurrentWeather(weather);
       }
 
       const count = await fetchTodayAccessCount();
       setTodayAccessCount(count);
+
+      // 오늘 날짜 예: 2025-02-01
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      setCurrentDateString(`${year}-${month}-${day}`);
     }
 
     loadData();
   }, []);
+
   return (
     <>
       {/* 데스크탑 헤더 전체 영역 */}
       <div className="header-all-container">
         {/* 데스크탑 헤더 */}
         <header className="header-container">
-        <div className="top-bar-info" 
-               style={{ display: "flex", justifyContent: "space-between", padding: "0 40px" }}>
-            {/* 서울 날씨 정보 */}
-            <div>
-              {currentWeather ? (
-                <span style={{ marginRight: 16 }}>
-                  현재 서울 날씨: {currentWeather.temperature.toFixed(1)}°C /
-                  강수확률: {currentWeather.precipitationProbability}% /
-                  강수량: {currentWeather.precipitation}mm
-                </span>
-              ) : (
-                <span style={{ marginRight: 16 }}>
-                  날씨 정보를 불러오는 중...
-                </span>
+          {/* --- 상단 섹션: 날짜 / 오늘 접속자 VS top-nav --- */}
+          <div className="header-top-section">
+            <div className="left-info">
+              <div className="date-info">오늘 날짜: {currentDateString}</div>
+              <div className="visit-info">
+                오늘 접속자: {todayAccessCount}명
+              </div>
+              {currentWeather && (
+                <div className="weather-info">
+                  (날씨) {currentWeather.temperature.toFixed(1)}°C / 강수확률:{" "}
+                  {currentWeather.precipitationProbability}% / 강수량:{" "}
+                  {currentWeather.precipitation}mm
+                </div>
               )}
             </div>
-            {/* 오늘 접속자 */}
-            <div>
-              오늘 접속자: {todayAccessCount}명
+            {/* top-nav 우측 정렬 */}
+            <div className="top-nav">
+              <ul>
+                <li>
+                  <Link to="/support/notice">고객센터</Link>
+                </li>
+                <li>
+                  <Link to="/my">마이페이지</Link>
+                </li>
+                <li>
+                  <Link to="/favorites">관심</Link>
+                </li>
+                <li>
+                  <Link to="#" onClick={() => setNotificationModalOpen(true)}>
+                    알림
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login">로그인</Link>
+                </li>
+              </ul>
             </div>
-          </div>
-          {/* ========================================= */}
-          <div className="top-nav">
-            <ul>
-              <li>
-                <Link to="/support/notice">고객센터</Link>
-              </li>
-              <li>
-                <Link to="/my">마이페이지</Link>
-              </li>
-              <li>
-                <Link to="/favorites">관심</Link>
-              </li>
-              <li>
-                <Link to="#" onClick={() => setNotificationModalOpen(true)}>
-                  알림
-                </Link>
-              </li>
-              <li>
-                <Link to="/login">로그인</Link>
-              </li>
-            </ul>
           </div>
 
           <div className="bottom-nav">
