@@ -1,9 +1,14 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark , faNewspaper} from "@fortawesome/free-regular-svg-icons";
-import { faBolt ,faTruck, faDollarSign, faArrowUp, faArrowDown} from "@fortawesome/free-solid-svg-icons";
-
+import { faBookmark, faNewspaper } from "@fortawesome/free-regular-svg-icons";
+import {
+  faBolt,
+  faTruck,
+  faDollarSign,
+  faArrowUp,
+  faArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 // 리액트 아이콘
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -12,6 +17,7 @@ import PopularModal from "../components/popularityModal";
 
 // 최상위 컨테이너
 const ShopContainer = styled.div`
+  position: relative; /* 자식(오버레이)이 absolute로 전체를 덮을 수 있도록 */
   width: 1200px;
   margin: 0 auto;
 `;
@@ -355,7 +361,7 @@ const FilterButtonMeun = styled.button`
   border: 1px solid #f0f0f0;
   border-radius: 30px;
   color: #4e4e4e;
-  display: flex;  
+  display: flex;
   flex-direction: row;
   font-size: 13px;
   font-weight: 600;
@@ -420,7 +426,7 @@ const ShopCounts = styled.div`
 const FilterFixed = styled.div`
   display: flex;
   gap: 12px;
-  
+
   input[type="checkbox"] {
     margin-right: 8px;
     width: 20px;
@@ -439,9 +445,8 @@ const FilterFixed = styled.div`
   font-size: 16px; /* 텍스트 크기 */
 `;
 
-
 const SearchContent = styled.div`
-//1
+  //1
   display: grid;
   grid-gap: 20px 12px;
   grid-template-columns: repeat(auto-fill, minmax(min(192px, 100%), 1fr));
@@ -458,9 +463,9 @@ const SearchResult = styled.div`
 
 const ImageGrid = styled.div`
   // 4
-  `;
-  
-  const ImageWrapper = styled.div`
+`;
+
+const ImageWrapper = styled.div`
   position: relative; /* 텍스트를 이미지 위에 겹치게 하기 위해 사용 */
   width: 150px; /* 이미지와 텍스트의 공통 영역 크기 */
   height: 150px;
@@ -468,9 +473,9 @@ const ImageGrid = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    background-color:green;
+    background-color: green;
   }
-  `;
+`;
 
 const OverlayText = styled.div`
   position: absolute; /* 부모를 기준으로 위치 설정 */
@@ -483,18 +488,18 @@ const OverlayText = styled.div`
   text-align: right;
 `;
 const ImageInfo = styled.div`
-text-align: left;
-margin-top: 8px;
-font-size: 13px;
-font-weight: 700;
-line-height: 16px;
-color: #333;
+  text-align: left;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #333;
 
-  .imgTitle{
+  .imgTitle {
     padding-left: 4px;
     padding-right: 4px;
   }
-  
+
   .brandName {
     align-items: center;
     color: #333;
@@ -528,10 +533,10 @@ color: #333;
     margin-top: 12px;
   }
 
-  .action_icon{
+  .action_icon {
     display: flex;
     column-gap: 12px;
-    padding-top:12px;
+    padding-top: 12px;
   }
 `;
 /*-----------------------------
@@ -579,7 +584,6 @@ const SLIDE_DATA = [
   { id: 20, imgUrl: "https://via.placeholder.com/90", name: "패딩 정리" },
 ];
 
-
 const FILTER_DATA = [
   { id: "category", label: "카테고리" },
   { id: "gender", label: "성별" },
@@ -596,7 +600,41 @@ const FILTER_DATA = [
 ---------------------------------*/
 type FilterKey = "isBelowOriginalPrice" | "isExcludeSoldOut";
 
+const PopularityButtonWrapper = styled.div`
+  position: relative; /* 자식이 absolute로 뜨도록 하기 위함 */
+  width: 100%;
+  height: 100%;
+`;
+// display: inline-block; /* 버튼 크기에 맞춰 wrapping */
+
 const ShopPage: React.FC = () => {
+  // 모달 열림 여부
+  const [open, setOpen] = useState(false);
+
+  // 모달 DOM을 가리킬 ref
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // 모달 외부 클릭 시 닫기 위한 전역 클릭 핸들러
+  const handleGlobalClick = (e: React.MouseEvent) => {
+    // 모달이 열려 있고, ref가 존재하면
+    if (open && modalRef.current) {
+      // e.target이 모달 내부가 아니면 => 닫기
+      if (!modalRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+  };
+
+  // 모달에서 선택된 값 (ex. "인기순", "남성 인기순" 등)
+  const [selectedValue, setSelectedValue] = useState("");
+
+  // 모달에서 아이템 선택 시 호출할 콜백
+  const handleSelectItem = (item: string) => {
+    console.log("선택된 아이템:", item);
+    setSelectedValue(item);
+    // 모달은 이미 모달 내부에서 onClose()가 호출되어 닫힘
+  };
+
   // 탭 상태
   const [activeTabId, setActiveTabId] = useState<string>("all");
 
@@ -623,8 +661,10 @@ const ShopPage: React.FC = () => {
 
   // 배송버튼 클릭 시 호출되는 함수
   const handleButtonClick = (buttonLabel: string) => {
-    console.log(`${buttonLabel}`)
-    setClickedButton((prevLabel) => (prevLabel === buttonLabel ? null : buttonLabel));
+    console.log(`${buttonLabel}`);
+    setClickedButton((prevLabel) =>
+      prevLabel === buttonLabel ? null : buttonLabel
+    );
     sendToBackend(buttonLabel); // 클릭된 데이터를 백엔드로 전송
   };
   //배송버튼 백앤드 전송 코드
@@ -637,11 +677,11 @@ const ShopPage: React.FC = () => {
         },
         body: JSON.stringify({ filter: buttonLabel }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to send data to the backend");
       }
-  
+
       console.log("Data successfully sent to the backend");
     } catch (error) {
       console.error("Error sending data to the backend:", error);
@@ -661,12 +701,12 @@ const ShopPage: React.FC = () => {
       ...filters,
       [filterKey]: !filters[filterKey], // 해당 키의 상태만 반전
     };
-  
+
     setFilters(newFilters);
-  
+
     // 백엔드로 전송
     sendFiltersToBackend(newFilters);
-  
+
     console.log(filterKey, newFilters[filterKey]);
   };
   //체크박스 백앤드 데이터 전송코드
@@ -692,12 +732,10 @@ const ShopPage: React.FC = () => {
       console.error("Error sending filters to backend:", error);
     }
   };
-  
-
 
   //인기순 버튼의 모달창
   const [buttonListModal, setButtonListModal] = useState(false);
-  
+
   const handlePopularityOpenModal = () => setButtonListModal(true);
   const handlePopularityCloseModal = () => setButtonListModal(false);
 
@@ -722,49 +760,49 @@ const ShopPage: React.FC = () => {
     productPrice: string;
   };
 
-    const [imageList, setImageList] = useState<ImageData[]>([]);
-  
-    // 데이터를 백엔드에서 받아오는 함수
-    const fetchImageData = async () => {
-      try {
-        const response = await fetch("주소"); // 백엔드 API URL로 변경
-        if (!response.ok) {
-          throw new Error("fetchImageData에서 발생");
-        }
-  
-        const data: ImageData[] = await response.json(); // JSON 데이터를 배열 형태로 파싱
-        console.log("확인데이터:", data); // 데이터 확인용 로그
-        setImageList(data); // 상태 업데이트
-      } catch (error) {
-        console.error("fetchImageData data에서 발생", error);
+  const [imageList, setImageList] = useState<ImageData[]>([]);
+
+  // 데이터를 백엔드에서 받아오는 함수
+  const fetchImageData = async () => {
+    try {
+      const response = await fetch("주소"); // 백엔드 API URL로 변경
+      if (!response.ok) {
+        throw new Error("fetchImageData에서 발생");
       }
-    };
-  
-    // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
-    useEffect(() => {
-      fetchImageData();
-    }, []);
-  
+
+      const data: ImageData[] = await response.json(); // JSON 데이터를 배열 형태로 파싱
+      console.log("확인데이터:", data); // 데이터 확인용 로그
+      setImageList(data); // 상태 업데이트
+    } catch (error) {
+      console.error("fetchImageData data에서 발생", error);
+    }
+  };
+
+  // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
+  useEffect(() => {
+    fetchImageData();
+  }, []);
+
   return (
     <>
-      <ShopContainer>
+      <ShopContainer onClick={handleGlobalClick}>
         {/* 상단 검색 */}
         {/* <SearchContainer> */}
-          <SearchPcTitle>
-            <div className="suggests-visibility" />
-            <SearchArea style={{ display: "none" }}>
-              <SearchInner>
-                <input
-                  type="text"
-                  placeholder="브랜드, 상품, 프로필, 태그 등"
-                  title="검색창"
-                  className="input_search show_placeholder_on_focus"
-                />
-                <button className="btn_search_delete">X</button>
-              </SearchInner>
-            </SearchArea>
-            <h1 className="title_txt">SHOP</h1>
-          </SearchPcTitle>
+        <SearchPcTitle>
+          <div className="suggests-visibility" />
+          <SearchArea style={{ display: "none" }}>
+            <SearchInner>
+              <input
+                type="text"
+                placeholder="브랜드, 상품, 프로필, 태그 등"
+                title="검색창"
+                className="input_search show_placeholder_on_focus"
+              />
+              <button className="btn_search_delete">X</button>
+            </SearchInner>
+          </SearchArea>
+          <h1 className="title_txt">SHOP</h1>
+        </SearchPcTitle>
         {/* </SearchContainer> */}
 
         {/* 네비게이션 탭 */}
@@ -860,34 +898,34 @@ const ShopPage: React.FC = () => {
           <ShopFilterOpenButtonsContainer>
             <ShopFilters>
               <FilterDeliveryContainer>
-              <FilterChipButtons>
-                <FilterButton
-                  isClicked={clickedButton === "빠른배송"}
-                  onClick={() => handleButtonClick("빠른배송")}>
-                  <FontAwesomeIcon 
-                    className="buttonIcon" 
-                    icon={faBolt} />
-                  빠른배송
-                </FilterButton>
+                <FilterChipButtons>
+                  <FilterButton
+                    isClicked={clickedButton === "빠른배송"}
+                    onClick={() => handleButtonClick("빠른배송")}
+                  >
+                    <FontAwesomeIcon className="buttonIcon" icon={faBolt} />
+                    빠른배송
+                  </FilterButton>
 
-                <FilterButton
-                  isClicked={clickedButton === "브랜드배송"}
-                  onClick={() => handleButtonClick("브랜드배송")}>
-                  <FontAwesomeIcon 
-                    className="buttonIcon" 
-                    icon={faTruck} />
-                  브랜드배송
-                </FilterButton>
+                  <FilterButton
+                    isClicked={clickedButton === "브랜드배송"}
+                    onClick={() => handleButtonClick("브랜드배송")}
+                  >
+                    <FontAwesomeIcon className="buttonIcon" icon={faTruck} />
+                    브랜드배송
+                  </FilterButton>
 
-                <FilterButton
-                  isClicked={clickedButton === "프리미엄배송"}
-                  onClick={() => handleButtonClick("프리미엄배송")}>
-                  <FontAwesomeIcon 
-                    className="buttonIcon" 
-                    icon={faDollarSign} />
-                  프리미엄배송
-                </FilterButton>
-              </FilterChipButtons>
+                  <FilterButton
+                    isClicked={clickedButton === "프리미엄배송"}
+                    onClick={() => handleButtonClick("프리미엄배송")}
+                  >
+                    <FontAwesomeIcon
+                      className="buttonIcon"
+                      icon={faDollarSign}
+                    />
+                    프리미엄배송
+                  </FilterButton>
+                </FilterChipButtons>
               </FilterDeliveryContainer>
               <div id="search-filter-divider" className="divider" />
               <SearchFilterButtons>
@@ -984,73 +1022,93 @@ const ShopPage: React.FC = () => {
                       className="checkBox"
                       checked={filters.isBelowOriginalPrice}
                       onChange={() => handleToggle("isBelowOriginalPrice")}
-                      style={{ marginRight: "8px" }} 
+                      style={{ marginRight: "8px" }}
                     ></input>
                   </label>
-                    <span>정가이하</span>
+                  <span>정가이하</span>
                 </div>
                 <div className="filter-check-button">
                   <label>
-                      <input
-                        type="checkbox"
-                        checked={filters.isExcludeSoldOut}
-                        onChange={() => handleToggle("isExcludeSoldOut")}
-                        style={{ marginRight: "8px" }} 
-                        ></input>
+                    <input
+                      type="checkbox"
+                      checked={filters.isExcludeSoldOut}
+                      onChange={() => handleToggle("isExcludeSoldOut")}
+                      style={{ marginRight: "8px" }}
+                    ></input>
                   </label>
-                        <span>품절제외</span>
+                  <span>품절제외</span>
                 </div>
               </FilterFixed>
               <div className="filter_sorting">
-                <button 
-                  type="button" 
-                  className="sorting_title"
-                  onClick={handlePopularityOpenModal}>
-                  <span>인기순 <FontAwesomeIcon icon={faArrowUp} /><FontAwesomeIcon icon={faArrowDown} /></span>
-                </button>
-                <PopularModal open={buttonListModal} onClose={handlePopularityCloseModal}/>
+                <PopularityButtonWrapper>
+                  <button
+                    type="button"
+                    className="sorting_title"
+                    onClick={
+                      // handlePopularityOpenModal
+                      () => setOpen(true)
+                    }
+                  >
+                    <span>
+                      인기순 <FontAwesomeIcon icon={faArrowUp} />
+                      <FontAwesomeIcon icon={faArrowDown} />
+                    </span>
+                  </button>
+                  {open && (
+                    <PopularModal
+                      ref={modalRef} // ← forwardRef로 연결
+                      open={open}
+                      onClose={() => setOpen(false)}
+                      onSelectItem={handleSelectItem} // ← 아이템 선택 콜백
+                    />
+                  )}
+                </PopularityButtonWrapper>
               </div>
               {/* <!--> */}
             </ShopCounts>
           </SearchContainerShopSortingCounts>
 
           <SearchContent>
-          {imageList.map((image) => (
-            <ShopMainContent key={image.id}>
-              <SearchResult>
+            {imageList.map((image) => (
+              <ShopMainContent key={image.id}>
+                <SearchResult>
+                  <ImageGrid>
+                    <ImageWrapper>
+                      <img src={image.imgUrl} alt={`sample-${image.id}`} />
+                      <OverlayText>거래 12.3만</OverlayText>
+                    </ImageWrapper>
+                  </ImageGrid>
 
-                <ImageGrid>
-                  <ImageWrapper>
-                    <img src={image.imgUrl} alt={`sample-${image.id}`} />
-                    <OverlayText>거래 12.3만</OverlayText>
-                  </ImageWrapper>
-                </ImageGrid>
-
-
-                <ImageInfo>
-                  <div className="imgTitle">
+                  <ImageInfo>
+                    <div className="imgTitle">
                       <span className="brandName">{image.brandName}</span>
                       <div className="img_info">
                         <span className="name">{image.productName}</span>
-                        <span className="translated_name">{image.productName}</span>
+                        <span className="translated_name">
+                          {image.productName}
+                        </span>
                       </div>
                     </div>
-                  <div className="img_info price">
-                    <span className="infoPrice">{image.productPrice}원</span>
-                    <span className="translated_name">즉시 구매가</span>
-                  </div>
-                  <div className="action_icon">
-                    <FontAwesomeIcon className="translated_name" icon={faBookmark} />
-                    <span className="translated_name">00.0만</span>
-                    <FontAwesomeIcon className="translated_name" icon={faNewspaper} />                  
-                    <span className="translated_name">1,1234</span>
-                  </div>
-                </ImageInfo>
-
-
-              </SearchResult>
-            </ShopMainContent>
-          ))}
+                    <div className="img_info price">
+                      <span className="infoPrice">{image.productPrice}원</span>
+                      <span className="translated_name">즉시 구매가</span>
+                    </div>
+                    <div className="action_icon">
+                      <FontAwesomeIcon
+                        className="translated_name"
+                        icon={faBookmark}
+                      />
+                      <span className="translated_name">00.0만</span>
+                      <FontAwesomeIcon
+                        className="translated_name"
+                        icon={faNewspaper}
+                      />
+                      <span className="translated_name">1,1234</span>
+                    </div>
+                  </ImageInfo>
+                </SearchResult>
+              </ShopMainContent>
+            ))}
           </SearchContent>
         </ContentContainer>
       </ShopContainer>

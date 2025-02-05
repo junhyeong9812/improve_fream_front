@@ -1,58 +1,73 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 
 interface PopularityModalProps {
-  open: boolean; // 모달 오픈 여부
-  onClose: () => void; // 닫기 함수
+  open: boolean;
+  onClose: () => void;
+  onSelectItem?: (item: string) => void; // ★ 선택된 값을 부모에 전달할 콜백
 }
 
 const popularityList = [
-  "인기순", "남성 인기순", "여성 인기순", "할인물순", "프리미엄 높은순",
-  "프리미엄 낮은순", "낮은 구매가순", "높은 구매가순", "높은 판매가순",
-  "관심 많은순", "스타일 많은순", "발매일순"
+  "인기순",
+  "남성 인기순",
+  "여성 인기순",
+  "할인물순",
+  "프리미엄 높은순",
+  "프리미엄 낮은순",
+  "낮은 구매가순",
+  "높은 구매가순",
+  "높은 판매가순",
+  "관심 많은순",
+  "스타일 많은순",
+  "발매일순",
 ];
 
-const PopularityModal: React.FC<PopularityModalProps> = ({ open, onClose }) => {
-  if (!open) return null;
+// 1) forwardRef 사용: 부모에서 내려주는 ref를 모달 최상위 DOM에 연결하기 위함
+const PopularityModal = forwardRef<HTMLDivElement, PopularityModalProps>(
+  ({ open, onClose, onSelectItem }, ref) => {
+    if (!open) return null;
 
-  //모달의 외부 영역을 클릭하면 모달을 닫는다.
-  const handleModalClick = (e: React.MouseEvent) => {
-    console.log("와다다다다다"); // 클릭 로그
-    e.stopPropagation();  // 이벤트 버블링 방지
-  };
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    onClose();
-  };
+    // 모달 바깥(오버레이) 클릭 시 닫기
+    const handleOverlayClick = () => {
+      onClose();
+    };
 
-  return (
-    <ModalOverlay onClick={handleOverlayClick}>
-      <ModalContainer onClick={handleModalClick}>
-        <div className="popularity">
-          {popularityList.map((item, index) => (
-            <div key={index} className="popularity-item">
-              {item}
-            </div>
-          ))}
-        </div>
-      </ModalContainer>
-    </ModalOverlay>
-      );
-      };
+    // 모달 내부 클릭 이벤트 버블링 방지
+    const handleModalClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+    };
 
+    // 아이템을 클릭했을 때 부모에게 선택값 전달 (onSelectItem) + 모달 닫기
+    const handleItemClick = (item: string) => {
+      // 필요한 경우 onSelectItem이 있으면 호출
+      onSelectItem?.(item);
+      // 모달 닫기
+      onClose();
+    };
 
-
-
+    return (
+      <ModalOverlay onClick={handleOverlayClick}>
+        {/* 2) 부모가 전달해 준 ref를 ModalContainer에 연결 */}
+        <ModalContainer ref={ref} onClick={handleModalClick}>
+          <div className="popularity">
+            {popularityList.map((item, index) => (
+              <div
+                key={index}
+                className="popularity-item"
+                onClick={() => handleItemClick(item)} // ← 클릭 시 아이템 선택
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </ModalContainer>
+      </ModalOverlay>
+    );
+  }
+);
 
 const ModalOverlay = styled.div`
-// position: absolute; /* 부모 컨테이너 기준 위치 고정 */
-  // top: 110px; /* 원하는 위치 조정 */
-  // left: 90%; /* 중앙 정렬 (수평) */
-  // transform: translateX(-50%); /* 중앙 정렬 보정 */
-  // width: 170px;
-//   z-index: 999; /* 화면 위로 */
-
-
-position: fixed; /* 화면 전체에 고정 */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -62,32 +77,22 @@ position: fixed; /* 화면 전체에 고정 */
 `;
 
 const ModalContainer = styled.div`
-// background-color: #fff;
-// border: 1px solid #ebebeb;
-// border-radius: 10px;
-// box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-// overflow: hidden;
-
-
-position: fixed; /* 화면(Viewport) 기준으로 위치 고정 */
-  top: 110px; /* 원하는 위치 조정 */
-  left: 50%; /* 화면의 중앙 정렬 */
-  transform: translateX(-50%); /* 중앙 정렬 보정 */
+  position: absolute;
+  top: 100%; /* 버튼 바로 아래 */
+  left: 0; /* 버튼 왼쪽 맞춤 */
   background-color: #fff;
   border: 1px solid #ebebeb;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; 
+  overflow: hidden;
   width: 170px;
-  z-index: 1000; /* 모달 컨텐츠가 오버레이 위에 표시 */
-
-
+  z-index: 1000;
 
   .popularity {
     display: block;
     font-size: 14px;
   }
-  
+
   .popularity-item {
     padding: 12px 48px 12px 16px;
     cursor: pointer;
