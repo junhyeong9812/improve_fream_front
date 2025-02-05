@@ -285,7 +285,7 @@ const ContentContainer = styled.div`
 const ShopFilterOpenButtonsContainer = styled.div`
   /* .search-container-shop-filter-open-buttons-container */
   background-color: #fff;
-  position: sticky;
+  position: static;
   top: 105px; /* 모바일 기본값 */
   z-index: 5;
 
