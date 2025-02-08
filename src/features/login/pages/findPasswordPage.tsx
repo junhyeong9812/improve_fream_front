@@ -64,14 +64,17 @@ const FindPassword: React.FC = () => {
     }, [phoneIsValid, emailIsValid, findPasswordBtn]);
 
     const [findPasswordCheck, setFindPasswordCheck] = useState<boolean>(false);
-
+    const [findPassword, setFindPassword] = useState<string>("");
 
     const handleFindPasswordFetch = async () => {
         const result = await fetchFindPasswordData(findPasswordData.phone, findPasswordData.email);
         console.log(result);
         if (result !== "no") {
             setFindPasswordCheck(true);
+            setFindPassword(result);
         } if (result === "no") {
+            // setFindPasswordCheck(true);
+            // setFindPassword("dlxodud123!");
             navigate('/login/find_password');
             alert("일치하는 사용자 정보를 찾을 수 없습니다.");
         }
@@ -81,11 +84,21 @@ const FindPassword: React.FC = () => {
         <div className='find_password_form_container'>
             {findPasswordCheck ? 
             <div>
-                <p className='find_password_form_success_notice_content'>
+                <h2 className='find_password_form_success_title_content'>
+                    비밀번호 찾기에 성공하였습니다.
+                </h2>
+                <div className='find_password_form_success_info_content'>
+                    <p className='find_password_form_success_info_text'>비밀번호</p>
+                    <p className='find_password_form_success_info_email'>{findPassword}</p>
+                </div>
+                <div className='find_password_form_success_btn_content'>
+                    <div onClick={() => {navigate('/login')}} className='find_password_form_success_login_btn'>로그인</div>
+                </div>
+                {/* <p className='find_password_form_success_notice_content'>
                     임시 비밀번호를 전송하였습니다.<br />
                     전송 받은 임시 비밀번호로 로그인해주세요.
                 </p>
-                <div onClick={() => {navigate('/login')}} className='find_password_form_success_btn_content'>로그인</div>
+                <div onClick={() => {navigate('/login')}} className='find_password_form_success_btn_content'>로그인</div> */}
             </div>
             :
             <div>
@@ -112,11 +125,13 @@ const FindPassword: React.FC = () => {
     
                 {findPasswordBtn ? 
                     <div onClick={handleFindPasswordFetch} className='find_password_form_btn_content'>
-                        문자 발송하기
+                        {/* 문자 발송하기 */}
+                        비밀번호 찾기
                     </div>
                 :
                     <div className='find_password_form_btn_none_content'>
-                        문자 발송하기기
+                        {/* 문자 발송하기 */}
+                        비밀번호 찾기
                     </div>
                 }
             </div>

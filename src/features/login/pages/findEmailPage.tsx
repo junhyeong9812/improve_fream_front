@@ -68,6 +68,8 @@ const FindEmail: React.FC = () => {
         if (result === 'no') {
             navigate('/login/find_email');
             alert("일치하는 사용자 정보를 찾을 수 없습니다.");
+            // setFindEmailCheck(true);
+            // setFindEmail("xodud5080@naver.com");
         } else if (typeof result === 'string') {
             // 이메일을 반환하는 경우
             setFindEmailCheck(true);

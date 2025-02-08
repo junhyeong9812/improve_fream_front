@@ -103,7 +103,7 @@ const LoginPage: React.FC = () => {
     <div className='login_form_container'>
       <div className='login_form_content'>
           <div className='login_form_logo_content'>
-              <img onClick={() => {navigate('/')}} className='login_form_logo' src={`${process.env.PUBLIC_URL}/img/kream-login-logo.png`}></img>
+              <img onClick={() => {navigate('/')}} className='login_form_logo' src={`${process.env.PUBLIC_URL}/Fream.png`}></img>
           </div>
           <div className='login_form_email_input_container'>
               <div className={`login_form_email_input_title ${emailWarn ? 'login_form_email_input_title_warn' : ''}`}>이메일 주소</div>
